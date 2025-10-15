@@ -1,5 +1,14 @@
-# Pocket-Adventure 
-### Game documentation 
+This game is a small personal project of mine — it started as a simple idea I wanted to create for my project portfolio. The goal is to practice JavaScript, HTML, CSS, React, and a few supporting libraries in a fun, hands-on way while learning.
+
 
 ---
 
+It’s an idle, Tamagotchi-like game with a touch of RPG elements.
+
+After the initial phase and the first few small [[Missions]], the character will be able to take on more complex challenges.
+
+The core [[Loop]] will revolve around sending the hero on missions to acquire goods, level up, craft items, and unlock higher-level missions. Throughout the game, the hero will also discover small story hints.
+
+The character will gain [[Stats]] like in most RPGs — both passively and through leveling up. The [[Leveling]] system will be simple, likely capped around level 10.
+
+This game is meant to be a lightweight project that could be completed over a weekend. If I decide to expand it later, I’ll refine and rebuild most of the systems with more polished versions.
