@@ -8,7 +8,7 @@ export function MainLayout() {
             <aside className={styles.sidebar}>{<Navigation />}</aside>
             <main className={styles.main}>{<Outlet />}</main>
             <footer className={styles.footer}>
-                <p>test footer</p>
+                <p>Test footer. All bla bla reserved. 2025</p>
             </footer>
         </div>
     );
