@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap');
+
+
+
+body {
+    font-family: var(--font-ui);
+    font-size: var(--size-md);
+    line-height: var(--lh-relaxed);
+    color: var(--color-text, #222);
+}
+
+/* HEADINGS */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-semibold);
+    text-wrap: balance;
+    color: var(--color-heading, #111);
+}
+
+h1 {
+    font-size: var(--size-3xl);
+    line-height: var(--lh-tight);
+}
+
+h2 {
+    font-size: var(--size-2xl);
+    line-height: var(--lh-tight);
+}
+
+h3 {
+    font-size: var(--size-xl);
+    line-height: var(--lh-normal);
+}
+
+
+
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    body {
+        font-size: 0.9375rem;
+    }
+
+}

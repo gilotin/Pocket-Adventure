@@ -1,9 +1,17 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { HomePage } from "./app/pages/Home/HomePage";
+import { Layout } from "./components/layout/Layout";
 
 function App() {
     return (
         <>
-            <p>Hello</p>
+            <BrowserRouter>
+                <Layout>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                    </Routes>
+                </Layout>
+            </BrowserRouter>
         </>
     );
 }
