@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { HomePage } from "./app/pages/Home/HomePage";
-import { MainLayout } from "./components/layout/Layout";
+import { MainLayout } from "./components/layout/MainLayout";
 
 function App() {
     return (

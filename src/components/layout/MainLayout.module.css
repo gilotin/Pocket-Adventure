@@ -1,0 +1,36 @@
+/* those are for testing */
+
+.appWrapper {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 1fr 15rem;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "main sidebar"
+        "main  sidebar"
+        "footer footer";
+    ;
+    padding: 1rem;
+    background-color: rgb(150, 241, 241);
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background: var(--color-surface);
+    border-right: 1px solid #645e5e;
+    text-align: end;
+    position: sticky;
+
+}
+
+.main {
+    grid-area: main;
+    padding: var(--space-lg);
+
+}
+
+.footer {
+    grid-area: footer;
+    padding: var(--space-md);
+    text-align: center;
+    color: var(--color-text);
+}
