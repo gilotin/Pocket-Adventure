@@ -1,14 +1,11 @@
 import styles from "./Layout.module.css";
+import { Outlet } from "react-router";
 
-type ChildrenLayout = {
-    children: React.ReactNode;
-};
-
-export function Layout({ children }: ChildrenLayout) {
+export function MainLayout() {
     return (
         <div className={styles.appWrapper}>
             <aside className={styles.aside}>{/* Navigation here */}</aside>
-            <main className={styles.main}>{children}</main>
+            <main className={styles.main}>{<Outlet />}</main>
             <footer className={styles.footer}>{/* Here we will place footer */}</footer>
         </div>
     );

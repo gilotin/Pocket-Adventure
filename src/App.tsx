@@ -1,16 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { HomePage } from "./app/pages/Home/HomePage";
-import { Layout } from "./components/layout/Layout";
+import { MainLayout } from "./components/layout/Layout";
 
 function App() {
     return (
         <>
             <BrowserRouter>
-                <Layout>
-                    <Routes>
+                <Routes>
+                    {/* Landing page layout */}
+                    <Route element={<MainLayout />}>
                         <Route path="/" element={<HomePage />} />
-                    </Routes>
-                </Layout>
+                    </Route>
+                </Routes>
             </BrowserRouter>
         </>
     );
