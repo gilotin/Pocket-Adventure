@@ -5,7 +5,7 @@ export function Navigation() {
         <nav className={styles.navWrapper}>
             <ul className={styles.list}>
                 <li className={styles.item}>
-                    <a href="#hero">Home</a>
+                    <a href="#">Home</a>
                 </li>
                 <li className={styles.item}>
                     <a href="#roadmap">Roadmap</a>

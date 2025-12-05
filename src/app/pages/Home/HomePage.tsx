@@ -15,8 +15,10 @@ export function HomePage() {
                 </article>
             </section>
 
-            <section className={styles.roadmap} id="roadmap">
-                <h2 className={styles.header}>Roadmap</h2>
+            <section className={styles.roadmap}>
+                <h2 id="roadmap" className={styles.header}>
+                    Roadmap
+                </h2>
                 <article className={styles.card}>
                     <p className={styles.description}>
                         What im doing currently. This will be a place where i write what will be
@@ -25,8 +27,10 @@ export function HomePage() {
                 </article>
             </section>
 
-            <section className={styles.projects} id="projects">
-                <h2 className={styles.header}>Projects</h2>
+            <section className={styles.projects}>
+                <h2 id="projects" className={styles.header}>
+                    Projects
+                </h2>
                 <article className={styles.card}>
                     <h3>Project name</h3>
                     <img src="#" alt="some img as background of the project" />
@@ -49,9 +53,21 @@ export function HomePage() {
                 </article>
             </section>
 
-            <section className={styles.playground} id="playground">
-                <h2 className={styles.header}>Playground</h2>
+            <section className={styles.playground}>
+                <h2 id="playground" className={styles.header}>
+                    Playground
+                </h2>
                 <article className={styles.card}>
+                    <h3>Project name</h3>
+                    <img src="" alt="" />
+                    <p className={styles.description}>
+                        This is the place where I test technologies that im not familiar with.
+                        Building small projects that later will use like building blocks for my
+                        projects.
+                    </p>
+                </article>
+                <article className={styles.card}>
+                    <h3>Project name</h3>
                     <img src="" alt="" />
                     <p className={styles.description}>
                         This is the place where I test technologies that im not familiar with.
@@ -61,8 +77,10 @@ export function HomePage() {
                 </article>
             </section>
 
-            <section className={styles.contacts} id="contacts">
-                <h2 className={styles.header}>Contacts</h2>
+            <section className={styles.contacts}>
+                <h2 id="contacts" className={styles.header}>
+                    Contacts
+                </h2>
                 <div className={styles.wrapper}>
                     <article className={styles.card}>
                         <ul className={styles.contactList}>

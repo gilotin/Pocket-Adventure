@@ -1,4 +1,43 @@
-nav ul {
+.navWrapper {
+    position: sticky;
+    top: 2rem;
+    font-size: 1.3rem;
+    text-align: end;
+}
+
+
+.navWrapper a {
+    display: inline-block;
+    transition: transform 200ms ease;
+    position: relative;
+}
+
+.navWrapper a:hover {
+    transform: scale(1.2);
+    color: var(--rich-cerulean);
+    font-weight: var(--weight-medium);
+}
+
+.navWrapper a::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--jet-black);
+    transition: width 500ms ease;
+}
+
+.navWrapper a:hover::after {
+    width: 110%;
+
+}
+
+
+
+
+.navWrapper ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -6,5 +45,5 @@ nav ul {
 
 a {
     text-decoration: none;
-    color: black;
+    color: var(--jet-black);
 }
