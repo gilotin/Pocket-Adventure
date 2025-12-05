@@ -9,24 +9,30 @@
         "main  sidebar"
         "footer footer";
     ;
-    padding: 1rem;
-    background-color: rgb(204, 212, 212);
+    padding: 3rem 2rem;
+    background-color: var(--frozen-water);
+
 }
 
 .sidebar {
     grid-area: sidebar;
-    background: var(--color-surface);
-    border-right: 1px solid #645e5e;
+    border-right: 1px solid var(--twilight-indigo);
+    color: var(--jet-black);
     text-align: end;
     position: sticky;
-
+    padding-right: 1rem;
+    text-transform: uppercase;
 }
 
 .main {
     grid-area: main;
     padding: var(--space-lg);
+    color: var(--jet-black);
 
+    margin-left: 2rem;
 }
+
+
 
 .footer {
     grid-area: footer;

@@ -1,0 +1,45 @@
+section {
+    position: relative;
+    background-color: lightcyan;
+    padding: 2rem 3rem;
+    border-radius: 0 .6rem 0 0.6rem;
+    border: 2px solid var(--teal);
+    margin-bottom: 5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.card {
+    border: 1px solid var(--teal);
+    border-radius: 0.6rem;
+    padding: 1rem;
+
+}
+
+.card:hover {
+    transform: scale(105%);
+    transition: 500ms ease-in-out 200ms;
+
+    /* background-color: var(--twilight-indigo);
+    color: var(--frozen-water);
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color color 1000ms linear; */
+
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+    color: var(--shadow-grey);
+    border-bottom: 1px solid var(--teal);
+}
+
+
+
+.header {
+    position: absolute;
+    font-family: var(--font-heading);
+    color: var(--teal);
+    font-size: 2rem;
+    transform: translate(-3.23rem, -3.9rem)
+}

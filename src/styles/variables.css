@@ -31,4 +31,16 @@
     --lh-tight: 1.2;
     --lh-normal: 1.5;
     --lh-relaxed: 1.6;
+
+    /* Color palette */
+
+
+    /* Ocean serenity */
+    --shadow-grey: #161925ff;
+    --jet-black: #022b3aff;
+    --twilight-indigo: #23395bff;
+    --teal: #1f7a8cff;
+    --rich-cerulean: #406e8eff;
+    --powder-blue: #8ea8c3ff;
+    --frozen-water: #cbf7edff;
 }
