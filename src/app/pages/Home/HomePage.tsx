@@ -1,4 +1,6 @@
+import HomeCard from "./components/projectCard/HomeCard";
 import styles from "./HomePage.module.css";
+import { homePageData } from "./staticData";
 
 export function HomePage() {
     return (
@@ -8,10 +10,7 @@ export function HomePage() {
                     <div>
                         <img src="" alt="Nikolay Toshev portrait" />
                     </div>
-                    <p className={styles.heroDescription}>
-                        Hi, My name is Nikolay and I'm developer from Bulgaria that is passionate
-                        about everything related to web development.
-                    </p>
+                    <p className={styles.heroDescription}>{homePageData.hero.text}</p>
                 </article>
             </section>
 
@@ -20,10 +19,7 @@ export function HomePage() {
                     Roadmap
                 </h2>
                 <article className={styles.card}>
-                    <p className={styles.description}>
-                        What im doing currently. This will be a place where i write what will be
-                        expected next two months or something like this
-                    </p>
+                    <p className={styles.description}>{homePageData.roadmap.text}</p>
                 </article>
             </section>
 
@@ -32,14 +28,7 @@ export function HomePage() {
                     Projects
                 </h2>
                 <article className={styles.card}>
-                    <h3>Project name</h3>
-                    <img src="#" alt="some img as background of the project" />
-
-                    <p className={styles.description}>
-                        My ongoing projects and projects im already done with. This will be most
-                        likely component where on click you will be moved to another place to check
-                        bigger picture and more info then here, but we will see.
-                    </p>
+                    <HomeCard section={homePageData.projects} />
                 </article>
                 <article className={styles.card}>
                     <h3>Project name</h3>
