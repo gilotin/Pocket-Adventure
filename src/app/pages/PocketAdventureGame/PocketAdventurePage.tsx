@@ -1,11 +1,13 @@
 import { GameNavigation } from "./components/navigation/GameNavigation";
-
+import styles from "./PocketAdventurePage.module.css";
 export function PocketAdventurePage() {
     return (
         <>
             <GameNavigation />
 
-            <p>Hello from game page!!!</p>
+            <div>
+                <section className=""></section>
+            </div>
         </>
     );
 }

@@ -1,4 +1,4 @@
-section {
+.homeSection {
     position: relative;
     background-color: lightcyan;
     padding: 2rem 3rem;
@@ -8,6 +8,8 @@ section {
     display: flex;
     gap: 1rem;
 }
+
+
 
 .card {
     border: 1px solid var(--teal);

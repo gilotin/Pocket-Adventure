@@ -1,0 +1,53 @@
+/* test palette */
+/* --black: #000000ff;
+--prussian-blue: #14213dff;
+--orange: #fca311ff;
+--alabaster-grey: #e5e5e5ff;
+--white: #ffffffff; */
+
+/* THIS IS TESTING CSS FOR STRUCTURE !!! */
+
+
+.layoutBackground {
+    background-color: #e5e5e5ff;
+    width: auto;
+    min-height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.gameWrapper {
+    padding: 1rem 2rem;
+}
+
+.gameHeader {
+    border: 3px solid #14213dff;
+    display: flex;
+    flex-direction: row-reverse;
+    border-radius: 0.4rem;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    p {
+        border: 1px solid black;
+        padding: .3rem;
+        border-radius: .4rem;
+        background-color: grey;
+    }
+
+}
+
+.mainGame {
+    border: 3px solid black;
+    padding: 1rem 2rem;
+    border-radius: 0.4rem;
+    min-height: 70vh;
+    margin-bottom: 1rem;
+}
+
+footer {
+    border: 3px solid black;
+    border-radius: 0.4rem;
+    padding: 1rem 2rem;
+}

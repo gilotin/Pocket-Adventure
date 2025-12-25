@@ -5,7 +5,7 @@ export function GameLayout() {
     return (
         <div className={styles.layoutBackground}>
             <div className={styles.gameWrapper}>
-                <header>
+                <header className={styles.gameHeader}>
                     <p>profiles</p>
                     <p>Stats</p>
                 </header>
