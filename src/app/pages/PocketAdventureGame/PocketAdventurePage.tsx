@@ -1,4 +1,4 @@
-import { GameNavigation } from "./components/navigation/GameNavigation";
+import { GameNavigation } from "./navigation/GameNavigation";
 import styles from "./PocketAdventurePage.module.css";
 export function PocketAdventurePage() {
     return (
