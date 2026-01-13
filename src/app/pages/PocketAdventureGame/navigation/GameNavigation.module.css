@@ -17,4 +17,11 @@
         transition: ease-in-out;
 
     }
+
+
+}
+
+.active {
+    background-color: rgb(43, 112, 55);
+    color: white;
 }
