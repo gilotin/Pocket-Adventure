@@ -1,13 +1,22 @@
 import styles from "./GameNavigation.module.css";
 
-export function GameNavigation() {
+type NavigationMenu = "crafting" | "garden" | "missions" | "shop" | "inventory";
+type GameNavigationProps = {
+    setGameNavigation: (menu: NavigationMenu) => void;
+};
+
+export function GameNavigation({ setGameNavigation }: GameNavigationProps) {
+    const handleClickMenu = (menu: NavigationMenu) => {
+        return setGameNavigation(menu);
+    };
+
     return (
         <nav className={styles.gameNavigation}>
-            <button>Crafting</button>
-            <button>Garden</button>
-            <button>Missions</button>
-            <button>Shop</button>
-            <button>Inventory</button>
+            <button onClick={() => handleClickMenu("crafting")}>Crafting</button>
+            <button onClick={() => handleClickMenu("garden")}>Garden</button>
+            <button onClick={() => handleClickMenu("missions")}>Missions</button>
+            <button onClick={() => handleClickMenu("shop")}>Shop</button>
+            <button onClick={() => handleClickMenu("inventory")}>Inventory</button>
         </nav>
     );
 }
