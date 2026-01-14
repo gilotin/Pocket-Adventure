@@ -11,13 +11,18 @@
 .layoutBackground {
     background-color: #e5e5e5ff;
     width: auto;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
 }
 
 .gameWrapper {
+    display: flex;
+    flex-direction: column;
     padding: 1rem 2rem;
+    max-width: 860px;
+    margin: auto;
+    height: 100vh;
 }
 
 .gameHeader {

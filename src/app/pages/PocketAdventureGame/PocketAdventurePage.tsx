@@ -26,7 +26,9 @@ export function PocketAdventurePage() {
         <>
             <GameNavigation setGameNavigation={setGameNavigation} gameNavigation={gameNavigation} />
 
-            <section>{gameNavigation && featureMap[gameNavigation]}</section>
+            <section className={styles.gamePanelSection}>
+                {gameNavigation && featureMap[gameNavigation]}
+            </section>
         </>
     );
 }
