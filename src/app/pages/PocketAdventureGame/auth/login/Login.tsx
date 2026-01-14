@@ -1,17 +1,11 @@
 import type React from "react";
 import styles from "../login/Login.module.css";
-import { Form } from "react-router";
 
 type AuthMode = "login" | "register";
 
 type LoginProps = {
     setIsAuthenticated: (value: boolean) => void;
     setAuthMode: (mode: AuthMode) => void;
-};
-
-type LoginData = {
-    loginName: string;
-    loginPassword: string;
 };
 
 export function Login({ setIsAuthenticated, setAuthMode }: LoginProps) {
@@ -23,12 +17,21 @@ export function Login({ setIsAuthenticated, setAuthMode }: LoginProps) {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries()) as unknown as LoginData;
 
-        console.log(data.loginName, data.loginPassword);
+        const loginName = formData.get("loginName");
+        const loginPassword = formData.get("loginPassword");
+
+        if (typeof loginName !== "string" || typeof loginPassword !== "string") {
+            throw new Error("Missing form data");
+        }
+
+        const trimmedName = loginName.trim();
+        // const trimmedPassword = loginPassword.trim();
+
+        console.log(trimmedName, "Logged in");
 
         // only for internal use
-        if (data.loginName && data.loginPassword) {
+        if (loginName && loginPassword) {
             setIsAuthenticated(true);
         } else {
             throw new Error("Fill the fields");
