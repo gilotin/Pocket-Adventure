@@ -6,9 +6,10 @@ type AuthMode = "login" | "register";
 type LoginProps = {
     setIsAuthenticated: (value: boolean) => void;
     setAuthMode: (mode: AuthMode) => void;
+    setAuthError: (value: null | string) => void;
 };
 
-export function Login({ setIsAuthenticated, setAuthMode }: LoginProps) {
+export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginProps) {
     const handleRegisterNavigation = () => {
         setAuthMode("register");
     };
@@ -16,26 +17,39 @@ export function Login({ setIsAuthenticated, setAuthMode }: LoginProps) {
     function handleLogin(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        const accountNameCheck = /^[A-Za-z0-9_]+$/;
+
         const formData = new FormData(e.currentTarget);
 
         const loginName = formData.get("loginName");
         const loginPassword = formData.get("loginPassword");
 
+        // Right now will throw errors till i create error handler
+
         if (typeof loginName !== "string" || typeof loginPassword !== "string") {
-            throw new Error("Missing form data");
+            throw new Error("Missing form data!");
         }
 
         const trimmedName = loginName.trim();
-        // const trimmedPassword = loginPassword.trim();
+        // const trimmedPass = loginPassword.trim();
 
-        console.log(trimmedName, "Logged in");
-
-        // only for internal use
-        if (loginName && loginPassword) {
-            setIsAuthenticated(true);
-        } else {
-            throw new Error("Fill the fields");
+        if (trimmedName === "" || loginPassword === "") {
+            setAuthError("No empty inputs allowed!");
+            return;
         }
+
+        if (trimmedName.length < 6 || loginPassword.length < 6) {
+            setAuthError("account and password must contain at least 6 characters!");
+            return;
+        }
+
+        if (!trimmedName.match(accountNameCheck)) {
+            setAuthError("you can use only letters, numbers and underscore!");
+            return;
+        }
+
+        // const normalizedName = trimmedName.toLocaleLowerCase();
+        setIsAuthenticated(true);
     }
 
     return (
@@ -43,9 +57,14 @@ export function Login({ setIsAuthenticated, setAuthMode }: LoginProps) {
             <div className={styles.loginFormCard}>
                 <form className={styles.loginForm} onSubmit={handleLogin}>
                     <label htmlFor="loginName">account:</label>
-                    <input name="loginName" id="loginName" type="text" />
+                    <input autoComplete="username" name="loginName" id="loginName" type="text" />
                     <label htmlFor="loginPassword">password:</label>
-                    <input name="loginPassword" id="loginPassword" type="password" />
+                    <input
+                        autoComplete="current-password"
+                        name="loginPassword"
+                        id="loginPassword"
+                        type="password"
+                    />
                     <button type="submit">Login</button>
                 </form>
                 <button className={styles.formNavigation}>Forgot your password?</button>

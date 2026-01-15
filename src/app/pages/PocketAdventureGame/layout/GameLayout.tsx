@@ -2,19 +2,28 @@ import styles from "./GameLayout.module.css";
 import { PocketAdventurePage } from "../PocketAdventurePage";
 import { useState, type JSX } from "react";
 import { Login } from "../auth/login/Login";
-import { Register } from "../auth/register/register";
+import { Register } from "../auth/register/Register";
+import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
 
 type AuthMode = "login" | "register";
+type authErrorType = string | null;
 
 export function GameLayout() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [authMode, setAuthMode] = useState<AuthMode>("login");
+    const [authError, setAuthError] = useState<authErrorType>(null);
+
+    // To refactor it and make it more readable
 
     return (
         <>
             {!isAuthenticated ? (
                 authMode === "login" ? (
-                    <Login setIsAuthenticated={setIsAuthenticated} setAuthMode={setAuthMode} />
+                    <Login
+                        setIsAuthenticated={setIsAuthenticated}
+                        setAuthMode={setAuthMode}
+                        setAuthError={setAuthError}
+                    />
                 ) : (
                     <Register />
                 )
@@ -34,6 +43,8 @@ export function GameLayout() {
                     </div>
                 </div>
             )}
+
+            {authError && <AuthErrorHandler message={authError} setAuthError={setAuthError} />}
         </>
     );
 }
