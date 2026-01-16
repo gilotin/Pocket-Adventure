@@ -5,11 +5,12 @@ import { Login } from "../auth/login/Login";
 import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
 
+export type AuthStatus = "unknown" | "guest" | "authenticated";
 type AuthMode = "login" | "register";
 type authErrorType = string | null;
 
 export function GameLayout() {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [authStatus, setAuthStatus] = useState<AuthStatus>("unknown");
     const [authMode, setAuthMode] = useState<AuthMode>("login");
     const [authError, setAuthError] = useState<authErrorType>(null);
 
@@ -17,10 +18,10 @@ export function GameLayout() {
 
     return (
         <>
-            {!isAuthenticated ? (
+            {authStatus === "unknown" ? (
                 authMode === "login" ? (
                     <Login
-                        setIsAuthenticated={setIsAuthenticated}
+                        setIsAuthenticated={setAuthStatus}
                         setAuthMode={setAuthMode}
                         setAuthError={setAuthError}
                     />

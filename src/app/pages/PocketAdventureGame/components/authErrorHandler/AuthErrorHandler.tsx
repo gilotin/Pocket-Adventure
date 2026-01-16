@@ -7,12 +7,14 @@ type ErrorProps = {
 };
 export function AuthErrorHandler({ message, setAuthError }: ErrorProps) {
     useEffect(() => {
+        if (!message) return;
+
         const errorTimer = setTimeout(() => {
             setAuthError(null);
         }, 1000);
 
         return () => clearTimeout(errorTimer);
-    }, [setAuthError]);
+    }, [message, setAuthError]);
 
     return (
         <>

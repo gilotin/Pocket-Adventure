@@ -1,18 +1,39 @@
 import type React from "react";
 import styles from "../login/Login.module.css";
+import type { AuthStatus } from "../../layout/GameLayout";
 
 type AuthMode = "login" | "register";
 
 type LoginProps = {
-    setIsAuthenticated: (value: boolean) => void;
+    setIsAuthenticated: (value: AuthStatus) => void;
     setAuthMode: (mode: AuthMode) => void;
     setAuthError: (value: null | string) => void;
+};
+
+type AccountData = {
+    accountName?: string;
+    profileName?: string;
+    email?: string;
 };
 
 export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginProps) {
     const handleRegisterNavigation = () => {
         setAuthMode("register");
     };
+
+    function getAccountData() {
+        const storageData = localStorage.getItem("accountData");
+        if (!storageData) {
+            return null;
+        } else {
+            try {
+                const parsedData: AccountData = JSON.parse(storageData);
+                return parsedData;
+            } catch (error) {
+                return null;
+            }
+        }
+    }
 
     function handleLogin(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -49,8 +70,20 @@ export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginPr
             return;
         }
 
-        // const normalizedName = trimmedName.toLocaleLowerCase();
-        setIsAuthenticated(true);
+        const normalizedName = trimmedName.toLocaleLowerCase();
+
+        const user = getAccountData();
+        console.log(user);
+
+        if (!user) {
+            setAuthError("No such account!");
+        }
+
+        if (user?.accountName === normalizedName) {
+            setIsAuthenticated("authenticated");
+        } else {
+            setAuthError("Password or account name mismatch. try again!");
+        }
     }
 
     return (

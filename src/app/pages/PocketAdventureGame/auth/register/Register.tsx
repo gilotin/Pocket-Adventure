@@ -86,8 +86,6 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
 
         const normalizedName = trimmedAccountName.toLocaleLowerCase();
 
-        // Will Add ID latter and remove PASSWORD !!!
-
         const accountData = {
             accountName: normalizedName,
             profileName: trimmedAccountName,
@@ -96,6 +94,7 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
 
         localStorage.setItem("accountData", JSON.stringify(accountData));
 
+        setAuthError(null);
         setAuthMode("login");
     };
 
