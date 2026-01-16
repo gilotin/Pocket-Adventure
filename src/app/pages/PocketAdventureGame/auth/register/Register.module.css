@@ -1,21 +1,16 @@
-.loginFormWrapper {
+.registerWrapper {
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
     height: 100vh;
     align-items: center;
-}
-
-.loginFormCard {
-    display: flex;
     flex-direction: column;
 }
 
-.loginHeader {
-    text-align: center;
-}
-
-.loginForm {
+.registerFormCard {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,10 +20,14 @@
     border-radius: 0.6rem;
 }
 
-.loginButton {
+.formHeader {
+    text-align: center;
+}
+
+.registerButton {
     margin-top: 1rem;
     border: 3px solid black;
-    padding: .4rem;
+    padding: 1rem;
     border-radius: 0.4rem;
     font-weight: 600;
     font-size: 1.4rem;
@@ -46,5 +45,6 @@
     &:hover {
         font-weight: 600;
         cursor: pointer;
+
     }
 }

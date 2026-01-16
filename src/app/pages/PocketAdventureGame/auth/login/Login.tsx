@@ -56,6 +56,7 @@ export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginPr
         <section className={styles.loginFormWrapper}>
             <div className={styles.loginFormCard}>
                 <form className={styles.loginForm} onSubmit={handleLogin}>
+                    <h1 className={styles.loginHeader}>Login</h1>
                     <label htmlFor="loginName">account:</label>
                     <input autoComplete="username" name="loginName" id="loginName" type="text" />
                     <label htmlFor="loginPassword">password:</label>
@@ -65,7 +66,9 @@ export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginPr
                         id="loginPassword"
                         type="password"
                     />
-                    <button type="submit">Login</button>
+                    <button className={styles.loginButton} type="submit">
+                        Login
+                    </button>
                 </form>
                 <button className={styles.formNavigation}>Forgot your password?</button>
                 <button className={styles.formNavigation} onClick={handleRegisterNavigation}>
