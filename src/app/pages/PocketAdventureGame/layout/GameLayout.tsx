@@ -25,7 +25,7 @@ export function GameLayout() {
                         setAuthError={setAuthError}
                     />
                 ) : (
-                    <Register />
+                    <Register setAuthMode={setAuthMode} setAuthError={setAuthError} />
                 )
             ) : (
                 <div className={styles.layoutBackground}>

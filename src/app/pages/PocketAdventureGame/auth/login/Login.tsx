@@ -27,24 +27,25 @@ export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginPr
         // Right now will throw errors till i create error handler
 
         if (typeof loginName !== "string" || typeof loginPassword !== "string") {
-            throw new Error("Missing form data!");
-        }
-
-        const trimmedName = loginName.trim();
-        // const trimmedPass = loginPassword.trim();
-
-        if (trimmedName === "" || loginPassword === "") {
             setAuthError("No empty inputs allowed!");
             return;
         }
 
-        if (trimmedName.length < 6 || loginPassword.length < 6) {
+        const trimmedName = loginName.trim();
+        const trimmedPassword = loginPassword.trim();
+
+        if (trimmedName === "" || trimmedPassword === "") {
+            setAuthError("No empty inputs allowed!");
+            return;
+        }
+
+        if (trimmedName.length < 6 || trimmedPassword.length < 6) {
             setAuthError("account and password must contain at least 6 characters!");
             return;
         }
 
         if (!trimmedName.match(accountNameCheck)) {
-            setAuthError("you can use only letters, numbers and underscore!");
+            setAuthError("You can use only letters, numbers and underscore!");
             return;
         }
 
