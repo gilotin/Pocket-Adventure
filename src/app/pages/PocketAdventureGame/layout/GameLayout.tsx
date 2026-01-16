@@ -7,12 +7,12 @@ import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandle
 
 export type AuthStatus = "unknown" | "guest" | "authenticated";
 type AuthMode = "login" | "register";
-type authErrorType = string | null;
+type AuthErrorType = string | null;
 
 export function GameLayout() {
     const [authStatus, setAuthStatus] = useState<AuthStatus>("unknown");
     const [authMode, setAuthMode] = useState<AuthMode>("login");
-    const [authError, setAuthError] = useState<authErrorType>(null);
+    const [authError, setAuthError] = useState<AuthErrorType>(null);
 
     // To refactor it and make it more readable
 

@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import styles from "./AuthErrorHandler.module.css";
 
+type AuthErrorType = string | null;
 type ErrorProps = {
-    message: string;
+    message: AuthErrorType;
     setAuthError: (value: string | null) => void;
 };
 export function AuthErrorHandler({ message, setAuthError }: ErrorProps) {
