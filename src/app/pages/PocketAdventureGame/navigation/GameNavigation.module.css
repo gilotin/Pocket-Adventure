@@ -1,0 +1,28 @@
+.gameNavigation {
+    display: flex;
+    gap: .4rem;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    & button {
+        cursor: pointer;
+        border: 2px solid green;
+        padding: .2rem .4rem;
+        border-radius: .6rem;
+    }
+
+    & button:hover {
+        background-color: darkgray;
+        color: white;
+        transform: scale(115%);
+        transition: ease-in-out;
+
+    }
+
+
+}
+
+.active {
+    background-color: rgb(43, 112, 55);
+    color: white;
+}

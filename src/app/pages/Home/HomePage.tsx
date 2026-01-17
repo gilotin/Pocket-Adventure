@@ -5,7 +5,7 @@ import { homePageData } from "./staticData";
 export function HomePage() {
     return (
         <>
-            <section className={styles.hero} id="hero">
+            <section className={`${styles.homeSection} ${styles.hero}`} id="hero">
                 <article className={styles.card}>
                     <div>
                         <img src="" alt="Nikolay Toshev portrait" />

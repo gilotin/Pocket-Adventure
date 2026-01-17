@@ -1,0 +1,10 @@
+.errorCard {
+    position: absolute;
+    bottom: 100px;
+    right: 20px;
+    background-color: red;
+    padding: 1rem;
+    border-radius: 0.6rem;
+    color: white;
+
+}
