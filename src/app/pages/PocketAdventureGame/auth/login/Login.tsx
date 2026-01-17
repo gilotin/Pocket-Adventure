@@ -5,7 +5,7 @@ import type { AuthStatus } from "../../layout/GameLayout";
 type AuthMode = "login" | "register";
 
 type LoginProps = {
-    setIsAuthenticated: (value: AuthStatus) => void;
+    setAuthStatus: (value: AuthStatus) => void;
     setAuthMode: (mode: AuthMode) => void;
     setAuthError: (value: null | string) => void;
     setUserData: (value: null | AccountData) => void;
@@ -17,7 +17,12 @@ type AccountData = {
     email: string;
 };
 
-export function Login({ setIsAuthenticated, setAuthMode, setAuthError, setUserData }: LoginProps) {
+export function Login({
+    setAuthStatus: setIsAuthenticated,
+    setAuthMode,
+    setAuthError,
+    setUserData,
+}: LoginProps) {
     const handleRegisterNavigation = () => {
         setAuthMode("register");
     };

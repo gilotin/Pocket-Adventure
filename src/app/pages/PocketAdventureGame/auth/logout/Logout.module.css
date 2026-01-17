@@ -1,0 +1,46 @@
+.logoutWrapper {
+    background-color: #f7cbdd;
+    text-align: center;
+    width: 20rem;
+    border: 3px solid black;
+    height: 10rem;
+    align-content: center;
+    margin: auto;
+    border-radius: 0.6rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.buttonWrapper {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.logoutBtn {
+    font-weight: 600;
+    height: 1.88rem;
+    width: 3.75rem;
+    border-radius: 0.4rem;
+}
+
+.LogoutAccept {
+    background-color: rgb(59, 222, 59);
+
+    &:hover {
+        background-color: green;
+        color: white;
+    }
+}
+
+.buttonRefuse {
+    background-color: rgb(239, 77, 77);
+
+    &:hover {
+        background-color: red;
+        color: white;
+    }
+}

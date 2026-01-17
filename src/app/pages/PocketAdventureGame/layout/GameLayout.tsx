@@ -4,29 +4,32 @@ import { useEffect, useState } from "react";
 import { Login } from "../auth/login/Login";
 import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
+import { Logout } from "../auth/logout/Logout";
+import { logout } from "../services/logout";
 
 export type AuthStatus = "unknown" | "guest" | "authenticated";
-type AuthMode = "login" | "register";
+export type AuthMode = "login" | "register";
 type AuthErrorType = string | null;
-type AccountData = {
+
+export type AccountData = {
     accountName: string;
     profileName: string;
     email: string;
-};
+} | null;
 
 export function GameLayout() {
     const [authStatus, setAuthStatus] = useState<AuthStatus>("unknown");
     const [authMode, setAuthMode] = useState<AuthMode>("login");
     const [authError, setAuthError] = useState<AuthErrorType>(null);
-    const [userData, setUserData] = useState<AccountData | null>(null);
+    const [userData, setUserData] = useState<AccountData>(null);
+    const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState<boolean>(false);
 
-    // To refactor it and make it more readable
-
+    // Session restoration on app load
     useEffect(() => {
         const storageData = localStorage.getItem("accountData");
+
         if (!storageData) {
-            // Using unknown till I implement guest mode
-            setAuthStatus("unknown");
+            setAuthStatus("guest");
             return;
         }
 
@@ -34,31 +37,33 @@ export function GameLayout() {
             const parsedData: AccountData = JSON.parse(storageData);
             setUserData(parsedData);
             setAuthStatus("authenticated");
-        } catch (error) {
+        } catch {
             setUserData(null);
-            setAuthStatus("unknown");
+            setAuthStatus("guest");
         }
     }, []);
 
-    return (
-        <>
-            {authStatus === "unknown" ? (
-                authMode === "login" ? (
-                    <Login
-                        setIsAuthenticated={setAuthStatus}
-                        setAuthMode={setAuthMode}
-                        setAuthError={setAuthError}
-                        setUserData={setUserData}
-                    />
-                ) : (
-                    <Register setAuthMode={setAuthMode} setAuthError={setAuthError} />
-                )
-            ) : (
+    const handleLogout = () => {
+        logout();
+        setUserData(null);
+        setAuthStatus("guest");
+        setAuthMode("login");
+        setIsLogoutConfirmOpen(false);
+    };
+
+    if (authStatus === "unknown") {
+        return null;
+    }
+
+    if (authStatus === "authenticated") {
+        return (
+            <>
                 <div className={styles.layoutBackground}>
                     <div className={styles.gameWrapper}>
                         <header className={styles.gameHeader}>
                             <p>Hello {userData?.accountName}!</p>
                             <p>Stats</p>
+                            <button onClick={() => setIsLogoutConfirmOpen(true)}>logout</button>
                         </header>
                         <main className={styles.mainGame}>
                             <PocketAdventurePage />
@@ -68,6 +73,28 @@ export function GameLayout() {
                         </footer>
                     </div>
                 </div>
+                {isLogoutConfirmOpen && (
+                    <Logout
+                        onConfirm={handleLogout}
+                        onCancel={() => setIsLogoutConfirmOpen(false)}
+                    />
+                )}
+                {authError && <AuthErrorHandler message={authError} setAuthError={setAuthError} />}
+            </>
+        );
+    }
+
+    return (
+        <>
+            {authMode === "login" ? (
+                <Login
+                    setAuthStatus={setAuthStatus}
+                    setAuthMode={setAuthMode}
+                    setAuthError={setAuthError}
+                    setUserData={setUserData}
+                />
+            ) : (
+                <Register setAuthMode={setAuthMode} setAuthError={setAuthError} />
             )}
 
             {authError && <AuthErrorHandler message={authError} setAuthError={setAuthError} />}
