@@ -8,15 +8,16 @@ type LoginProps = {
     setIsAuthenticated: (value: AuthStatus) => void;
     setAuthMode: (mode: AuthMode) => void;
     setAuthError: (value: null | string) => void;
+    setUserData: (value: null | AccountData) => void;
 };
 
 type AccountData = {
-    accountName?: string;
-    profileName?: string;
-    email?: string;
+    accountName: string;
+    profileName: string;
+    email: string;
 };
 
-export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginProps) {
+export function Login({ setIsAuthenticated, setAuthMode, setAuthError, setUserData }: LoginProps) {
     const handleRegisterNavigation = () => {
         setAuthMode("register");
     };
@@ -73,13 +74,13 @@ export function Login({ setIsAuthenticated, setAuthMode, setAuthError }: LoginPr
         const normalizedName = trimmedName.toLocaleLowerCase();
 
         const user = getAccountData();
-        console.log(user);
 
         if (!user) {
             setAuthError("No such account!");
         }
 
         if (user?.accountName === normalizedName) {
+            setUserData(user);
             setIsAuthenticated("authenticated");
         } else {
             setAuthError("Password or account name mismatch. try again!");
