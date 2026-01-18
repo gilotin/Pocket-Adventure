@@ -1,4 +1,4 @@
-import type { HomePageSection } from "../../staticData";
+import type { HomePageSection } from "../../staticHomeData";
 import styles from "./HomeCard.module.css";
 
 type HomeCardProps = {
