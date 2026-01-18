@@ -6,6 +6,7 @@ import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
 import { Logout } from "../auth/logout/Logout";
 import { logout } from "../services/logout";
+import { TestItemGenerator } from "../MochedData/TestIemsGenerator";
 
 export type AuthStatus = "unknown" | "guest" | "authenticated";
 export type AuthMode = "login" | "register";
@@ -18,30 +19,30 @@ export type AccountData = {
 } | null;
 
 export function GameLayout() {
-    const [authStatus, setAuthStatus] = useState<AuthStatus>("unknown");
+    const [authStatus, setAuthStatus] = useState<AuthStatus>("authenticated");
     const [authMode, setAuthMode] = useState<AuthMode>("login");
     const [authError, setAuthError] = useState<AuthErrorType>(null);
     const [userData, setUserData] = useState<AccountData>(null);
     const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState<boolean>(false);
 
-    // Session restoration on app load
-    useEffect(() => {
-        const storageData = localStorage.getItem("accountData");
+    // // Session restoration on app load
+    // useEffect(() => {
+    //     const storageData = localStorage.getItem("accountData");
 
-        if (!storageData) {
-            setAuthStatus("guest");
-            return;
-        }
+    //     if (!storageData) {
+    //         setAuthStatus("guest");
+    //         return;
+    //     }
 
-        try {
-            const parsedData: AccountData = JSON.parse(storageData);
-            setUserData(parsedData);
-            setAuthStatus("authenticated");
-        } catch {
-            setUserData(null);
-            setAuthStatus("guest");
-        }
-    }, []);
+    //     try {
+    //         const parsedData: AccountData = JSON.parse(storageData);
+    //         setUserData(parsedData);
+    //         setAuthStatus("authenticated");
+    //     } catch {
+    //         setUserData(null);
+    //         setAuthStatus("guest");
+    //     }
+    // }, []);
 
     const handleLogout = () => {
         logout();
@@ -66,8 +67,11 @@ export function GameLayout() {
                             <button onClick={() => setIsLogoutConfirmOpen(true)}>logout</button>
                         </header>
                         <main className={styles.mainGame}>
+                            <TestItemGenerator />
+
                             <PocketAdventurePage />
                         </main>
+
                         <footer>
                             <p>Test footer. All bla bla reserved. 2025</p>
                         </footer>
