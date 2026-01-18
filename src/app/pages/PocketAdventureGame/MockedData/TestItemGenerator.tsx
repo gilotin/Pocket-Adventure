@@ -1,41 +1,25 @@
 import type React from "react";
+import { loadStorageData, saveItems } from "../services/storageOperations";
 
 /* ======================
    Types
 ====================== */
 
 type Item = {
+    itemId: number;
     name: string;
     type: string;
     quantity: number;
 };
+export const STORAGE_KEY = "spawnedData";
 
-type ItemStore = Item[];
-
-const STORAGE_KEY = "spawnedData";
-
-/* ======================
-   Storage helpers
-====================== */
-
-function loadItems(): ItemStore {
-    const data = localStorage.getItem(STORAGE_KEY);
-    if (!data) return [];
-
-    try {
-        return JSON.parse(data) as ItemStore;
-    } catch {
-        return [];
-    }
+function idGenerator() {
+    // latter this will be removed latter so magic numbers for now are OK!
+    const idTime = Number(new Date());
+    const randomIdNumber = Math.ceil(Math.random() * 1000);
+    const itemId = idTime + randomIdNumber;
+    return itemId;
 }
-
-function saveItems(items: ItemStore) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-}
-
-/* ======================
-   Component
-====================== */
 
 export function TestItemGenerator() {
     const createItems = (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,6 +30,7 @@ export function TestItemGenerator() {
         const itemName = form.get("itemName");
         const itemType = form.get("itemType");
         const quantity = form.get("quantity");
+        const itemId = idGenerator();
 
         if (
             typeof itemName !== "string" ||
@@ -56,15 +41,16 @@ export function TestItemGenerator() {
         }
 
         const newItem: Item = {
+            itemId: Number(itemId),
             name: itemName,
             type: itemType,
             quantity: Number(quantity),
         };
 
-        const currentItems = loadItems();
+        const currentItems = loadStorageData(STORAGE_KEY);
         const updatedItems = [...currentItems, newItem];
 
-        saveItems(updatedItems);
+        saveItems(STORAGE_KEY, updatedItems);
     };
 
     return (
@@ -81,7 +67,7 @@ export function TestItemGenerator() {
             </select>
 
             <label>Quantity:</label>
-            <input type="number" max={10} name="quantity" />
+            <input type="number" min={0} max={100} name="quantity" />
 
             <button type="submit">Create</button>
         </form>

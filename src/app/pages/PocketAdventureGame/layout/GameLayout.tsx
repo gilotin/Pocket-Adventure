@@ -6,7 +6,7 @@ import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
 import { Logout } from "../auth/logout/Logout";
 import { logout } from "../services/logout";
-import { TestItemGenerator } from "../MochedData/TestIemsGenerator";
+import { TestItemGenerator } from "../MockedData/TestItemGenerator";
 
 export type AuthStatus = "unknown" | "guest" | "authenticated";
 export type AuthMode = "login" | "register";
@@ -18,6 +18,12 @@ export type AccountData = {
     email: string;
 } | null;
 
+type Item = {
+    itemId: number;
+    name: string;
+    type: string;
+    quantity: number;
+};
 export function GameLayout() {
     const [authStatus, setAuthStatus] = useState<AuthStatus>("authenticated");
     const [authMode, setAuthMode] = useState<AuthMode>("login");

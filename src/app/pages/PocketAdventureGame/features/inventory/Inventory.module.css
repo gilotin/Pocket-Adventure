@@ -9,3 +9,19 @@
     position: static;
     top: 10px;
 }
+
+.inventorySpace {
+    border: 1px solid black;
+    gap: 1rem;
+    justify-content: space-evenly;
+    display: grid;
+
+}
+
+.inventoryItem {
+    padding: 0.4rem;
+    display: flex;
+    gap: 1rem;
+    border: 1px solid black;
+
+}
