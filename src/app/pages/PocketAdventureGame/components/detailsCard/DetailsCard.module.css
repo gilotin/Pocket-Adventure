@@ -1,0 +1,26 @@
+.wrapper,
+.detailsCard,
+.header,
+.stats,
+.description,
+.flavorText {
+    color: var(--powder-blue);
+}
+
+
+.wrapper {
+    position: fixed;
+    z-index: 99;
+    background-color: var(--twilight-indigo);
+    max-width: 20rem;
+    height: 22rem;
+    padding: 1rem 2rem;
+    border: 5px solid var(--powder-blue);
+    border-radius: 0.6rem;
+
+}
+
+.header {
+    text-align: center;
+
+}

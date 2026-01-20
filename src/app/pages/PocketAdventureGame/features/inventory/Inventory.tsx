@@ -10,16 +10,37 @@ type Item = {
 type InventoryProps = {
     inventoryItems: Item[];
     onDeleteItem: (itemId: number) => void;
+    handleActiveItemState: (itemId: number | null) => void;
 };
 
-export function Inventory({ inventoryItems, onDeleteItem }: InventoryProps) {
+export function Inventory({ inventoryItems, onDeleteItem, handleActiveItemState }: InventoryProps) {
+    const handleMouseEnter = (itemId: number) => () => {
+        handleActiveItemState(itemId);
+    };
+
+    const handleMouseLeave = () => {
+        handleActiveItemState(null);
+    };
+
     const inventorySpace = inventoryItems?.map((item) => {
         return (
-            <div className={styles.inventoryItem} key={item.itemId}>
+            <div
+                className={styles.inventoryItem}
+                key={item.itemId}
+                onMouseEnter={handleMouseEnter(item.itemId)}
+                onMouseLeave={handleMouseLeave}
+            >
                 <div>Name:{item.name}</div>
                 <div>Type: {item.type}</div>
                 <div>Qty:{item.quantity}</div>
-                <button onClick={() => onDeleteItem(item.itemId)}>remove item</button>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onDeleteItem(item.itemId);
+                    }}
+                >
+                    remove item
+                </button>
             </div>
         );
     });

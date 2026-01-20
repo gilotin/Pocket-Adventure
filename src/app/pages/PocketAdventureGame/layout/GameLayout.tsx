@@ -73,7 +73,10 @@ export function GameLayout() {
                             <button onClick={() => setIsLogoutConfirmOpen(true)}>logout</button>
                         </header>
                         <main className={styles.mainGame}>
-                            <TestItemGenerator />
+                            <div>
+                                {/* It's for testing!!! */}
+                                <TestItemGenerator />
+                            </div>
 
                             <PocketAdventurePage />
                         </main>
