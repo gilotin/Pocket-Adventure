@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Login } from "../auth/login/Login";
 import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
-import { Logout } from "../auth/logout/Logout";
+import { ConfirmModal } from "../auth/logout/Logout";
 import { logout } from "../services/logout";
 import { TestItemGenerator } from "../MockedData/TestItemGenerator";
 
@@ -32,24 +32,23 @@ export function GameLayout() {
     const [userData, setUserData] = useState<AccountData>(null);
     const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState<boolean>(false);
 
-    // // Session restoration on app load
-    // useEffect(() => {
-    //     const storageData = localStorage.getItem("accountData");
+    useEffect(() => {
+        const storageData = localStorage.getItem("accountData");
 
-    //     if (!storageData) {
-    //         setAuthStatus("guest");
-    //         return;
-    //     }
+        if (!storageData) {
+            setAuthStatus("guest");
+            return;
+        }
 
-    //     try {
-    //         const parsedData: AccountData = JSON.parse(storageData);
-    //         setUserData(parsedData);
-    //         setAuthStatus("authenticated");
-    //     } catch {
-    //         setUserData(null);
-    //         setAuthStatus("guest");
-    //     }
-    // }, []);
+        try {
+            const parsedData: AccountData = JSON.parse(storageData);
+            setUserData(parsedData);
+            setAuthStatus("authenticated");
+        } catch {
+            setUserData(null);
+            setAuthStatus("guest");
+        }
+    }, []);
 
     const handleLogout = () => {
         logout();
@@ -88,7 +87,7 @@ export function GameLayout() {
                     </div>
                 </div>
                 {isLogoutConfirmOpen && (
-                    <Logout
+                    <ConfirmModal
                         onConfirm={handleLogout}
                         onCancel={() => setIsLogoutConfirmOpen(false)}
                     />

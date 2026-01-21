@@ -5,7 +5,7 @@ type LogoutProps = {
     onCancel: () => void;
 };
 
-export function Logout({ onConfirm, onCancel }: LogoutProps) {
+export function ConfirmModal({ onConfirm, onCancel }: LogoutProps) {
     return (
         <>
             <div className={styles.logoutWrapper}>

@@ -9,8 +9,10 @@ import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
 import { deleteItem, loadStorageData } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
+import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
+import { ACCOUNT_KEY, CHARACTER_KEY } from "./auth/register/Register";
 
-export type GameMenuState = "crafting" | "garden" | "missions" | "shop" | "inventory";
+export type GameMenuState = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -24,14 +26,41 @@ type Item = {
 
 type InventoryType = Item[];
 
+type Character = {
+    name: string;
+    equippedItemIds: number[];
+    gold: number;
+    experience: number;
+};
+
+export function createFallbackCharacter(): Character {
+    return {
+        name: "Adventurer",
+        gold: 0,
+        experience: 0,
+        equippedItemIds: [],
+    };
+}
+
 export function PocketAdventurePage() {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("inventory");
     const [inventoryItems, setInventoryItems] = useState<InventoryType>([]);
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
     const [activeItemId, setActiveItemId] = useState<number | null>(null);
+    const [characterData, setCharacterData] = useState<Character | null>(null);
 
     useEffect(() => {
-        setInventoryItems(loadStorageData(STORAGE_KEY));
+        const loadedInventoryData = loadStorageData(STORAGE_KEY);
+        setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
+
+        const loadCharacterData = loadStorageData(CHARACTER_KEY);
+        if (!loadCharacterData) {
+            const fallBackCharacter = createFallbackCharacter();
+            localStorage.setItem(CHARACTER_KEY, JSON.stringify(fallBackCharacter));
+            setCharacterData(fallBackCharacter);
+            return;
+        }
+        setCharacterData(loadCharacterData);
     }, []);
 
     const handleDeleteItem = (itemId: number) => {
@@ -64,6 +93,7 @@ export function PocketAdventurePage() {
         missions: <Missions />,
         garden: <Garden />,
         shop: <Shop />,
+        character: <CharacterPanelAndStats />,
     };
 
     const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
