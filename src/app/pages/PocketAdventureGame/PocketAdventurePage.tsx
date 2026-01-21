@@ -19,6 +19,7 @@ type Item = {
     name: string;
     type: string;
     quantity: number;
+    itemValue: number;
 };
 
 type InventoryType = Item[];
@@ -36,6 +37,9 @@ export function PocketAdventurePage() {
     const handleDeleteItem = (itemId: number) => {
         deleteItem(STORAGE_KEY, itemId);
         setInventoryItems(loadStorageData(STORAGE_KEY));
+
+        setActiveItemId(null);
+        setShowDetailsCard(false);
     };
 
     const handleActiveItemState = (itemId: number | null) => {

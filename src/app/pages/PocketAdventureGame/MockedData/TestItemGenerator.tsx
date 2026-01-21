@@ -4,12 +4,14 @@ import { loadStorageData, saveItems } from "../services/storageOperations";
 /* ======================
    Types
 ====================== */
+type ItemType = "equipment" | "materials" | "consumables";
 
 type Item = {
     itemId: number;
     name: string;
-    type: string;
+    type: ItemType;
     quantity: number;
+    itemValue: number;
 };
 export const STORAGE_KEY = "spawnedData";
 
@@ -19,6 +21,10 @@ function idGenerator() {
     const randomIdNumber = Math.ceil(Math.random() * 1000);
     const itemId = idTime + randomIdNumber;
     return itemId;
+}
+
+function itemValueGenerator() {
+    return Math.ceil(Math.random() * 100);
 }
 
 export function TestItemGenerator() {
@@ -31,6 +37,7 @@ export function TestItemGenerator() {
         const itemType = form.get("itemType");
         const quantity = form.get("quantity");
         const itemId = idGenerator();
+        const itemValue = itemValueGenerator();
 
         if (
             typeof itemName !== "string" ||
@@ -43,8 +50,9 @@ export function TestItemGenerator() {
         const newItem: Item = {
             itemId: Number(itemId),
             name: itemName,
-            type: itemType,
+            type: itemType as ItemType,
             quantity: Number(quantity),
+            itemValue: Number(itemValue),
         };
 
         const currentItems = loadStorageData(STORAGE_KEY);
@@ -60,10 +68,9 @@ export function TestItemGenerator() {
 
             <label>Choose type:</label>
             <select name="itemType">
-                <option value="armor">armor</option>
                 <option value="potion">potion</option>
                 <option value="material">material</option>
-                <option value="weapon">weapon</option>
+                <option value="equipment">equipment</option>
             </select>
 
             <label>Quantity:</label>

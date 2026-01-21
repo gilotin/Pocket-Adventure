@@ -5,14 +5,13 @@ type Item = {
     name: string;
     type: string;
     quantity: number;
+    itemValue: number;
 };
 type FilterItemDataProps = {
     activeItem: Item | null;
 };
 
 export function DetailsCard({ activeItem }: FilterItemDataProps) {
-    console.log();
-
     return (
         <div className={styles.wrapper}>
             <section className={styles.detailsCard}>
@@ -29,6 +28,7 @@ export function DetailsCard({ activeItem }: FilterItemDataProps) {
                 </div>
                 <div className={styles.flavorText}></div>
                 <p>quantity: {activeItem?.quantity}</p>
+                <p>value: {activeItem?.itemValue}</p>
             </section>
         </div>
     );

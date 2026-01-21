@@ -23,6 +23,7 @@ type Item = {
     name: string;
     type: string;
     quantity: number;
+    itemValue: number;
 };
 export function GameLayout() {
     const [authStatus, setAuthStatus] = useState<AuthStatus>("authenticated");
