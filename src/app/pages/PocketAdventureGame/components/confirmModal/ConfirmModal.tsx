@@ -1,11 +1,11 @@
-import styles from "./Logout.module.css";
+import styles from "./ConfirmModal.module.css";
 
-type LogoutProps = {
+type ConfirmProps = {
     onConfirm: () => void;
     onCancel: () => void;
 };
 
-export function ConfirmModal({ onConfirm, onCancel }: LogoutProps) {
+export function ConfirmModal({ onConfirm, onCancel }: ConfirmProps) {
     return (
         <>
             <div className={styles.logoutWrapper}>

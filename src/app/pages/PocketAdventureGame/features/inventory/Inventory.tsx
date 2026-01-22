@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from "react";
+import { ConfirmModal } from "../../components/confirmModal/ConfirmModal";
 import styles from "./Inventory.module.css";
 type Item = {
     itemId: number;
@@ -11,6 +13,7 @@ type InventoryProps = {
     onDeleteItem: (itemId: number) => void;
     handleActiveItemState: (itemId: number | null) => void;
     handleSellItems: (itemId: number) => void;
+    setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
 };
 
 export function Inventory({
@@ -18,6 +21,7 @@ export function Inventory({
     onDeleteItem,
     handleActiveItemState,
     handleSellItems,
+    setConfirmAction,
 }: InventoryProps) {
     const handleMouseEnter = (itemId: number) => () => {
         handleActiveItemState(itemId);
@@ -25,6 +29,10 @@ export function Inventory({
 
     const handleMouseLeave = () => {
         handleActiveItemState(null);
+    };
+
+    const confirmDeleteItem = (itemId: number) => {
+        setConfirmAction(() => () => onDeleteItem(itemId));
     };
 
     const inventorySpace = inventoryItems?.map((item) => {
@@ -43,7 +51,7 @@ export function Inventory({
                 <button
                     onClick={(e) => {
                         e.stopPropagation();
-                        onDeleteItem(item.itemId);
+                        confirmDeleteItem(item.itemId);
                     }}
                 >
                     <img

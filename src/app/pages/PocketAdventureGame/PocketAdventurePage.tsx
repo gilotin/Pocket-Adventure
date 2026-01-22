@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import { GameNavigation } from "./navigation/GameNavigation";
 import styles from "./PocketAdventurePage.module.css";
 import { Crafting } from "./features/crafting/Crafting";
@@ -7,10 +7,11 @@ import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
-import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
+import { deleteItem, loadStorageData } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
+import React from "react";
 
 export type GameMenuState = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";
 
@@ -33,6 +34,10 @@ type Character = {
     experience: number;
 };
 
+type GamePageProps = {
+    setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
+};
+
 export function createFallbackCharacter(): Character {
     return {
         name: "Adventurer",
@@ -42,7 +47,7 @@ export function createFallbackCharacter(): Character {
     };
 }
 
-export function PocketAdventurePage() {
+export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("inventory");
     const [inventoryItems, setInventoryItems] = useState<InventoryType>([]);
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
@@ -109,6 +114,7 @@ export function PocketAdventurePage() {
                 onDeleteItem={handleDeleteItem}
                 handleActiveItemState={handleActiveItemState}
                 handleSellItems={handleSellItems}
+                setConfirmAction={setConfirmAction}
             />
         ),
         missions: <Missions />,
