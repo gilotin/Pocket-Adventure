@@ -1,15 +1,26 @@
-export function CharacterPanelAndStats() {
+type Character = {
+    name: string;
+    equippedItemIds: number[];
+    gold: number;
+    experience: number;
+};
+
+type CharacterPanelAndStatsProps = {
+    characterData: Character;
+};
+
+export function CharacterPanelAndStats({ characterData }: CharacterPanelAndStatsProps) {
     return (
         <section>
-            <h3>Character name</h3>
-            <p>XP: 200XP/340XP</p>
-            <p>Gold: 1200</p>
+            <h3>{characterData?.name}</h3>
+            <p>XP:{characterData?.experience}xp</p>
+            <p>Gold:{characterData?.gold}</p>
             <div>
                 <p>Equipment:</p>
                 <div className="characterEquipment">
                     <p>Armor:</p>
                     <p>Helm:</p>
-                    <p>gloves:</p>
+                    <p>Gloves:</p>
                     <p>Boots:</p>
                 </div>
                 <div>

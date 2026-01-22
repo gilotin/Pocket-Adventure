@@ -7,10 +7,10 @@ import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
-import { deleteItem, loadStorageData } from "./services/storageOperations";
+import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
-import { ACCOUNT_KEY, CHARACTER_KEY } from "./auth/register/Register";
+import { CHARACTER_KEY } from "./auth/register/Register";
 
 export type GameMenuState = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";
 
@@ -54,14 +54,18 @@ export function PocketAdventurePage() {
         setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
 
         const loadCharacterData = loadStorageData(CHARACTER_KEY);
+
         if (!loadCharacterData) {
             const fallBackCharacter = createFallbackCharacter();
             localStorage.setItem(CHARACTER_KEY, JSON.stringify(fallBackCharacter));
             setCharacterData(fallBackCharacter);
             return;
         }
+
         setCharacterData(loadCharacterData);
     }, []);
+
+    if (!characterData) return null;
 
     const handleDeleteItem = (itemId: number) => {
         deleteItem(STORAGE_KEY, itemId);
@@ -81,6 +85,22 @@ export function PocketAdventurePage() {
         setShowDetailsCard(true);
     };
 
+    const handleSellItems = (itemId: number) => {
+        const itemForSell = inventoryItems.find((item) => item.itemId === itemId);
+        if (!itemForSell) return;
+        const itemPrice = itemForSell.itemValue;
+        setCharacterData((prevState) => {
+            if (!prevState) {
+                return prevState;
+            } else {
+                const updated = { ...prevState, gold: prevState.gold + itemPrice };
+                localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
+                return updated;
+            }
+        });
+        handleDeleteItem(itemId);
+    };
+
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
         inventory: (
@@ -88,12 +108,13 @@ export function PocketAdventurePage() {
                 inventoryItems={inventoryItems}
                 onDeleteItem={handleDeleteItem}
                 handleActiveItemState={handleActiveItemState}
+                handleSellItems={handleSellItems}
             />
         ),
         missions: <Missions />,
         garden: <Garden />,
         shop: <Shop />,
-        character: <CharacterPanelAndStats />,
+        character: <CharacterPanelAndStats characterData={characterData} />,
     };
 
     const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;

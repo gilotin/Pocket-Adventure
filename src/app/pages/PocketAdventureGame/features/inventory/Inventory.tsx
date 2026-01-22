@@ -1,5 +1,4 @@
 import styles from "./Inventory.module.css";
-
 type Item = {
     itemId: number;
     name: string;
@@ -11,9 +10,15 @@ type InventoryProps = {
     inventoryItems: Item[];
     onDeleteItem: (itemId: number) => void;
     handleActiveItemState: (itemId: number | null) => void;
+    handleSellItems: (itemId: number) => void;
 };
 
-export function Inventory({ inventoryItems, onDeleteItem, handleActiveItemState }: InventoryProps) {
+export function Inventory({
+    inventoryItems,
+    onDeleteItem,
+    handleActiveItemState,
+    handleSellItems,
+}: InventoryProps) {
     const handleMouseEnter = (itemId: number) => () => {
         handleActiveItemState(itemId);
     };
@@ -33,13 +38,20 @@ export function Inventory({ inventoryItems, onDeleteItem, handleActiveItemState 
                 <div>Name:{item.name}</div>
                 <div>Type: {item.type}</div>
                 <div>Qty:{item.quantity}</div>
+
+                <button onClick={() => handleSellItems(item.itemId)}>Sell</button>
                 <button
                     onClick={(e) => {
                         e.stopPropagation();
                         onDeleteItem(item.itemId);
                     }}
                 >
-                    remove item
+                    <img
+                        // for testing purposes !!!
+                        style={{ width: 24, height: 24 }}
+                        src="icons/trash-can.svg"
+                        alt="discard"
+                    />
                 </button>
             </div>
         );
