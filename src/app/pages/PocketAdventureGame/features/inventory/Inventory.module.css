@@ -1,0 +1,27 @@
+.inventorySpace {
+    max-height: 21rem;
+    overflow-y: scroll;
+    padding: 1rem 2rem;
+    scrollbar-width: none;
+}
+
+.inventoryHeader {
+    position: static;
+    top: 10px;
+}
+
+.inventorySpace {
+    border: 1px solid black;
+    gap: 1rem;
+    justify-content: space-evenly;
+    display: grid;
+
+}
+
+.inventoryItem {
+    padding: 0.4rem;
+    display: flex;
+    gap: 1rem;
+    border: 1px solid black;
+
+}

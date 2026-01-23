@@ -4,27 +4,19 @@ import { useEffect, useState } from "react";
 import { Login } from "../auth/login/Login";
 import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
-import { Logout } from "../auth/logout/Logout";
+import { ConfirmModal } from "../components/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
-
-export type AuthStatus = "unknown" | "guest" | "authenticated";
-export type AuthMode = "login" | "register";
-type AuthErrorType = string | null;
-
-export type AccountData = {
-    accountName: string;
-    profileName: string;
-    email: string;
-} | null;
+import { TestItemGenerator } from "../MockedData/TestItemGenerator";
+import type { AccountData, AuthErrorType, AuthMode, AuthStatus } from "../types/gameTypes";
 
 export function GameLayout() {
-    const [authStatus, setAuthStatus] = useState<AuthStatus>("unknown");
+    const [authStatus, setAuthStatus] = useState<AuthStatus>("authenticated");
     const [authMode, setAuthMode] = useState<AuthMode>("login");
     const [authError, setAuthError] = useState<AuthErrorType>(null);
     const [userData, setUserData] = useState<AccountData>(null);
-    const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState<boolean>(false);
+    // const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false);
+    const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
 
-    // Session restoration on app load
     useEffect(() => {
         const storageData = localStorage.getItem("accountData");
 
@@ -48,7 +40,6 @@ export function GameLayout() {
         setUserData(null);
         setAuthStatus("guest");
         setAuthMode("login");
-        setIsLogoutConfirmOpen(false);
     };
 
     if (authStatus === "unknown") {
@@ -63,22 +54,34 @@ export function GameLayout() {
                         <header className={styles.gameHeader}>
                             <p>Hello {userData?.accountName}!</p>
                             <p>Stats</p>
-                            <button onClick={() => setIsLogoutConfirmOpen(true)}>logout</button>
+                            <button onClick={() => setConfirmAction(() => handleLogout)}>
+                                logout
+                            </button>
                         </header>
                         <main className={styles.mainGame}>
-                            <PocketAdventurePage />
+                            <div>
+                                {/* It's for testing!!! */}
+                                <TestItemGenerator />
+                            </div>
+
+                            <PocketAdventurePage setConfirmAction={setConfirmAction} />
                         </main>
+
                         <footer>
                             <p>Test footer. All bla bla reserved. 2025</p>
                         </footer>
                     </div>
                 </div>
-                {isLogoutConfirmOpen && (
-                    <Logout
-                        onConfirm={handleLogout}
-                        onCancel={() => setIsLogoutConfirmOpen(false)}
+                {confirmAction && (
+                    <ConfirmModal
+                        onConfirm={() => {
+                            confirmAction();
+                            setConfirmAction(null);
+                        }}
+                        onCancel={() => setConfirmAction(null)}
                     />
                 )}
+
                 {authError && <AuthErrorHandler message={authError} setAuthError={setAuthError} />}
             </>
         );

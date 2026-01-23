@@ -1,7 +1,7 @@
 import type { GameMenuState } from "../PocketAdventurePage";
 import styles from "./GameNavigation.module.css";
 
-type NavigationMenu = "crafting" | "garden" | "missions" | "shop" | "inventory";
+type NavigationMenu = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";
 type GameNavigationProps = {
     setGameNavigation: (menu: NavigationMenu) => void;
     gameNavigation: GameMenuState;
@@ -14,6 +14,7 @@ export function GameNavigation({ setGameNavigation, gameNavigation }: GameNaviga
         { label: "Missions", value: "missions" },
         { label: "Shop", value: "shop" },
         { label: "Inventory", value: "inventory" },
+        { label: "Character", value: "character" },
     ];
 
     const handleClickMenu = (menu: NavigationMenu) => {

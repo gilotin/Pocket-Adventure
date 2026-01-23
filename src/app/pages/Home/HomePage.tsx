@@ -1,6 +1,6 @@
 import HomeCard from "./components/projectCard/HomeCard";
 import styles from "./HomePage.module.css";
-import { homePageData } from "./staticData";
+import { homePageData } from "./staticHomeData";
 
 export function HomePage() {
     return (

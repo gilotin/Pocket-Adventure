@@ -1,12 +1,14 @@
 import type React from "react";
 import styles from "../register//Register.module.css";
-
-type AuthMode = "login" | "register";
+import type { AuthMode, Character } from "../../types/gameTypes";
 
 type RegisterProps = {
     setAuthMode: (value: AuthMode) => void;
     setAuthError: (value: string | null) => void;
 };
+
+export const ACCOUNT_KEY = "accountData";
+export const CHARACTER_KEY = "characterData";
 
 export function Register({ setAuthMode, setAuthError }: RegisterProps) {
     const handleAuthNavigation = () => {
@@ -25,13 +27,15 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
         const repeatEmail = formData.get("repeatEmail");
         const password = formData.get("password");
         const repeatPassword = formData.get("repeatPassword");
+        const characterName = formData.get("characterName");
 
         if (
             typeof accountName !== "string" ||
             typeof email !== "string" ||
             typeof repeatEmail !== "string" ||
             typeof password !== "string" ||
-            typeof repeatPassword !== "string"
+            typeof repeatPassword !== "string" ||
+            typeof characterName !== "string"
         ) {
             setAuthError("No empty inputs allowed!");
             return;
@@ -42,13 +46,15 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
         const trimmedRepeatEmail = repeatEmail.trim();
         const trimmedPassword = password.trim();
         const trimmedRepeatPassword = repeatPassword.trim();
+        const trimmedCharacterName = characterName.trim();
 
         if (
             trimmedAccountName === "" ||
             trimmedEmail === "" ||
             trimmedRepeatEmail === "" ||
             trimmedPassword === "" ||
-            trimmedRepeatPassword === ""
+            trimmedRepeatPassword === "" ||
+            trimmedCharacterName === ""
         ) {
             setAuthError("No empty inputs allowed!");
             return;
@@ -92,7 +98,15 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
             email: trimmedEmail,
         };
 
-        localStorage.setItem("accountData", JSON.stringify(accountData));
+        const characterData: Character = {
+            name: characterName,
+            equippedItemIds: [],
+            gold: 100,
+            experience: 0,
+        };
+
+        localStorage.setItem(ACCOUNT_KEY, JSON.stringify(accountData));
+        localStorage.setItem(CHARACTER_KEY, JSON.stringify(characterData));
 
         setAuthError(null);
         setAuthMode("login");
@@ -107,16 +121,25 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
                     onSubmit={registerSubmitHandler}
                 >
                     <h1 className={styles.formHeader}>Register</h1>
+
                     <label htmlFor="accountName">Account: </label>
                     <input type="text" name="accountName" />
+
                     <label htmlFor="email">Email Address: </label>
                     <input type="email" name="email" />
+
                     <label htmlFor="repeatEmail">Repeat email address: </label>
                     <input type="text" name="repeatEmail" />
+
+                    <label htmlFor="characterName">Create your character:</label>
+                    <input type="text" name="characterName" />
+
                     <label htmlFor="password">Password: </label>
-                    <input type="password" name="password" />{" "}
+                    <input type="password" name="password" />
+
                     <label htmlFor="repeatPassword">Repeat Password: </label>
                     <input type="password" name="repeatPassword" />
+
                     <button className={styles.registerButton} type="submit">
                         Register
                     </button>
