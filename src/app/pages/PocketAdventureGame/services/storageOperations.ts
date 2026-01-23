@@ -1,11 +1,4 @@
-type Item = {
-    itemId: number;
-    name: string;
-    type: string;
-    quantity: number;
-};
-
-type ItemStore = Item[];
+import type { ItemStore } from "../types/gameTypes";
 
 export function loadStorageData(storageKey: string) {
     const rawData = localStorage.getItem(storageKey);

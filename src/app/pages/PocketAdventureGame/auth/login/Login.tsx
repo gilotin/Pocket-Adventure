@@ -1,6 +1,7 @@
 import type React from "react";
 import styles from "../login/Login.module.css";
-import type { AuthStatus } from "../../layout/GameLayout";
+
+import type { AccountData, AuthStatus } from "../../types/gameTypes";
 
 type AuthMode = "login" | "register";
 
@@ -9,12 +10,6 @@ type LoginProps = {
     setAuthMode: (mode: AuthMode) => void;
     setAuthError: (value: null | string) => void;
     setUserData: (value: null | AccountData) => void;
-};
-
-type AccountData = {
-    accountName: string;
-    profileName: string;
-    email: string;
 };
 
 export function Login({

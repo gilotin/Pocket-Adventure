@@ -1,18 +1,10 @@
 import type React from "react";
 import styles from "../register//Register.module.css";
-
-type AuthMode = "login" | "register";
+import type { AuthMode, Character } from "../../types/gameTypes";
 
 type RegisterProps = {
     setAuthMode: (value: AuthMode) => void;
     setAuthError: (value: string | null) => void;
-};
-
-type Character = {
-    name: string;
-    equippedItemIds: [];
-    gold: number;
-    Experience: number;
 };
 
 export const ACCOUNT_KEY = "accountData";
@@ -110,7 +102,7 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
             name: characterName,
             equippedItemIds: [],
             gold: 100,
-            Experience: 0,
+            experience: 0,
         };
 
         localStorage.setItem(ACCOUNT_KEY, JSON.stringify(accountData));

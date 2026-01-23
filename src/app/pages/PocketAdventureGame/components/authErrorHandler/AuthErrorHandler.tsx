@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import styles from "./AuthErrorHandler.module.css";
+import type { AuthErrorType } from "../../types/gameTypes";
 
-type AuthErrorType = string | null;
 type ErrorProps = {
     message: AuthErrorType;
     setAuthError: (value: string | null) => void;
 };
+
 export function AuthErrorHandler({ message, setAuthError }: ErrorProps) {
     useEffect(() => {
         if (!message) return;

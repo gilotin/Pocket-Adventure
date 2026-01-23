@@ -7,24 +7,8 @@ import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandle
 import { ConfirmModal } from "../components/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
 import { TestItemGenerator } from "../MockedData/TestItemGenerator";
+import type { AccountData, AuthErrorType, AuthMode, AuthStatus } from "../types/gameTypes";
 
-export type AuthStatus = "unknown" | "guest" | "authenticated";
-export type AuthMode = "login" | "register";
-type AuthErrorType = string | null;
-
-export type AccountData = {
-    accountName: string;
-    profileName: string;
-    email: string;
-} | null;
-
-// type Item = {
-//     itemId: number;
-//     name: string;
-//     type: string;
-//     quantity: number;
-//     itemValue: number;
-// };
 export function GameLayout() {
     const [authStatus, setAuthStatus] = useState<AuthStatus>("authenticated");
     const [authMode, setAuthMode] = useState<AuthMode>("login");

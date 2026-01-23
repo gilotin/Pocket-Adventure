@@ -1,12 +1,6 @@
+import type { Item } from "../../types/gameTypes";
 import styles from "./DetailsCard.module.css";
 
-type Item = {
-    itemId: number;
-    name: string;
-    type: string;
-    quantity: number;
-    itemValue: number;
-};
 type FilterItemDataProps = {
     activeItem: Item | null;
 };

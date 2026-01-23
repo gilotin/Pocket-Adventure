@@ -1,12 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
-import { ConfirmModal } from "../../components/confirmModal/ConfirmModal";
 import styles from "./Inventory.module.css";
-type Item = {
-    itemId: number;
-    name: string;
-    type: string;
-    quantity: number;
-};
+import type { Item } from "../../types/gameTypes";
 
 type InventoryProps = {
     inventoryItems: Item[];

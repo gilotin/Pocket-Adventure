@@ -1,9 +1,4 @@
-type Character = {
-    name: string;
-    equippedItemIds: number[];
-    gold: number;
-    experience: number;
-};
+import type { Character } from "../../types/gameTypes";
 
 type CharacterPanelAndStatsProps = {
     characterData: Character;

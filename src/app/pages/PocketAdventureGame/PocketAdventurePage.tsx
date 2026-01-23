@@ -11,28 +11,9 @@ import { deleteItem, loadStorageData } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
-import React from "react";
-
-export type GameMenuState = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";
+import type { Character, GameMenuState, ItemStore } from "./types/gameTypes";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
-
-type Item = {
-    itemId: number;
-    name: string;
-    type: string;
-    quantity: number;
-    itemValue: number;
-};
-
-type InventoryType = Item[];
-
-type Character = {
-    name: string;
-    equippedItemIds: number[];
-    gold: number;
-    experience: number;
-};
 
 type GamePageProps = {
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
@@ -49,7 +30,7 @@ export function createFallbackCharacter(): Character {
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("inventory");
-    const [inventoryItems, setInventoryItems] = useState<InventoryType>([]);
+    const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
     const [activeItemId, setActiveItemId] = useState<number | null>(null);
     const [characterData, setCharacterData] = useState<Character | null>(null);

@@ -1,18 +1,12 @@
 import type React from "react";
 import { loadStorageData, saveItems } from "../services/storageOperations";
+import type { Item } from "../types/gameTypes";
 
 /* ======================
    Types
 ====================== */
 type ItemType = "equipment" | "materials" | "consumables";
 
-type Item = {
-    itemId: number;
-    name: string;
-    type: ItemType;
-    quantity: number;
-    itemValue: number;
-};
 export const STORAGE_KEY = "spawnedData";
 
 function idGenerator() {
