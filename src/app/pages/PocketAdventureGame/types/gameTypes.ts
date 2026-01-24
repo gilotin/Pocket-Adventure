@@ -31,12 +31,25 @@ export type Item = {
 export type ItemStore = Item[];
 
 /*======================================
+ EQUIPMENT TYPES
+======================================*/
+
+export type EquipmentSlot = "weapon" | "armor" | "helm" | "boots";
+
+/*======================================
  CHARACTER TYPES
 ======================================*/
 
+export type CharacterEquipment = {
+    weapon: number | null;
+    armor: number | null;
+    helm: number | null;
+    boots: number | null;
+};
+
 export type Character = {
     name: string;
-    equippedItemIds: number[];
+    equipment: CharacterEquipment;
     gold: number;
     experience: number;
 };
