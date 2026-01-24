@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#personal
+TODO.md
+Remember.md
+devDiary.md
