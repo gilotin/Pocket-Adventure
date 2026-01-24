@@ -11,7 +11,7 @@ import { deleteItem, loadStorageData } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
-import type { Character, GameMenuState, ItemStore } from "./types/gameTypes";
+import type { Character, GameMenuState, ItemStore, CharacterEquipment } from "./types/gameTypes";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -22,9 +22,14 @@ type GamePageProps = {
 export function createFallbackCharacter(): Character {
     return {
         name: "Adventurer",
-        gold: 0,
+        gold: 100,
         experience: 0,
-        equippedItemIds: [],
+        equipment: {
+            weapon: null,
+            armor: null,
+            helm: null,
+            boots: null,
+        },
     };
 }
 
