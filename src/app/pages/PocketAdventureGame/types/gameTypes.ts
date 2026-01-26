@@ -23,9 +23,11 @@ export type AccountData = {
 export type Item = {
     itemId: number;
     name: string;
-    type: string;
+    type: "equipment" | "materials" | "consumables";
     quantity: number;
     itemValue: number;
+    equipmentSlot: EquipmentSlot;
+    isEquipped: boolean;
 };
 
 export type ItemStore = Item[];

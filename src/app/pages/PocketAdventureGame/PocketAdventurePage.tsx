@@ -7,11 +7,11 @@ import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
-import { deleteItem, loadStorageData } from "./services/storageOperations";
+import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
-import type { Character, GameMenuState, ItemStore, CharacterEquipment } from "./types/gameTypes";
+import type { Character, CharacterEquipment, GameMenuState, ItemStore } from "./types/gameTypes";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -39,6 +39,13 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
     const [activeItemId, setActiveItemId] = useState<number | null>(null);
     const [characterData, setCharacterData] = useState<Character | null>(null);
+    // will try with one SoT for now and filter everything
+    // const [characterEquipment, setCharacterEquipment] = useState<CharacterEquipment>({
+    //     weapon: null,
+    //     armor: null,
+    //     helm: null,
+    //     boots: null,
+    // });
 
     useEffect(() => {
         const loadedInventoryData = loadStorageData(STORAGE_KEY);
@@ -58,6 +65,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     if (!characterData) return null;
 
+    const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
+
     const handleDeleteItem = (itemId: number) => {
         deleteItem(STORAGE_KEY, itemId);
         setInventoryItems(loadStorageData(STORAGE_KEY));
@@ -76,20 +85,45 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setShowDetailsCard(true);
     };
 
-    const handleSellItems = (itemId: number) => {
+    const sellItems = (itemId: number) => {
         const itemForSell = inventoryItems.find((item) => item.itemId === itemId);
         if (!itemForSell) return;
         const itemPrice = itemForSell.itemValue;
-        setCharacterData((prevState) => {
-            if (!prevState) {
-                return prevState;
+        setCharacterData((prev) => {
+            if (!prev) {
+                return prev;
             } else {
-                const updated = { ...prevState, gold: prevState.gold + itemPrice };
+                const updated = { ...prev, gold: prev.gold + itemPrice };
                 localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
                 return updated;
             }
         });
         handleDeleteItem(itemId);
+    };
+
+    const equipItem = () => {
+        if (!activeItemId) return;
+        if (activeItem?.type !== "equipment") return;
+        if (!activeItem.equipmentSlot) return;
+
+        // const itemSlot = activeItem.equipmentSlot;
+
+        // setCharacterEquipment((prev) => ({
+        //     ...prev,
+        //     [itemSlot]: activeItemId,
+        // }));
+
+        const updatedInventory = inventoryItems.map((item) => {
+            if (item.itemId === activeItemId) {
+                return { ...item, isEquipped: true };
+            }
+            return item;
+        });
+        setInventoryItems(updatedInventory);
+
+        saveItems(STORAGE_KEY, updatedInventory);
+
+        setShowDetailsCard(false);
     };
 
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
@@ -99,17 +133,18 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 inventoryItems={inventoryItems}
                 onDeleteItem={handleDeleteItem}
                 handleActiveItemState={handleActiveItemState}
-                handleSellItems={handleSellItems}
+                handleSellItems={sellItems}
                 setConfirmAction={setConfirmAction}
+                equipItem={equipItem}
             />
         ),
         missions: <Missions />,
         garden: <Garden />,
         shop: <Shop />,
-        character: <CharacterPanelAndStats characterData={characterData} />,
+        character: (
+            <CharacterPanelAndStats characterData={characterData} inventoryItems={inventoryItems} />
+        ),
     };
-
-    const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
 
     return (
         <>

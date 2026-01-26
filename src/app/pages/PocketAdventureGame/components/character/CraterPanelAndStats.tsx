@@ -1,10 +1,26 @@
-import type { Character } from "../../types/gameTypes";
+import type { Character, Item } from "../../types/gameTypes";
 
 type CharacterPanelAndStatsProps = {
     characterData: Character;
+    inventoryItems: Item[];
 };
 
-export function CharacterPanelAndStats({ characterData }: CharacterPanelAndStatsProps) {
+export function CharacterPanelAndStats({
+    characterData,
+    inventoryItems,
+}: CharacterPanelAndStatsProps) {
+    const filteredEquippedItems = inventoryItems.filter((item) => item.isEquipped === true);
+    const equippedItemsBySlot = filteredEquippedItems.map((item) => {
+        return (
+            <div key={item.itemId}>
+                <p>
+                    {item?.equipmentSlot}:{item.name}
+                </p>
+                <button>Unequip</button>
+            </div>
+        );
+    });
+
     return (
         <section>
             <h3>{characterData?.name}</h3>
@@ -12,12 +28,7 @@ export function CharacterPanelAndStats({ characterData }: CharacterPanelAndStats
             <p>Gold:{characterData?.gold}</p>
             <div>
                 <p>Equipment:</p>
-                <div className="characterEquipment">
-                    <p>Armor:</p>
-                    <p>Helm:</p>
-                    <p>Gloves:</p>
-                    <p>Boots:</p>
-                </div>
+                <div className="characterEquipment">{equippedItemsBySlot}</div>
                 <div>
                     <p>Stats:</p>
                     <p>HP:100</p>
