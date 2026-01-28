@@ -1,0 +1,7 @@
+.itemCard {
+    padding: 0.4rem;
+    display: flex;
+    gap: 1rem;
+    border: 1px solid black;
+
+}

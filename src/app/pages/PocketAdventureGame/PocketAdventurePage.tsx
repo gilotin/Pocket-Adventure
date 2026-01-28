@@ -106,13 +106,6 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         if (activeItem?.type !== "equipment") return;
         if (!activeItem.equipmentSlot) return;
 
-        // const itemSlot = activeItem.equipmentSlot;
-
-        // setCharacterEquipment((prev) => ({
-        //     ...prev,
-        //     [itemSlot]: activeItemId,
-        // }));
-
         const updatedInventory = inventoryItems.map((item) => {
             if (item.itemId === activeItemId) {
                 return { ...item, isEquipped: true };
