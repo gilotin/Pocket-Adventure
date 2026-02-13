@@ -102,7 +102,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     };
 
     // TO REFACTOR EQUIP AND UNEQUIP LATER !
-    const equipItem = () => {
+    const equipSelectedItem = () => {
         if (!activeItemId) return;
         if (activeItem?.type !== "equipment") return;
         if (!activeItem.equipmentSlot) return;
@@ -120,7 +120,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setShowDetailsCard(false);
     };
 
-    const unequipItem = () => {
+    const unequipSelectedItem = () => {
         if (!activeItemId) return;
         if (activeItem?.type !== "equipment") return;
         if (!activeItem.equipmentSlot) return;
@@ -146,8 +146,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 handleActiveItemState={handleActiveItemState}
                 handleSellItems={sellItems}
                 setConfirmAction={setConfirmAction}
-                equipItem={equipItem}
-                unequipItem={unequipItem}
+                equipItem={equipSelectedItem}
+                unequipItem={unequipSelectedItem}
             />
         ),
         missions: <Missions />,
@@ -158,7 +158,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 characterData={characterData}
                 inventoryItems={inventoryItems}
                 handleActiveItemState={handleActiveItemState}
-                unequipItem={unequipItem}
+                unequipItem={unequipSelectedItem}
             />
         ),
     };
