@@ -32,7 +32,7 @@ export function CharacterPanelAndStats({
                 onMouseLeave={handleMouseLeave}
             >
                 <p>
-                    {item.equipmentSlot}:{item.name}
+                    {item?.equipmentSlot}:{item.name}
                 </p>
                 <button onClick={unequipItem}>Unequip</button>
             </div>

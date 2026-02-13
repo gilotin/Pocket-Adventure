@@ -31,12 +31,7 @@ export function ItemCard({
             <div>Type: {item.type}</div>
             <div>Qty:{item.quantity}</div>
 
-            {!item.isEquipped ? (
-                <button onClick={handleEquipItem}>Equip</button>
-            ) : (
-                <button onClick={handleUnequipItem}>Unequip</button>
-            )}
-            {/* To lock sell and discard if items are equipped */}
+            {item.type === "equipment" && <button onClick={handleEquipItem}>Equip</button>}
             <button onClick={() => handleSellItems(item.itemId)}>Sell</button>
             <button
                 onClick={(e) => {
