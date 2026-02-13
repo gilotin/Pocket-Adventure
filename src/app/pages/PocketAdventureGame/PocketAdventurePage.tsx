@@ -11,7 +11,7 @@ import { deleteItem, loadStorageData, saveItems } from "./services/storageOperat
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./components/character/CharacterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
-import type { Character, CharacterEquipment, GameMenuState, ItemStore } from "./types/gameTypes";
+import type { Character, EquipmentSlot, GameMenuState, ItemStore } from "./types/gameTypes";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -101,22 +101,29 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         handleDeleteItem(itemId);
     };
 
-    // TO REFACTOR EQUIP AND UNEQUIP LATER !
     const equipSelectedItem = () => {
         if (!activeItemId) return;
         if (activeItem?.type !== "equipment") return;
         if (!activeItem.equipmentSlot) return;
 
+        const equipmentType = activeItem.equipmentSlot;
+
         const updatedInventory = inventoryItems.map((item) => {
-            if (item.itemId === activeItemId) {
-                return { ...item, isEquipped: true };
+            let updatedItem = item;
+
+            if (item.equipmentSlot === equipmentType && item.isEquipped) {
+                updatedItem = { ...item, isEquipped: false };
             }
-            return item;
+
+            if (item.itemId === activeItemId) {
+                updatedItem = { ...item, isEquipped: true };
+            }
+
+            return updatedItem;
         });
+
         setInventoryItems(updatedInventory);
-
         saveItems(STORAGE_KEY, updatedInventory);
-
         setShowDetailsCard(false);
     };
 
