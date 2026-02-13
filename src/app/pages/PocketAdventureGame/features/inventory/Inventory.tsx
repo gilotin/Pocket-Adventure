@@ -10,6 +10,7 @@ type InventoryProps = {
     handleSellItems: (itemId: number) => void;
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
     equipItem: () => void;
+    unequipItem: () => void;
 };
 
 export function Inventory({
@@ -19,8 +20,9 @@ export function Inventory({
     handleSellItems,
     setConfirmAction,
     equipItem,
+    unequipItem,
 }: InventoryProps) {
-    const handleMouseEnter = (itemId: number) => () => {
+    const handleMouseEnter = (itemId: number) => {
         handleActiveItemState(itemId);
     };
 
@@ -36,17 +38,23 @@ export function Inventory({
         equipItem();
     };
 
+    const handleUnequipItem = () => {
+        unequipItem();
+    };
+
     const inventorySpace = inventoryItems?.map((item) => {
         {
             if (!item.isEquipped) {
                 return (
                     <ItemCard
+                        key={item.itemId}
                         item={item}
                         handleMouseEnter={handleMouseEnter}
                         handleMouseLeave={handleMouseLeave}
                         handleSellItems={handleSellItems}
                         confirmDeleteItem={confirmDeleteItem}
                         handleEquipItem={handleEquipItem}
+                        handleUnequipItem={handleUnequipItem}
                     />
                 );
             }
