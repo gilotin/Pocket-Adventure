@@ -8,6 +8,7 @@ type ItemCardProps = {
     handleSellItems: (itemId: number) => void;
     confirmDeleteItem: (itemId: number) => void;
     handleEquipItem: () => void;
+    handleUnequipItem: () => void;
 };
 
 export function ItemCard({
@@ -17,19 +18,25 @@ export function ItemCard({
     handleSellItems,
     confirmDeleteItem,
     handleEquipItem,
+    handleUnequipItem,
 }: ItemCardProps) {
     return (
         <div
             className={styles.itemCard}
             key={item.itemId}
-            onMouseEnter={() => handleMouseEnter(item?.itemId)}
+            onMouseEnter={() => handleMouseEnter(item.itemId)}
             onMouseLeave={handleMouseLeave}
         >
             <div>Name:{item.name}</div>
             <div>Type: {item.type}</div>
             <div>Qty:{item.quantity}</div>
 
-            <button onClick={handleEquipItem}>Equip</button>
+            {!item.isEquipped ? (
+                <button onClick={handleEquipItem}>Equip</button>
+            ) : (
+                <button onClick={handleUnequipItem}>Unequip</button>
+            )}
+            {/* To lock sell and discard if items are equipped */}
             <button onClick={() => handleSellItems(item.itemId)}>Sell</button>
             <button
                 onClick={(e) => {

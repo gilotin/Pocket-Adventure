@@ -9,7 +9,7 @@ import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
 import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
-import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
+import { CharacterPanelAndStats } from "./components/character/CharacterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
 import type { Character, CharacterEquipment, GameMenuState, ItemStore } from "./types/gameTypes";
 
@@ -101,6 +101,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         handleDeleteItem(itemId);
     };
 
+    // TO REFACTOR EQUIP AND UNEQUIP LATER !
     const equipItem = () => {
         if (!activeItemId) return;
         if (activeItem?.type !== "equipment") return;
@@ -119,6 +120,23 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setShowDetailsCard(false);
     };
 
+    const unequipItem = () => {
+        if (!activeItemId) return;
+        if (activeItem?.type !== "equipment") return;
+        if (!activeItem.equipmentSlot) return;
+
+        const updatedInventory = inventoryItems.map((item) => {
+            if (item.itemId === activeItemId) {
+                return { ...item, isEquipped: false };
+            }
+            return item;
+        });
+
+        setInventoryItems(updatedInventory);
+        saveItems(STORAGE_KEY, updatedInventory);
+        setShowDetailsCard(false);
+    };
+
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
         inventory: (
@@ -129,13 +147,19 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 handleSellItems={sellItems}
                 setConfirmAction={setConfirmAction}
                 equipItem={equipItem}
+                unequipItem={unequipItem}
             />
         ),
         missions: <Missions />,
         garden: <Garden />,
         shop: <Shop />,
         character: (
-            <CharacterPanelAndStats characterData={characterData} inventoryItems={inventoryItems} />
+            <CharacterPanelAndStats
+                characterData={characterData}
+                inventoryItems={inventoryItems}
+                handleActiveItemState={handleActiveItemState}
+                unequipItem={unequipItem}
+            />
         ),
     };
 
