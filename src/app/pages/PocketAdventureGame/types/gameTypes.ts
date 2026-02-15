@@ -22,8 +22,17 @@ export type AccountData = {
 
 export type Item = {
     itemId: number;
+    itemLevel: number;
+    requireLevel: number;
     name: string;
     type: "equipment" | "materials" | "consumables";
+    stats?: {
+        attack: number;
+        armor: number;
+        elementalProtection: number;
+        recovery: number;
+        dropChance: number;
+    };
     quantity: number;
     itemValue: number;
     equipmentSlot: EquipmentSlot;

@@ -18,7 +18,6 @@ export function ItemCard({
     handleSellItems,
     confirmDeleteItem,
     handleEquipItem,
-    handleUnequipItem,
 }: ItemCardProps) {
     return (
         <div

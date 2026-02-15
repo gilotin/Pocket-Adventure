@@ -34,6 +34,7 @@ export function TestItemGenerator() {
         const itemId = idGenerator();
         const itemValue = itemValueGenerator();
         let equipmentSlot;
+        let itemStats;
 
         if (
             typeof itemName !== "string" ||
@@ -51,10 +52,23 @@ export function TestItemGenerator() {
             quantity = "1";
         }
 
+        if (itemType === "equipment") {
+            itemStats = {
+                attack: 4,
+                armor: 3,
+                elementalProtection: 2,
+                recovery: 5,
+                dropChance: 2,
+            };
+        }
+
         const newItem: Item = {
             itemId: Number(itemId),
+            itemLevel: 1,
+            requireLevel: 1,
             name: itemName,
             type: itemType as ItemType,
+            stats: itemStats,
             quantity: Number(quantity),
             itemValue: Number(itemValue),
             equipmentSlot: equipmentSlot as EquipmentType,
