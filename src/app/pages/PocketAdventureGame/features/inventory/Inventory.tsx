@@ -42,24 +42,20 @@ export function Inventory({
         unequipItem();
     };
 
-    const inventorySpace = inventoryItems?.map((item) => {
-        {
-            if (!item.isEquipped) {
-                return (
-                    <ItemCard
-                        key={item.itemId}
-                        item={item}
-                        handleMouseEnter={handleMouseEnter}
-                        handleMouseLeave={handleMouseLeave}
-                        handleSellItems={handleSellItems}
-                        confirmDeleteItem={confirmDeleteItem}
-                        handleEquipItem={handleEquipItem}
-                        handleUnequipItem={handleUnequipItem}
-                    />
-                );
-            }
-        }
-    });
+    const inventorySpace = inventoryItems
+        ?.filter((item) => !item.isEquipped)
+        .map((item) => (
+            <ItemCard
+                key={item.itemId}
+                item={item}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                handleSellItems={handleSellItems}
+                confirmDeleteItem={confirmDeleteItem}
+                handleEquipItem={handleEquipItem}
+                handleUnequipItem={handleUnequipItem}
+            />
+        ));
 
     return (
         <>

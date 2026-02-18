@@ -11,7 +11,8 @@ import { deleteItem, loadStorageData, saveItems } from "./services/storageOperat
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./components/character/CharacterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
-import type { Character, EquipmentSlot, GameMenuState, ItemStore } from "./types/gameTypes";
+import type { Character, GameMenuState, ItemStore } from "./types/gameTypes";
+import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -39,13 +40,6 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
     const [activeItemId, setActiveItemId] = useState<number | null>(null);
     const [characterData, setCharacterData] = useState<Character | null>(null);
-    // will try with one SoT for now and filter everything
-    // const [characterEquipment, setCharacterEquipment] = useState<CharacterEquipment>({
-    //     weapon: null,
-    //     armor: null,
-    //     helm: null,
-    //     boots: null,
-    // });
 
     useEffect(() => {
         const loadedInventoryData = loadStorageData(STORAGE_KEY);
@@ -144,6 +138,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setShowDetailsCard(false);
     };
 
+    const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
+
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
         inventory: (
@@ -166,6 +162,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 inventoryItems={inventoryItems}
                 handleActiveItemState={handleActiveItemState}
                 unequipItem={unequipSelectedItem}
+                calculatedEquipmentStats={calculatedEquipmentStats}
             />
         ),
     };

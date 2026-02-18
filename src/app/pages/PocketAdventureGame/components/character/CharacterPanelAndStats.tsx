@@ -1,11 +1,12 @@
 import styles from "./CharacterPanelAndStats.module.css";
-import type { Character, Item } from "../../types/gameTypes";
+import type { Character, Item, ItemStats } from "../../types/gameTypes";
 
 type CharacterPanelAndStatsProps = {
     characterData: Character;
     inventoryItems: Item[];
     unequipItem: () => void;
     handleActiveItemState: (itemId: number | null) => void;
+    calculatedEquipmentStats: ItemStats;
 };
 
 export function CharacterPanelAndStats({
@@ -13,6 +14,7 @@ export function CharacterPanelAndStats({
     inventoryItems,
     unequipItem,
     handleActiveItemState,
+    calculatedEquipmentStats,
 }: CharacterPanelAndStatsProps) {
     const handleMouseEnter = (itemId: number) => {
         handleActiveItemState(itemId);
@@ -53,8 +55,11 @@ export function CharacterPanelAndStats({
             <div>
                 <p>Stats:</p>
                 <p>HP:100</p>
-                <p>Magic:100</p>
-                <p>Defense: 100</p>3<p>Offense: 120</p>
+                <p>Attack:{calculatedEquipmentStats?.attack ?? "0"}</p>
+                <p>Armor:{calculatedEquipmentStats?.armor ?? "0"}</p>
+                <p>Ele. protection:{calculatedEquipmentStats?.elementalProtection ?? "0"}</p>
+                <p>Recovery:{calculatedEquipmentStats?.recovery ?? "0"}</p>
+                <p>Drop Chance:{calculatedEquipmentStats?.dropChance ?? "0"}</p>
             </div>
         </section>
     );
