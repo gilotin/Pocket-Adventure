@@ -6,6 +6,7 @@ import type { Item } from "../types/gameTypes";
    Types
 ====================== */
 type ItemType = "equipment" | "materials" | "consumables";
+type EquipmentType = "armor" | "boots" | "weapon" | "helm";
 
 export const STORAGE_KEY = "spawnedData";
 
@@ -28,10 +29,12 @@ export function TestItemGenerator() {
         const form = new FormData(e.currentTarget);
 
         const itemName = form.get("itemName");
-        const itemType = form.get("itemType");
-        const quantity = form.get("quantity");
+        let itemType = form.get("itemType");
+        let quantity = form.get("quantity");
         const itemId = idGenerator();
         const itemValue = itemValueGenerator();
+        let equipmentSlot;
+        let itemStats;
 
         if (
             typeof itemName !== "string" ||
@@ -41,17 +44,39 @@ export function TestItemGenerator() {
             return;
         }
 
+        if (itemType === "potion" || itemType === "material") {
+            itemType;
+        } else {
+            equipmentSlot = itemType as EquipmentType;
+            itemType = "equipment";
+            quantity = "1";
+        }
+
+        if (itemType === "equipment") {
+            itemStats = {
+                attack: 4,
+                armor: 3,
+                elementalProtection: 2,
+                recovery: 5,
+                dropChance: 2,
+            };
+        }
+
         const newItem: Item = {
             itemId: Number(itemId),
+            itemLevel: 1,
+            requireLevel: 1,
             name: itemName,
             type: itemType as ItemType,
+            stats: itemStats,
             quantity: Number(quantity),
             itemValue: Number(itemValue),
+            equipmentSlot: equipmentSlot as EquipmentType,
+            isEquipped: false,
         };
 
         const currentItems = loadStorageData(STORAGE_KEY);
         const updatedItems = [...currentItems, newItem];
-
         saveItems(STORAGE_KEY, updatedItems);
     };
 
@@ -64,7 +89,10 @@ export function TestItemGenerator() {
             <select name="itemType">
                 <option value="potion">potion</option>
                 <option value="material">material</option>
-                <option value="equipment">equipment</option>
+                <option value="armor">armor</option>
+                <option value="helm">helm</option>
+                <option value="gloves">gloves</option>
+                <option value="boots">boots</option>
             </select>
 
             <label>Quantity:</label>

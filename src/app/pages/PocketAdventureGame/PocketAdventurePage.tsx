@@ -7,11 +7,13 @@ import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
-import { deleteItem, loadStorageData } from "./services/storageOperations";
+import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
-import { CharacterPanelAndStats } from "./components/character/CraterPanelAndStats";
+import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
 import type { Character, GameMenuState, ItemStore } from "./types/gameTypes";
+import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
+import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -22,9 +24,8 @@ type GamePageProps = {
 export function createFallbackCharacter(): Character {
     return {
         name: "Adventurer",
-        gold: 0,
-        experience: 0,
-        equippedItemIds: [],
+        gold: 100,
+        totalExperience: 0,
     };
 }
 
@@ -53,6 +54,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     if (!characterData) return null;
 
+    const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
+
     const handleDeleteItem = (itemId: number) => {
         deleteItem(STORAGE_KEY, itemId);
         setInventoryItems(loadStorageData(STORAGE_KEY));
@@ -71,21 +74,69 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setShowDetailsCard(true);
     };
 
-    const handleSellItems = (itemId: number) => {
+    const sellItems = (itemId: number) => {
         const itemForSell = inventoryItems.find((item) => item.itemId === itemId);
         if (!itemForSell) return;
         const itemPrice = itemForSell.itemValue;
-        setCharacterData((prevState) => {
-            if (!prevState) {
-                return prevState;
+        setCharacterData((prev) => {
+            if (!prev) {
+                return prev;
             } else {
-                const updated = { ...prevState, gold: prevState.gold + itemPrice };
+                const updated = { ...prev, gold: prev.gold + itemPrice };
                 localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
                 return updated;
             }
         });
         handleDeleteItem(itemId);
     };
+
+    const equipSelectedItem = () => {
+        if (!activeItemId) return;
+        if (activeItem?.type !== "equipment") return;
+        if (!activeItem.equipmentSlot) return;
+
+        const equipmentType = activeItem.equipmentSlot;
+
+        const updatedInventory = inventoryItems.map((item) => {
+            let updatedItem = item;
+
+            if (item.equipmentSlot === equipmentType && item.isEquipped) {
+                updatedItem = { ...item, isEquipped: false };
+            }
+
+            if (item.itemId === activeItemId) {
+                updatedItem = { ...item, isEquipped: true };
+            }
+
+            return updatedItem;
+        });
+
+        setInventoryItems(updatedInventory);
+        saveItems(STORAGE_KEY, updatedInventory);
+        setShowDetailsCard(false);
+    };
+
+    const unequipSelectedItem = () => {
+        if (!activeItemId) return;
+        if (activeItem?.type !== "equipment") return;
+        if (!activeItem.equipmentSlot) return;
+
+        const updatedInventory = inventoryItems.map((item) => {
+            if (item.itemId === activeItemId) {
+                return { ...item, isEquipped: false };
+            }
+            return item;
+        });
+
+        setInventoryItems(updatedInventory);
+        saveItems(STORAGE_KEY, updatedInventory);
+        setShowDetailsCard(false);
+    };
+
+    const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
+
+    const characterProgress = CalculateCharacterXp({ characterData });
+    console.log(characterProgress);
 
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
@@ -94,17 +145,26 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 inventoryItems={inventoryItems}
                 onDeleteItem={handleDeleteItem}
                 handleActiveItemState={handleActiveItemState}
-                handleSellItems={handleSellItems}
+                handleSellItems={sellItems}
                 setConfirmAction={setConfirmAction}
+                equipItem={equipSelectedItem}
+                unequipItem={unequipSelectedItem}
             />
         ),
         missions: <Missions />,
         garden: <Garden />,
         shop: <Shop />,
-        character: <CharacterPanelAndStats characterData={characterData} />,
+        character: (
+            <CharacterPanelAndStats
+                characterData={characterData}
+                inventoryItems={inventoryItems}
+                handleActiveItemState={handleActiveItemState}
+                unequipItem={unequipSelectedItem}
+                calculatedEquipmentStats={calculatedEquipmentStats}
+                characterProgress={characterProgress}
+            />
+        ),
     };
-
-    const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
 
     return (
         <>

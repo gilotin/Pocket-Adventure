@@ -1,4 +1,4 @@
-import type { GameMenuState } from "../PocketAdventurePage";
+import type { GameMenuState } from "../types/gameTypes";
 import styles from "./GameNavigation.module.css";
 
 type NavigationMenu = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";

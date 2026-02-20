@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import styles from "./Inventory.module.css";
 import type { Item } from "../../types/gameTypes";
+import { ItemCard } from "../../components/itemCard/ItemCard";
 
 type InventoryProps = {
     inventoryItems: Item[];
@@ -8,6 +9,8 @@ type InventoryProps = {
     handleActiveItemState: (itemId: number | null) => void;
     handleSellItems: (itemId: number) => void;
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
+    equipItem: () => void;
+    unequipItem: () => void;
 };
 
 export function Inventory({
@@ -16,8 +19,10 @@ export function Inventory({
     handleActiveItemState,
     handleSellItems,
     setConfirmAction,
+    equipItem,
+    unequipItem,
 }: InventoryProps) {
-    const handleMouseEnter = (itemId: number) => () => {
+    const handleMouseEnter = (itemId: number) => {
         handleActiveItemState(itemId);
     };
 
@@ -29,35 +34,28 @@ export function Inventory({
         setConfirmAction(() => () => onDeleteItem(itemId));
     };
 
-    const inventorySpace = inventoryItems?.map((item) => {
-        return (
-            <div
-                className={styles.inventoryItem}
-                key={item.itemId}
-                onMouseEnter={handleMouseEnter(item.itemId)}
-                onMouseLeave={handleMouseLeave}
-            >
-                <div>Name:{item.name}</div>
-                <div>Type: {item.type}</div>
-                <div>Qty:{item.quantity}</div>
+    const handleEquipItem = () => {
+        equipItem();
+    };
 
-                <button onClick={() => handleSellItems(item.itemId)}>Sell</button>
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        confirmDeleteItem(item.itemId);
-                    }}
-                >
-                    <img
-                        // for testing purposes !!!
-                        style={{ width: 24, height: 24 }}
-                        src="icons/trash-can.svg"
-                        alt="discard"
-                    />
-                </button>
-            </div>
-        );
-    });
+    const handleUnequipItem = () => {
+        unequipItem();
+    };
+
+    const inventorySpace = inventoryItems
+        ?.filter((item) => !item.isEquipped)
+        .map((item) => (
+            <ItemCard
+                key={item.itemId}
+                item={item}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                handleSellItems={handleSellItems}
+                confirmDeleteItem={confirmDeleteItem}
+                handleEquipItem={handleEquipItem}
+                handleUnequipItem={handleUnequipItem}
+            />
+        ));
 
     return (
         <>
