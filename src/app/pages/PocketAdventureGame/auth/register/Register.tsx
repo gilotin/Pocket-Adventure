@@ -101,13 +101,7 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
         const characterData: Character = {
             name: characterName,
             gold: 100,
-            experience: 0,
-            equipment: {
-                weapon: null,
-                armor: null,
-                helm: null,
-                boots: null,
-            },
+            totalExperience: 0,
         };
 
         localStorage.setItem(ACCOUNT_KEY, JSON.stringify(accountData));

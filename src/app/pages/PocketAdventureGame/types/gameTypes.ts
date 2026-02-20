@@ -62,9 +62,8 @@ export type CharacterEquipment = {
 
 export type Character = {
     name: string;
-    equipment: CharacterEquipment;
     gold: number;
-    experience: number;
+    totalExperience: number;
 };
 
 /*======================================

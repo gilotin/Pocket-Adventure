@@ -7,6 +7,13 @@ type CharacterPanelAndStatsProps = {
     unequipItem: () => void;
     handleActiveItemState: (itemId: number | null) => void;
     calculatedEquipmentStats: ItemStats;
+    // NOTE: To fix that type and move it in types
+    characterProgress: {
+        level: number;
+        xpIntoLevel: number;
+        xpRequired: number;
+        progressPercent: number;
+    };
 };
 
 export function CharacterPanelAndStats({
@@ -15,6 +22,7 @@ export function CharacterPanelAndStats({
     unequipItem,
     handleActiveItemState,
     calculatedEquipmentStats,
+    characterProgress,
 }: CharacterPanelAndStatsProps) {
     const handleMouseEnter = (itemId: number) => {
         handleActiveItemState(itemId);
@@ -23,6 +31,8 @@ export function CharacterPanelAndStats({
     const handleMouseLeave = () => {
         handleActiveItemState(null);
     };
+
+    console.log(characterProgress);
 
     const filteredEquippedItems = inventoryItems.filter((item) => item.isEquipped === true);
     const equippedItemsBySlot = filteredEquippedItems.map((item) => {
@@ -45,7 +55,9 @@ export function CharacterPanelAndStats({
         <section className={styles.wrapper}>
             <div>
                 <h3>{characterData?.name}</h3>
-                <p>XP:{characterData?.experience}xp</p>
+                <p>level:{characterProgress?.level}</p>
+                {/* NODE: LAVING IT AS IT IS BEFORE DECIDE WHAT TO TO WITH IT  */}
+                {/* <p>XP:{characterData?.totalExperience}xp</p> */}
                 <p>Gold:{characterData?.gold}</p>
                 <div>
                     <p>Equipment:</p>

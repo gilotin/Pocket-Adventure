@@ -9,10 +9,11 @@ import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
 import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
-import { CharacterPanelAndStats } from "./components/character/CharacterPanelAndStats";
+import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
 import { CHARACTER_KEY } from "./auth/register/Register";
 import type { Character, GameMenuState, ItemStore } from "./types/gameTypes";
 import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
+import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -24,13 +25,7 @@ export function createFallbackCharacter(): Character {
     return {
         name: "Adventurer",
         gold: 100,
-        experience: 0,
-        equipment: {
-            weapon: null,
-            armor: null,
-            helm: null,
-            boots: null,
-        },
+        totalExperience: 0,
     };
 }
 
@@ -140,6 +135,9 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
+    const characterProgress = CalculateCharacterXp({ characterData });
+    console.log(characterProgress);
+
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
         inventory: (
@@ -163,6 +161,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 handleActiveItemState={handleActiveItemState}
                 unequipItem={unequipSelectedItem}
                 calculatedEquipmentStats={calculatedEquipmentStats}
+                characterProgress={characterProgress}
             />
         ),
     };
