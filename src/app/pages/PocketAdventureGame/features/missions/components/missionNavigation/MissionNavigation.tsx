@@ -91,7 +91,7 @@ export function MissionTypeNavigation({
                                 <p>Materials:{currentMission.rewards.materials}</p>
                             )}
                             {currentMission.rewards.items && (
-                                <p>Items:{currentMission.rewards.items}</p>
+                                <p>Items:{currentMission.rewards.items.join(", ")}</p>
                             )}
                         </div>
                     </div>
