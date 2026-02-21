@@ -136,7 +136,6 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
     const characterProgress = CalculateCharacterXp({ characterData });
-    console.log(characterProgress);
 
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
@@ -170,9 +169,10 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         <>
             <GameNavigation setGameNavigation={setGameNavigation} gameNavigation={gameNavigation} />
 
-            <section className={styles.gamePanelSection}>
+            <div className={styles.gamePanelWrapper}>
+                <h1 className={styles.header}>{gameNavigation}</h1>
                 {gameNavigation && featureMap[gameNavigation]}
-            </section>
+            </div>
             {showDetailsCard && <DetailsCard activeItem={activeItem} />}
         </>
     );
