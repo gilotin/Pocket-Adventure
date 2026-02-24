@@ -1,30 +1,14 @@
 import { useState } from "react";
 import { missionData } from "../../data/missionsData";
 import styles from "./MissionNavigation.module.css";
+import type { Mission } from "../../../../types/gameTypes";
+import { MissionDetails } from "../missionDetails/MissionDetails";
 
 type MissionNavigationProps = {
     setMissionNavigation: (menu: MissionNavigation) => void;
     missionNavigation: MissionNavigation;
 };
 type MissionNavigation = "story" | "quests" | "expeditions" | null;
-
-type Mission = {
-    id: string;
-    type: "quests" | "story" | "expeditions";
-    duration: number;
-    title: string;
-    levelReq: number;
-    description: string;
-    rewards: MissionReward;
-};
-type MissionReward = {
-    xp: number;
-    gold: number;
-    materials?: string[];
-    items?: ItemRewards;
-    potions?: number;
-};
-type ItemRewards = ("armor" | "helm" | "gloves" | "boots")[];
 
 export function MissionTypeNavigation({
     setMissionNavigation: setMissionTypeNavigation,
@@ -78,26 +62,7 @@ export function MissionTypeNavigation({
             <div className={styles.menuSelect}>{missionTypeNavigationMenu}</div>
             <ul className={styles.menuList}>{filteredMissionList}</ul>
 
-            {currentMission && (
-                <article>
-                    <div>
-                        <img src="#" alt="quest picture" />
-                        {currentMission?.description}
-                        <div>
-                            <p>Rewards:</p>
-                            <p>Xp:{currentMission?.rewards.xp}</p>
-                            <p>Gold:{currentMission?.rewards.gold}</p>
-                            {currentMission.rewards.materials && (
-                                <p>Materials:{currentMission.rewards.materials}</p>
-                            )}
-                            {currentMission.rewards.items && (
-                                <p>Items:{currentMission.rewards.items.join(", ")}</p>
-                            )}
-                        </div>
-                    </div>
-                    <button onClick={() => console.log("started")}>start</button>
-                </article>
-            )}
+            {currentMission && <MissionDetails currentMission={currentMission} />}
         </div>
     );
 }

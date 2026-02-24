@@ -1,31 +1,10 @@
-type Mission = {
-    id: string;
-    type: "quests" | "story" | "expeditions";
-    duration: number;
-    title: string;
-    levelReq: number;
-    description: string;
-    rewards: MissionReward;
-};
-
-type MissionData = Mission[];
-
-type MissionReward = {
-    xp: number;
-    gold: number;
-    materials?: string[];
-    items?: ItemRewards;
-    potions?: number;
-};
-
-type ItemRewards = ("armor" | "helm" | "gloves" | "boots")[];
+import type { MissionData } from "../../../types/gameTypes";
 
 export const missionData: MissionData = [
     {
         id: "s1",
         type: "story",
         title: "What happened",
-        levelReq: 0,
         duration: 5,
         description: "Here will be added description to the story mission.",
         rewards: {
@@ -37,7 +16,6 @@ export const missionData: MissionData = [
         id: "s2",
         type: "story",
         title: "What happened",
-        levelReq: 1,
         duration: 60,
         description: "Here will be added description to the story mission.",
         rewards: {
@@ -49,7 +27,6 @@ export const missionData: MissionData = [
         id: "s3",
         type: "story",
         title: "What happened",
-        levelReq: 3,
         duration: 160,
         description: "Here will be added description to the story mission.",
         rewards: {
@@ -61,7 +38,11 @@ export const missionData: MissionData = [
         id: "s4",
         type: "story",
         title: "What happened",
-        levelReq: 5,
+        requirements: {
+            attack: 20,
+            armor: 10,
+            elementalProtection: 10,
+        },
         duration: 500,
         description: "Here will be added description to the story mission.",
         rewards: {
@@ -73,7 +54,6 @@ export const missionData: MissionData = [
         id: "q1",
         type: "quests",
         title: "Quest 1",
-        levelReq: 1,
         duration: 300,
         description: "Here will be added description to the quest mission.",
         rewards: {
@@ -85,7 +65,6 @@ export const missionData: MissionData = [
         id: "q2",
         type: "quests",
         title: "Quest 2",
-        levelReq: 1,
         duration: 300,
         description: "Here will be added description to the quest mission.",
         rewards: {
@@ -97,7 +76,6 @@ export const missionData: MissionData = [
         id: "q3",
         type: "quests",
         title: "Quest 3",
-        levelReq: 1,
         duration: 300,
         description: "Here will be added description to the quest mission.",
         rewards: {
@@ -109,7 +87,6 @@ export const missionData: MissionData = [
         id: "q4",
         type: "quests",
         title: "Quest 4",
-        levelReq: 1,
         duration: 300,
         description: "Here will be added description to the quest mission.",
         rewards: {
@@ -121,7 +98,6 @@ export const missionData: MissionData = [
         id: "q5",
         type: "quests",
         title: "Quest 5",
-        levelReq: 1,
         duration: 300,
         description: "Here will be added description to the quest mission.",
         rewards: {
@@ -133,7 +109,6 @@ export const missionData: MissionData = [
         id: "q6",
         type: "quests",
         title: "Quest 6",
-        levelReq: 1,
         duration: 300,
         description: "Here will be added description to the quest mission.",
         rewards: {
@@ -145,7 +120,6 @@ export const missionData: MissionData = [
         id: "e1",
         type: "expeditions",
         title: "Expedition 1",
-        levelReq: 5,
         duration: 5000,
         description: "Here will be added description to the quest mission.",
         rewards: {
@@ -158,7 +132,6 @@ export const missionData: MissionData = [
         id: "e2",
         type: "expeditions",
         title: "Expedition 2",
-        levelReq: 5,
         duration: 43200,
         description: "Here will be added description to the quest mission.",
         rewards: {

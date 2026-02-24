@@ -71,3 +71,34 @@ export type Character = {
 ======================================*/
 
 export type GameMenuState = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";
+
+/*======================================
+ MISSIONS TYPES
+======================================*/
+
+export type Mission = {
+    id: string;
+    type: "quests" | "story" | "expeditions";
+    duration: number;
+    title: string;
+    requirements?: {
+        level?: number;
+        attack?: number;
+        armor?: number;
+        elementalProtection?: number;
+    };
+    description: string;
+    rewards: MissionReward;
+};
+
+export type MissionData = Mission[];
+
+export type MissionReward = {
+    xp: number;
+    gold: number;
+    materials?: string[];
+    items?: ItemRewards;
+    potions?: number;
+};
+
+export type ItemRewards = ("armor" | "helm" | "gloves" | "boots")[];
