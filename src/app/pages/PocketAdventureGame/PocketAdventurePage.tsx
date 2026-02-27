@@ -167,7 +167,9 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setActiveMission(currentMissionData);
     };
 
-    console.log(activeMission);
+    const abandonMission = () => {
+        setActiveMission(null);
+    };
 
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
