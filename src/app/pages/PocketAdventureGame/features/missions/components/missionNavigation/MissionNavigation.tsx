@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { missionData } from "../../data/missionsData";
 import styles from "./MissionNavigation.module.css";
-import type { Mission } from "../../../../types/gameTypes";
+import type { ActiveMission, Mission } from "../../../../types/gameTypes";
 import { MissionDetails } from "../missionDetails/MissionDetails";
 
 type MissionNavigationProps = {
-    setMissionNavigation: (menu: MissionNavigation) => void;
-    missionNavigation: MissionNavigation;
+    setMissionTypeNavigation: (menu: MissionNavigation) => void;
+    missionTypeNavigation: MissionNavigation;
+    startMission: (missionId: string) => void;
 };
 type MissionNavigation = "story" | "quests" | "expeditions" | null;
 
 export function MissionTypeNavigation({
-    setMissionNavigation: setMissionTypeNavigation,
-    missionNavigation: missionTypeNavigation,
+    setMissionTypeNavigation,
+    missionTypeNavigation,
+    startMission,
 }: MissionNavigationProps) {
     const [currentMission, setCurrentMission] = useState<Mission | null>(null);
 
@@ -40,14 +42,14 @@ export function MissionTypeNavigation({
         .filter((mission) => {
             return mission.type === missionTypeNavigation;
         })
-        .map((mission) => {
+        .map((mission, index) => {
             return (
                 <li key={mission.id}>
                     <button
                         className={styles.missionListBtn}
                         onClick={() => onClickMissionHandler(mission)}
                     >
-                        {mission.title}
+                        {mission.type}:{index + 1}
                     </button>
                 </li>
             );
@@ -62,7 +64,9 @@ export function MissionTypeNavigation({
             <div className={styles.menuSelect}>{missionTypeNavigationMenu}</div>
             <ul className={styles.menuList}>{filteredMissionList}</ul>
 
-            {currentMission && <MissionDetails currentMission={currentMission} />}
+            {currentMission && (
+                <MissionDetails startMission={startMission} currentMission={currentMission} />
+            )}
         </div>
     );
 }

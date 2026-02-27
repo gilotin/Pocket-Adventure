@@ -7,13 +7,14 @@ import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
+import { CHARACTER_KEY } from "./auth/register/Register";
 import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
-import { CHARACTER_KEY } from "./auth/register/Register";
-import type { Character, GameMenuState, ItemStore } from "./types/gameTypes";
+import type { ActiveMission, Character, GameMenuState, ItemStore } from "./types/gameTypes";
 import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
+import { missionData } from "./features/missions/data/missionsData";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -30,11 +31,12 @@ export function createFallbackCharacter(): Character {
 }
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
-    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("inventory");
+    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
     const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
     const [activeItemId, setActiveItemId] = useState<number | null>(null);
     const [characterData, setCharacterData] = useState<Character | null>(null);
+    const [activeMission, setActiveMission] = useState<ActiveMission>(null);
 
     useEffect(() => {
         const loadedInventoryData = loadStorageData(STORAGE_KEY);
@@ -137,6 +139,36 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     const characterProgress = CalculateCharacterXp({ characterData });
 
+    /*
+    =================
+    MISSIONS
+    =================
+    */
+
+    const startMission = (missionId: string) => {
+        if (activeMission) {
+            return;
+        }
+        const missionDefinition = missionData.find((mission) => mission.id === missionId);
+
+        if (!missionDefinition) {
+            return;
+        }
+        const missionStartTime = Date.now();
+        const durationSeconds = missionDefinition.duration;
+
+        const currentMissionData: ActiveMission = {
+            missionId: missionId,
+            startedAt: missionStartTime,
+            durationMs: durationSeconds * 1000,
+            claimed: false,
+        };
+
+        setActiveMission(currentMissionData);
+    };
+
+    console.log(activeMission);
+
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
         inventory: (
@@ -150,7 +182,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 unequipItem={unequipSelectedItem}
             />
         ),
-        missions: <Missions />,
+        missions: <Missions startMission={startMission} />,
         garden: <Garden />,
         shop: <Shop />,
         character: (

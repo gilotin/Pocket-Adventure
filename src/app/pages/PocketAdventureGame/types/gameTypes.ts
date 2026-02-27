@@ -102,3 +102,10 @@ export type MissionReward = {
 };
 
 export type ItemRewards = ("armor" | "helm" | "gloves" | "boots")[];
+
+export type ActiveMission = {
+    missionId: string;
+    startedAt: number;
+    durationMs: number;
+    claimed: boolean;
+} | null;

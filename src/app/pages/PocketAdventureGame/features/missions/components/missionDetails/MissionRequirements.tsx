@@ -1,6 +1,10 @@
-import type { MissionDetailsProps } from "./MissionDetails";
+import type { Mission } from "../../../../types/gameTypes";
 
-export function MissionRequirements({ currentMission }: MissionDetailsProps) {
+type MissionRequirements = {
+    currentMission: Mission;
+};
+
+export function MissionRequirements({ currentMission }: MissionRequirements) {
     if (!currentMission) {
         return null;
     }
