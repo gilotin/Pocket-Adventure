@@ -15,6 +15,7 @@ import type { ActiveMission, Character, GameMenuState, ItemStore } from "./types
 import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
 import { missionData } from "./features/missions/data/missionsData";
+import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -208,6 +209,12 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 {gameNavigation && featureMap[gameNavigation]}
             </div>
             {showDetailsCard && <DetailsCard activeItem={activeItem} />}
+            {activeMission && (
+                <MissionProgressionModal
+                    abandonMission={abandonMission}
+                    activeMission={activeMission}
+                />
+            )}
         </>
     );
 }

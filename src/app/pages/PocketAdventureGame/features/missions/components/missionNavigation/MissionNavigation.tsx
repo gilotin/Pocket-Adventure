@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { missionData } from "../../data/missionsData";
 import styles from "./MissionNavigation.module.css";
-import type { ActiveMission, Mission } from "../../../../types/gameTypes";
+import type { Mission } from "../../../../types/gameTypes";
 import { MissionDetails } from "../missionDetails/MissionDetails";
 
 type MissionNavigationProps = {
