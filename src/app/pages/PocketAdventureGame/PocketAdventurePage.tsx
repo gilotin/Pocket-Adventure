@@ -157,18 +157,42 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         }
         const missionStartTime = Date.now();
         const durationSeconds = missionDefinition.duration;
+        const missionRewards = missionDefinition.rewards;
 
-        const currentMissionData: ActiveMission = {
+        const currentActiveMissionData: ActiveMission = {
             missionId: missionId,
+            rewards: missionRewards,
             startedAt: missionStartTime,
             durationMs: durationSeconds * 1000,
-            claimed: false,
         };
 
-        setActiveMission(currentMissionData);
+        setActiveMission(currentActiveMissionData);
     };
 
     const abandonMission = () => {
+        setActiveMission(null);
+    };
+
+    const collectRewards = (missionId: string) => {
+        const missionDefinition = missionData.find((mission) => mission.id === missionId);
+        if (!missionDefinition) {
+            return;
+        }
+
+        setCharacterData((prev) => {
+            if (!prev) {
+                return prev;
+            } else {
+                const updated = {
+                    ...prev,
+                    gold: prev.gold + missionDefinition.rewards.gold,
+                    totalExperience: prev.totalExperience + missionDefinition.rewards.xp,
+                };
+                localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
+                return updated;
+            }
+        });
+        setGameNavigation("character");
         setActiveMission(null);
     };
 
@@ -213,6 +237,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 <MissionProgressionModal
                     abandonMission={abandonMission}
                     activeMission={activeMission}
+                    collectRewards={collectRewards}
                 />
             )}
         </>

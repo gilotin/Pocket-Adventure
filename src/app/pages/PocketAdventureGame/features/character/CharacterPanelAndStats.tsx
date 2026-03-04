@@ -56,6 +56,7 @@ export function CharacterPanelAndStats({
             <div>
                 <h3>{characterData?.name}</h3>
                 <p>level:{characterProgress?.level}</p>
+                <p>CurrentXp: {characterData.totalExperience}</p>
                 {/* NODE: LAVING IT AS IT IS BEFORE DECIDE WHAT TO TO WITH IT  */}
                 {/* <p>XP:{characterData?.totalExperience}xp</p> */}
                 <p>Gold:{characterData?.gold}</p>
