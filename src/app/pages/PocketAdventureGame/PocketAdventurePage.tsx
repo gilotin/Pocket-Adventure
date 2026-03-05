@@ -43,16 +43,16 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         const loadedInventoryData = loadStorageData(STORAGE_KEY);
         setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
 
-        const loadCharacterData = loadStorageData(CHARACTER_KEY);
+        const storedCharacterData = loadStorageData(CHARACTER_KEY);
 
-        if (!loadCharacterData) {
+        if (!storedCharacterData) {
             const fallBackCharacter = createFallbackCharacter();
             localStorage.setItem(CHARACTER_KEY, JSON.stringify(fallBackCharacter));
             setCharacterData(fallBackCharacter);
             return;
         }
 
-        setCharacterData(loadCharacterData);
+        setCharacterData(storedCharacterData);
     }, []);
 
     if (!characterData) return null;

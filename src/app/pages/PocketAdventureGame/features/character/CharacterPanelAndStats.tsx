@@ -68,11 +68,11 @@ export function CharacterPanelAndStats({
             <div>
                 <p>Stats:</p>
                 <p>HP:100</p>
-                <p>Attack:{calculatedEquipmentStats?.attack ?? "0"}</p>
-                <p>Armor:{calculatedEquipmentStats?.armor ?? "0"}</p>
-                <p>Ele. protection:{calculatedEquipmentStats?.elementalProtection ?? "0"}</p>
-                <p>Recovery:{calculatedEquipmentStats?.recovery ?? "0"}</p>
-                <p>Drop Chance:{calculatedEquipmentStats?.dropChance ?? "0"}</p>
+                <p>Attack:{calculatedEquipmentStats.attack}</p>
+                <p>Armor:{calculatedEquipmentStats.armor}</p>
+                <p>Ele. protection:{calculatedEquipmentStats.elementalProtection}</p>
+                <p>Recovery:{calculatedEquipmentStats.recovery}</p>
+                <p>Drop Chance:{calculatedEquipmentStats.dropChance}</p>
             </div>
         </section>
     );
