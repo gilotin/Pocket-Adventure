@@ -16,6 +16,7 @@ import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
 import { missionData } from "./features/missions/data/missionsData";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
+import { MISSION_KEY } from "./constants/gameConstants";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -44,12 +45,20 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
 
         const storedCharacterData = loadStorageData(CHARACTER_KEY);
+        const loadedMission = loadStorageData(MISSION_KEY);
 
         if (!storedCharacterData) {
             const fallBackCharacter = createFallbackCharacter();
             localStorage.setItem(CHARACTER_KEY, JSON.stringify(fallBackCharacter));
             setCharacterData(fallBackCharacter);
+
             return;
+        }
+
+        if (!loadedMission) {
+            return setActiveMission(null);
+        } else {
+            setActiveMission(loadedMission);
         }
 
         setCharacterData(storedCharacterData);
@@ -166,10 +175,12 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             durationMs: durationSeconds * 1000,
         };
 
+        localStorage.setItem(MISSION_KEY, JSON.stringify(currentActiveMissionData));
         setActiveMission(currentActiveMissionData);
     };
 
     const abandonMission = () => {
+        localStorage.removeItem(MISSION_KEY);
         setActiveMission(null);
     };
 
@@ -188,7 +199,9 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                     gold: prev.gold + missionDefinition.rewards.gold,
                     totalExperience: prev.totalExperience + missionDefinition.rewards.xp,
                 };
+
                 localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
+                localStorage.removeItem(MISSION_KEY);
                 return updated;
             }
         });

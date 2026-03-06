@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ActiveMission } from "../../../types/gameTypes";
 import styles from "./MissionProgressionModal.module.css";
-import { formatTime } from "../../../../../../utils/formatTime";
+import { formatTime } from "../../../utils/formatTime";
 
 type MissionProgressionModalProps = {
     abandonMission: () => void;

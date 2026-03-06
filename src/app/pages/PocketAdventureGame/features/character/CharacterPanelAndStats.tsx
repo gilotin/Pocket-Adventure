@@ -32,8 +32,6 @@ export function CharacterPanelAndStats({
         handleActiveItemState(null);
     };
 
-    console.log(characterProgress);
-
     const filteredEquippedItems = inventoryItems.filter((item) => item.isEquipped === true);
     const equippedItemsBySlot = filteredEquippedItems.map((item) => {
         // this is placeholder will be changed with ItemCard
