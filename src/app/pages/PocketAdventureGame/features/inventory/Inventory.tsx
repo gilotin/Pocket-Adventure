@@ -60,7 +60,6 @@ export function Inventory({
     return (
         <>
             <section className={styles.inventoryWrapper}>
-                <h3 className={styles.inventoryHeader}>Inventory Bag</h3>
                 {inventorySpace.length > 0 ? (
                     <div className={styles.inventorySpace}>{inventorySpace}</div>
                 ) : (

@@ -1,14 +1,12 @@
 import type React from "react";
 import styles from "../register//Register.module.css";
 import type { AuthMode, Character } from "../../types/gameTypes";
+import { ACCOUNT_KEY, CHARACTER_KEY } from "../../constants/gameConstants";
 
 type RegisterProps = {
     setAuthMode: (value: AuthMode) => void;
     setAuthError: (value: string | null) => void;
 };
-
-export const ACCOUNT_KEY = "accountData";
-export const CHARACTER_KEY = "characterData";
 
 export function Register({ setAuthMode, setAuthError }: RegisterProps) {
     const handleAuthNavigation = () => {
@@ -151,3 +149,4 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
         </>
     );
 }
+export { CHARACTER_KEY };

@@ -1,0 +1,11 @@
+.gamePanelWrapper {
+    height: 20rem;
+    overflow-y: auto;
+}
+
+.header {
+    font-family: var(--font-heading);
+    text-align: center;
+    padding: 1rem;
+    text-transform: uppercase;
+}

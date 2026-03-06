@@ -1,15 +1,15 @@
 import type { ItemStore } from "../types/gameTypes";
 
-export function loadStorageData(storageKey: string) {
+export function loadStorageData<T>(storageKey: string, fallback: T): T {
     const rawData = localStorage.getItem(storageKey);
     if (!rawData) {
-        return [];
+        return fallback;
     }
 
     try {
         return JSON.parse(rawData);
     } catch {
-        return [];
+        return fallback;
     }
 }
 
@@ -18,7 +18,7 @@ export function saveItems(storageKey: string, items: ItemStore) {
 }
 
 export function deleteItem(storageKey: string, itemId: number) {
-    const itemDataArray = loadStorageData(storageKey);
+    const itemDataArray = loadStorageData<ItemStore>(storageKey, []);
 
     const updatedArray = itemDataArray.filter((item: { itemId: number }) => {
         return item.itemId !== itemId;

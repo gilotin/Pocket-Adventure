@@ -7,13 +7,16 @@ import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
+import { CHARACTER_KEY } from "./auth/register/Register";
 import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
-import { CHARACTER_KEY } from "./auth/register/Register";
-import type { Character, GameMenuState, ItemStore } from "./types/gameTypes";
+import type { ActiveMission, Character, GameMenuState, ItemStore } from "./types/gameTypes";
 import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
+import { missionData } from "./features/missions/data/missionsData";
+import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
+import { MISSION_KEY } from "./constants/gameConstants";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -30,26 +33,34 @@ export function createFallbackCharacter(): Character {
 }
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
-    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("inventory");
+    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
     const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
     const [activeItemId, setActiveItemId] = useState<number | null>(null);
     const [characterData, setCharacterData] = useState<Character | null>(null);
+    const [activeMission, setActiveMission] = useState<ActiveMission>(null);
 
     useEffect(() => {
-        const loadedInventoryData = loadStorageData(STORAGE_KEY);
+        const loadedInventoryData = loadStorageData<ItemStore | []>(STORAGE_KEY, []);
         setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
 
-        const loadCharacterData = loadStorageData(CHARACTER_KEY);
+        const storedCharacterData = loadStorageData<Character | null>(CHARACTER_KEY, null);
 
-        if (!loadCharacterData) {
+        const storedMission = loadStorageData<ActiveMission | null>(MISSION_KEY, null);
+
+        if (!storedCharacterData) {
             const fallBackCharacter = createFallbackCharacter();
             localStorage.setItem(CHARACTER_KEY, JSON.stringify(fallBackCharacter));
             setCharacterData(fallBackCharacter);
-            return;
+        } else {
+            setCharacterData(storedCharacterData);
         }
 
-        setCharacterData(loadCharacterData);
+        if (!storedMission) {
+            setActiveMission(null);
+        } else {
+            setActiveMission(storedMission);
+        }
     }, []);
 
     if (!characterData) return null;
@@ -58,7 +69,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     const handleDeleteItem = (itemId: number) => {
         deleteItem(STORAGE_KEY, itemId);
-        setInventoryItems(loadStorageData(STORAGE_KEY));
+        setInventoryItems(loadStorageData(STORAGE_KEY, []));
 
         setActiveItemId(null);
         setShowDetailsCard(false);
@@ -136,7 +147,66 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
     const characterProgress = CalculateCharacterXp({ characterData });
-    console.log(characterProgress);
+
+    /*
+    =================
+    MISSIONS
+    =================
+    */
+
+    const startMission = (missionId: string) => {
+        if (activeMission) {
+            return;
+        }
+        const missionDefinition = missionData.find((mission) => mission.id === missionId);
+
+        if (!missionDefinition) {
+            return;
+        }
+        const missionStartTime = Date.now();
+        const durationSeconds = missionDefinition.duration;
+        const missionRewards = missionDefinition.rewards;
+
+        const currentActiveMissionData: ActiveMission = {
+            missionId: missionId,
+            rewards: missionRewards,
+            startedAt: missionStartTime,
+            durationMs: durationSeconds * 1000,
+        };
+
+        localStorage.setItem(MISSION_KEY, JSON.stringify(currentActiveMissionData));
+        setActiveMission(currentActiveMissionData);
+    };
+
+    const abandonMission = () => {
+        localStorage.removeItem(MISSION_KEY);
+        setActiveMission(null);
+    };
+
+    const collectRewards = (missionId: string) => {
+        const missionDefinition = missionData.find((mission) => mission.id === missionId);
+        if (!missionDefinition) {
+            return;
+        }
+
+        setCharacterData((prev) => {
+            if (!prev) {
+                return prev;
+            } else {
+                const updated = {
+                    ...prev,
+                    gold: prev.gold + missionDefinition.rewards.gold,
+                    totalExperience: prev.totalExperience + missionDefinition.rewards.xp,
+                };
+
+                localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
+                localStorage.removeItem(MISSION_KEY);
+                return updated;
+            }
+        });
+        setGameNavigation("character");
+        setActiveMission(null);
+    };
 
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
@@ -151,7 +221,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 unequipItem={unequipSelectedItem}
             />
         ),
-        missions: <Missions />,
+        missions: <Missions startMission={startMission} />,
         garden: <Garden />,
         shop: <Shop />,
         character: (
@@ -170,10 +240,18 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         <>
             <GameNavigation setGameNavigation={setGameNavigation} gameNavigation={gameNavigation} />
 
-            <section className={styles.gamePanelSection}>
+            <div className={styles.gamePanelWrapper}>
+                <h1 className={styles.header}>{gameNavigation}</h1>
                 {gameNavigation && featureMap[gameNavigation]}
-            </section>
+            </div>
             {showDetailsCard && <DetailsCard activeItem={activeItem} />}
+            {activeMission && (
+                <MissionProgressionModal
+                    abandonMission={abandonMission}
+                    activeMission={activeMission}
+                    collectRewards={collectRewards}
+                />
+            )}
         </>
     );
 }

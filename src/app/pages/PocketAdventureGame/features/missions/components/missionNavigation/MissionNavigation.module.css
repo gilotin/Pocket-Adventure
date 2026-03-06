@@ -1,0 +1,32 @@
+.missionWrapper {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 200px 200px 1fr;
+    gap: 1rem;
+}
+
+.menuSelect {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    gap: .4rem;
+}
+
+.menuSelect>button:focus,
+.menuList>li>button:focus {
+    color: white;
+    background-color: black;
+}
+
+.menuList {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0;
+    text-align: center;
+}
+
+.missionListBtn {
+    width: stretch;
+}

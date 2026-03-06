@@ -32,8 +32,6 @@ export function CharacterPanelAndStats({
         handleActiveItemState(null);
     };
 
-    console.log(characterProgress);
-
     const filteredEquippedItems = inventoryItems.filter((item) => item.isEquipped === true);
     const equippedItemsBySlot = filteredEquippedItems.map((item) => {
         // this is placeholder will be changed with ItemCard
@@ -56,6 +54,7 @@ export function CharacterPanelAndStats({
             <div>
                 <h3>{characterData?.name}</h3>
                 <p>level:{characterProgress?.level}</p>
+                <p>CurrentXp: {characterData.totalExperience}</p>
                 {/* NODE: LAVING IT AS IT IS BEFORE DECIDE WHAT TO TO WITH IT  */}
                 {/* <p>XP:{characterData?.totalExperience}xp</p> */}
                 <p>Gold:{characterData?.gold}</p>
@@ -67,11 +66,11 @@ export function CharacterPanelAndStats({
             <div>
                 <p>Stats:</p>
                 <p>HP:100</p>
-                <p>Attack:{calculatedEquipmentStats?.attack ?? "0"}</p>
-                <p>Armor:{calculatedEquipmentStats?.armor ?? "0"}</p>
-                <p>Ele. protection:{calculatedEquipmentStats?.elementalProtection ?? "0"}</p>
-                <p>Recovery:{calculatedEquipmentStats?.recovery ?? "0"}</p>
-                <p>Drop Chance:{calculatedEquipmentStats?.dropChance ?? "0"}</p>
+                <p>Attack:{calculatedEquipmentStats.attack}</p>
+                <p>Armor:{calculatedEquipmentStats.armor}</p>
+                <p>Ele. protection:{calculatedEquipmentStats.elementalProtection}</p>
+                <p>Recovery:{calculatedEquipmentStats.recovery}</p>
+                <p>Drop Chance:{calculatedEquipmentStats.dropChance}</p>
             </div>
         </section>
     );
