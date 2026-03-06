@@ -41,11 +41,12 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [activeMission, setActiveMission] = useState<ActiveMission>(null);
 
     useEffect(() => {
-        const loadedInventoryData = loadStorageData(STORAGE_KEY);
+        const loadedInventoryData = loadStorageData<ItemStore | []>(STORAGE_KEY, []);
         setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
 
-        const storedCharacterData = loadStorageData(CHARACTER_KEY);
-        const loadedMission = loadStorageData(MISSION_KEY);
+        const storedCharacterData = loadStorageData<Character | null>(CHARACTER_KEY, null);
+
+        const storedMission = loadStorageData<ActiveMission | null>(MISSION_KEY, null);
 
         if (!storedCharacterData) {
             const fallBackCharacter = createFallbackCharacter();
@@ -55,10 +56,10 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             setCharacterData(storedCharacterData);
         }
 
-        if (!loadedMission) {
+        if (!storedMission) {
             setActiveMission(null);
         } else {
-            setActiveMission(loadedMission);
+            setActiveMission(storedMission);
         }
     }, []);
 
@@ -68,7 +69,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     const handleDeleteItem = (itemId: number) => {
         deleteItem(STORAGE_KEY, itemId);
-        setInventoryItems(loadStorageData(STORAGE_KEY));
+        setInventoryItems(loadStorageData(STORAGE_KEY, []));
 
         setActiveItemId(null);
         setShowDetailsCard(false);

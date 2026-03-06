@@ -43,7 +43,6 @@ export function MissionProgressionModal({
     const handleRewardsBtn = (missionId: string) => {
         collectRewards(missionId);
     };
-
     return (
         <section className={styles.missionModalWrapper}>
             <h1>Mission progress</h1>
