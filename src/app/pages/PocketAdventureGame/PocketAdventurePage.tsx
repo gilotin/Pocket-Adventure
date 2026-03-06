@@ -51,17 +51,15 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             const fallBackCharacter = createFallbackCharacter();
             localStorage.setItem(CHARACTER_KEY, JSON.stringify(fallBackCharacter));
             setCharacterData(fallBackCharacter);
-
-            return;
+        } else {
+            setCharacterData(storedCharacterData);
         }
 
         if (!loadedMission) {
-            return setActiveMission(null);
+            setActiveMission(null);
         } else {
             setActiveMission(loadedMission);
         }
-
-        setCharacterData(storedCharacterData);
     }, []);
 
     if (!characterData) return null;
