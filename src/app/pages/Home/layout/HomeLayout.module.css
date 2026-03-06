@@ -6,7 +6,7 @@
 
 .appWrapper {
     display: grid;
-    grid-template-columns: 1fr 15rem;
+    grid-template-columns: 1fr 10rem;
     grid-template-rows: 1fr auto;
     grid-template-areas: "main sidebar"
         "main  sidebar"
@@ -14,10 +14,10 @@
     ;
     padding: 3rem 2rem;
 
-    max-width: 75rem;
-    width: 80%;
+    max-width: 80rem;
+    width: 90%;
     margin: auto;
-
+    gap: 2rem;
 }
 
 .sidebar {

@@ -1,7 +1,6 @@
-// import { useState } from "react";
 // import { DetailsModal } from "../../app/pages/Home/components/detailsModal/DetailsModal";
-import { Navigation } from "../ui/navigation/Navigation";
-import styles from "./MainLayout.module.css";
+import { Navigation } from "../components/navigation/Navigation";
+import styles from "./HomeLayout.module.css";
 import { Outlet } from "react-router";
 
 export function MainLayout() {
