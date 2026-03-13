@@ -1,60 +1,88 @@
-/* those are for testing */
+/* Layout background (testing / page base) */
 .layoutBackground {
-    background-color: var(--frozen-water);
-    min-height: 100vh;
+    background-color: var(--color-frozen-water);
+    /* min-height: 100vh; */
+    padding: var(--space-lg)
 }
 
+
+/* Main application grid */
 .appWrapper {
-    display: grid;
-    grid-template-columns: 1fr 10rem;
-    grid-template-rows: 1fr auto;
-    grid-template-areas: "main sidebar"
-        "main  sidebar"
-        "footer footer";
-    ;
-    padding: 3rem 2rem;
+    min-height: 100vh;
 
-    max-width: 80rem;
-    width: 90%;
-    margin: auto;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr auto;
+
+    grid-template-areas:
+        "main sidebar"
+        "footer footer";
+
+    padding: var(--space-sm) var(--space-lg);
 }
 
+
+/* Sidebar navigation */
 .sidebar {
     grid-area: sidebar;
-    border-right: 1px solid var(--twilight-indigo);
     color: var(--jet-black);
     text-align: end;
-    right: 5rem;
-    padding-right: 1rem;
     text-transform: uppercase;
-
-
+    align-self: start;
 }
 
+
+/* Main content */
 .main {
     grid-area: main;
     padding: var(--space-lg);
     color: var(--jet-black);
-
-    margin-left: 2rem;
 }
 
 
-
+/* Footer */
 .footer {
     grid-area: footer;
+
     padding: var(--space-md);
     text-align: center;
     color: var(--color-text);
 }
 
 
+/* Navigation icons */
+.navIcons {
+    display: flex;
+    justify-content: flex-end;
+
+    list-style: none;
+    gap: var(--space-md);
+
+    margin-right: var(--space-xl);
+}
+
+
+/* Font Awesome SVG icons */
+.navIcons svg {
+    width: var(--font-size-2xl);
+    height: var(--font-size-2xl);
+
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.navIcons svg:hover {
+    transform: scale(1.15);
+}
+
+
+/* Modal / overlay backdrop */
 .backdrop {
     position: fixed;
     inset: 0;
+
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(6px);
+
     z-index: 9998;
-    scroll-behavior: disabled;
 }
