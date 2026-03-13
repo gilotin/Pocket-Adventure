@@ -2,8 +2,7 @@
     /* Font families */
     --font-ui: "Inter", system-ui, sans-serif;
     --font-heading: "Space Grotesk", sans-serif;
-    --font-body: "PT Serif", serif;
-    --font-pixel: "Pixelify Sans", sans-serif;
+    --font-jb-mono: "JetBrains Mono", sans-serif;
 
     /* Font weights */
     --weight-regular: 400;
@@ -18,6 +17,8 @@
     --space-lg: 1.5rem;
     --space-xl: 2rem;
     --space-2xl: 3rem;
+    --space-3xl: 5rem;
+    --space-4xl: 8rem;
 
     /* radius */
     --radius-sm: 4px;
@@ -48,8 +49,8 @@
     --font-size-2xl: 1.75rem;
     /* 28px - H2 */
     --font-size-3xl: 2.25rem;
-    /* 36px - H1 */
 
+    --font-size-4xl: 5rem;
     /* Line heights */
     --lh-tight: 1.2;
     --lh-normal: 1.5;
@@ -58,13 +59,13 @@
     /* Color palette */
 
     /* Ocean serenity */
-    --shadow-grey: #161925ff;
-    --jet-black: #022b3aff;
-    --twilight-indigo: #23395bff;
-    --teal: #1f7a8cff;
-    --rich-cerulean: #406e8eff;
-    --powder-blue: #8ea8c3ff;
-    --frozen-water: #cbf7edff;
+    --color-shadow-grey: #161925ff;
+    --color-jet-black: #022b3aff;
+    --color-twilight-indigo: #23395bff;
+    --color-teal: #1f7a8cff;
+    --color-rich-cerulean: #406e8eff;
+    --color-powder-blue: #8ea8c3ff;
+    --color-frozen-water: #cbf7edff;
 
 
     /* Game related */
