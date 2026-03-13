@@ -73,6 +73,6 @@
 }
 
 .linkButton:hover {
-    color: var(--color-jet-black);
     background-color: #ffff;
+    color: var(--color-jet-black);
 }

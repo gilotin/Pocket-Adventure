@@ -88,10 +88,40 @@ export function HomePage() {
 
             <section id="contacts" className={styles.section}>
                 <div className={styles.sectionHeader}>
-                    <span className={styles.sectionNumber}>01</span>
+                    <span className={styles.sectionNumber}>05</span>
                     <h2 className={styles.header}>Contacts</h2>
                 </div>
-                <p>here I'll share my contact info</p>
+                <div className={styles.contacts}>
+                    <p>You can contact me on:</p>
+                    <ul className={styles.navIcons}>
+                        <li>
+                            <a
+                                href="https://www.linkedin.com/in/nikolay-m-toshev/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <i className="fa-brands fa-linkedin"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com/gilotin"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <i className="fa-brands fa-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="mailto:toshevnikolay@gmail.com?subject=Portfolio Contact"
+                                aria-label="Send email"
+                            >
+                                <i className="fa-solid fa-envelope"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </section>
         </div>
     );

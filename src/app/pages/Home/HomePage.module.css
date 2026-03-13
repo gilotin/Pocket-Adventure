@@ -60,3 +60,47 @@
     flex-wrap: wrap;
     gap: var(--space-md)
 }
+
+
+
+
+/* CONTACTS */
+
+.contacts {
+    display: flex;
+    align-items: baseline;
+}
+
+.navIcons {
+    display: flex;
+    justify-content: flex-end;
+
+    list-style: none;
+    gap: var(--space-md);
+
+    margin-right: var(--space-xl);
+}
+
+
+.navIcons svg {
+    width: var(--font-size-2xl);
+    height: var(--font-size-2xl);
+
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.navIcons svg:hover {
+    transform: scale(1.15);
+}
+
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+
+    z-index: 9998;
+}
