@@ -75,7 +75,7 @@ export function TestItemGenerator() {
             isEquipped: false,
         };
 
-        const currentItems = loadStorageData(STORAGE_KEY);
+        const currentItems = loadStorageData(STORAGE_KEY, []);
         const updatedItems = [...currentItems, newItem];
         saveItems(STORAGE_KEY, updatedItems);
     };

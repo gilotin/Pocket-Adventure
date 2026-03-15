@@ -1,4 +1,3 @@
-import styles from "./MissionDetails.module.css";
 import type { Mission } from "../../../../types/gameTypes";
 import { MissionRequirements } from "./MissionRequirements";
 import { MissionRewards } from "./MissionRewards";

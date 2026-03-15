@@ -15,7 +15,7 @@ export const projectData: ProjectData = [
         description:
             "A browser-based RPG application built with React and TypeScript that showcases structured state management, persistent client-side storage, and modular UI architecture through systems like missions, inventory management, and character progression.",
         repoUrl: "https://github.com/gilotin/Pocket-Adventure",
-        liveUrl: "",
+        liveUrl: "/game",
         technologies: ["React", "TypeScript", "CSS"],
         isFeatured: true,
     },
@@ -35,7 +35,7 @@ export const projectData: ProjectData = [
         description:
             "A Frontend Mentor challenge implementing an Age Calculator with JavaScript, featuring form validation, date calculations, and responsive UI.",
         repoUrl: "https://github.com/gilotin/Age-calculator-app",
-        liveUrl: "https://vercel.com/gilotins-projects/age-calculator-app",
+        liveUrl: "https://age-calculator-app-tan-chi.vercel.app/",
         technologies: ["JavaScript", "CSS", "HTML"],
         isFeatured: false,
     },
