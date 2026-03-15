@@ -1,45 +1,60 @@
-export type Project = {
+type ProjectData = {
     id: string;
     title: string;
-    description: string[];
-    image?: string;
-};
+    description: string;
+    repoUrl?: string;
+    liveUrl?: string;
+    technologies: string[];
+    isFeatured: boolean;
+}[];
 
-export type HomePageSection = {
-    title?: string;
-    image?: string;
-    text?: string[];
-    items?: Project[];
-};
-
-type HomePageData = Record<string, HomePageSection>;
-
-export const homePageData: HomePageData = {
-    hero: {
-        text: [
-            "Hi, my name is Nikolay Toshev, and I'm learning to become a web developer. I enjoy building projects and exploring modern web technologies, with a focus on React and TypeScript. I'm currently working on larger projects to improve my architecture, testing, and state-management skills.",
-        ],
+const projectData: ProjectData = [
+    {
+        id: "1",
+        title: "Pocket-Adventure",
+        description:
+            "A browser-based RPG application built with React and TypeScript that showcases structured state management, persistent client-side storage, and modular UI architecture through systems like missions, inventory management, and character progression.",
+        repoUrl: "https://github.com/gilotin/Pocket-Adventure",
+        liveUrl: "",
+        technologies: ["React", "TypeScript", "CSS"],
+        isFeatured: true,
     },
-    roadmap: {
-        text: [
-            "Currently I'm building my fist big project called",
-            "Pocket Adventure",
-            "you can find more about it on my",
-            "project section",
-        ],
+    {
+        id: "2",
+        title: "Practice-hub",
+        description:
+            "A collection of small experiments and exercises used to explore and practice different web technologies.",
+        repoUrl: "https://github.com/gilotin/Practice-hub",
+        liveUrl: "https://practice-hub-teal.vercel.app/",
+        technologies: ["React", "TypeScript", "CSS"],
+        isFeatured: false,
     },
-    projects: {
-        title: "Projects",
-        items: [
-            {
-                id: "pocket-adventure",
-                title: "Pocket Adventure",
-                description: [
-                    "Pocket Adventure is a small browser-based idle game.",
-                    "The goal is to send your character on quests and improve gear via crafting.",
-                ],
-                // image: "/images/pocket-adventure.png",
-            },
-        ],
+    {
+        id: "3",
+        title: "Age calculator",
+        description:
+            "A Frontend Mentor challenge implementing an Age Calculator with JavaScript, featuring form validation, date calculations, and responsive UI.",
+        repoUrl: "https://github.com/gilotin/Age-calculator-app",
+        liveUrl: "https://vercel.com/gilotins-projects/age-calculator-app",
+        technologies: ["JavaScript", "CSS", "HTML"],
+        isFeatured: false,
     },
-};
+    {
+        id: "4",
+        title: "Bento-Grid",
+        description: "A Frontend Mentor UI project, practicing grid layout.",
+        repoUrl: "https://github.com/gilotin/Bento-grid",
+        liveUrl: "https://bento-grid-sepia.vercel.app/",
+        technologies: ["JavaScript", "HTML", "CSS"],
+        isFeatured: false,
+    },
+    {
+        id: "5",
+        title: "Tansies game",
+        description: "A FreeCode Camp challenge taken from one of their React courses.",
+        repoUrl: "https://github.com/gilotin/Tenzies-react-practice",
+        liveUrl: "https://vercel.com/gilotins-projects/tenzies-react-practice",
+        technologies: ["React"],
+        isFeatured: false,
+    },
+];
