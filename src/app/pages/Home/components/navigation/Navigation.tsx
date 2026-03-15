@@ -5,16 +5,19 @@ export function Navigation() {
         <nav className={styles.navWrapper}>
             <ul className={styles.list}>
                 <li className={styles.item}>
-                    <a href="#">Home</a>
+                    <a href="#home">Home</a>
                 </li>
                 <li className={styles.item}>
-                    <a href="#roadmap">Roadmap</a>
+                    <a href="#about">About</a>
+                </li>
+                <li className={styles.item}>
+                    <a href="#feature">Featured Works</a>
                 </li>
                 <li className={styles.item}>
                     <a href="#projects">Projects</a>
                 </li>
                 <li className={styles.item}>
-                    <a href="#playground">Playground</a>
+                    <a href="#roadmap">Roadmap</a>
                 </li>
                 <li className={styles.item}>
                     <a href="#contacts">Contacts</a>

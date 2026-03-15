@@ -1,29 +1,41 @@
-import type { HomePageSection } from "../../staticHomeData";
+import type { ProjectData } from "../../staticData/staticHomeData";
 import styles from "./HomeCard.module.css";
 
-type HomeCardProps = {
-    section: HomePageSection;
-};
+type CardProps = { data: ProjectData };
 
-export default function HomeCard(props: HomeCardProps) {
-    if (!props.section.items) {
-        // will throw error or return a paragraph with some text.
-        return null;
-    }
-
-    const projectList = props.section.items.map((item) => {
+export default function HomeCard({ data }: CardProps) {
+    const cardList = data.map((card) => {
         return (
-            <>
-                <article className={styles.card}>
-                    <h3>{item.title}</h3>
-                    {item.image && (
-                        <img src={item.image} alt="some img as background of the project" />
-                    )}
-                    <p className={styles.description}>{item.description}</p>
-                </article>
-            </>
+            <article key={card.id} className={styles.cardWrapper}>
+                <h3 className={styles.header}>{card.title}</h3>
+                <p className={styles.description}>{card.description}</p>
+                <ul className={styles.technologies}>
+                    {card.technologies.map((technology) => {
+                        return <li key={technology}>{technology}</li>;
+                    })}
+                </ul>
+
+                <div className={styles.actions}>
+                    <a
+                        className={styles.linkButton}
+                        href={card.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        View source
+                    </a>
+                    <a
+                        className={styles.linkButton}
+                        href={card.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Live
+                    </a>
+                </div>
+            </article>
         );
     });
 
-    return <>{projectList}</>;
+    return cardList;
 }

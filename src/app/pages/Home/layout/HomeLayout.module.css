@@ -1,0 +1,50 @@
+/* Layout background (testing / page base) */
+.layoutBackground {
+    background-color: var(--color-frozen-water);
+    /* min-height: 100vh; */
+    padding: var(--space-lg)
+}
+
+
+/* Main application grid */
+.appWrapper {
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr auto;
+
+    grid-template-areas:
+        "main sidebar"
+        "footer footer";
+
+    padding: var(--space-sm) var(--space-lg);
+}
+
+
+/* Sidebar navigation */
+.sidebar {
+    grid-area: sidebar;
+    color: var(--jet-black);
+    text-align: end;
+    text-transform: uppercase;
+    align-self: start;
+}
+
+
+/* Main content */
+.main {
+    grid-area: main;
+    padding: var(--space-lg);
+    color: var(--jet-black);
+}
+
+
+/* Footer */
+.footer {
+    grid-area: footer;
+
+    padding: var(--space-md);
+    text-align: center;
+    color: var(--color-text);
+}
