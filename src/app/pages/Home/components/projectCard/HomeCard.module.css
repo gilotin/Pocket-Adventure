@@ -44,6 +44,7 @@
     gap: var(--space-sm);
     list-style: none;
     padding: 0;
+    flex-wrap: wrap;
 
     & li {
         border: var(--border-thin) solid var(--color-powder-blue);

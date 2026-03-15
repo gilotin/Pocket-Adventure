@@ -1,7 +1,12 @@
 import HomeCard from "./components/projectCard/HomeCard";
 import styles from "./HomePage.module.css";
+import { projectData } from "./staticData/staticHomeData";
 
 export function HomePage() {
+    const featuredProjects = projectData.filter((project) => project.isFeatured === true);
+
+    const otherProjects = projectData.filter((projects) => projects.isFeatured !== true);
+
     return (
         <div className={styles.homePage}>
             <header id="home" className={styles.heroWrapper}>
@@ -46,8 +51,7 @@ export function HomePage() {
                         <h2 className={styles.header}>Featured Works</h2>
                     </div>
                     <div className={styles.cardWrapper}>
-                        <HomeCard />
-                        <HomeCard />
+                        <HomeCard data={featuredProjects} />
                     </div>
                 </div>
             </section>
@@ -59,10 +63,7 @@ export function HomePage() {
                         <h2 className={styles.header}>Other Projects</h2>
                     </div>
                     <div className={styles.cardWrapper}>
-                        <HomeCard />
-                        <HomeCard />
-                        <HomeCard />
-                        <HomeCard />
+                        <HomeCard data={otherProjects} />
                     </div>
                 </div>
             </section>

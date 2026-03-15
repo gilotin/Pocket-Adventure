@@ -1,4 +1,4 @@
-type ProjectData = {
+export type ProjectData = {
     id: string;
     title: string;
     description: string;
@@ -8,7 +8,7 @@ type ProjectData = {
     isFeatured: boolean;
 }[];
 
-const projectData: ProjectData = [
+export const projectData: ProjectData = [
     {
         id: "1",
         title: "Pocket-Adventure",
@@ -53,7 +53,7 @@ const projectData: ProjectData = [
         title: "Tansies game",
         description: "A FreeCode Camp challenge taken from one of their React courses.",
         repoUrl: "https://github.com/gilotin/Tenzies-react-practice",
-        liveUrl: "https://vercel.com/gilotins-projects/tenzies-react-practice",
+        liveUrl: "https://tenzies-react-practice.vercel.app/",
         technologies: ["React"],
         isFeatured: false,
     },
