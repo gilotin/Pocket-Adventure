@@ -2,15 +2,24 @@
     border-radius: var(--radius-lg);
     border: var(--border-thin) solid var(--color-powder-blue);
     padding: var(--space-md) var(--space-xl);
-    transition: all ease-in-out 0.3s;
-    width: calc(50% - var(--space-sm));
+    transition: transform 0.3s ease-in-out;
+    width: 19.5rem;
+    min-height: 24rem;
+
+}
+
+@container (min-width: 312px) {
+    .cardWrapper {
+        width: calc(50% - var(--space-md));
+        min-width: 16rem;
+    }
 }
 
 .cardWrapper:hover {
     background-color: #ffff;
-    border: var(--border-medium) solid var(--color-rich-cerulean);
+    outline: var(--border-medium) solid var(--color-rich-cerulean);
     box-shadow: var(--shadow-md);
-    transform: scale(1.05);
+    transform: scale(1.02);
 
     & .technologies li {
         border: var(--border-thin) solid var(--color-jet-black);
@@ -29,10 +38,10 @@
 
 .description {
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     color: var(--color-powder-blue);
     display: -webkit-box;
-    line-clamp: 4;
+    line-clamp: 5;
     margin-block: var(--space-md);
     overflow: hidden;
 }

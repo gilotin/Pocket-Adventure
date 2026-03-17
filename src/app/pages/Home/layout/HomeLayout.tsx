@@ -1,5 +1,6 @@
 // import { DetailsModal } from "../../app/pages/Home/components/detailsModal/DetailsModal";
-import { Navigation } from "../components/navigation/Navigation";
+import { DesktopNav } from "../components/navigation/desktopNav/DesktopNav";
+import { MobileNav } from "../components/navigation/mobileNav/MobileNav";
 import styles from "./HomeLayout.module.css";
 import { Outlet } from "react-router";
 
@@ -8,26 +9,13 @@ export function MainLayout() {
 
     return (
         <div className={styles.layoutBackground}>
-            {/* <nav className={styles.connectionNav}>
-                <ul className={styles.navIcons}>
-                    <li>
-                        <a
-                            href="https://www.linkedin.com/in/nikolay-m-toshev/"
-                            target="_blank"
-                            rel="nofollow"
-                        >
-                            <i className="fa-brands fa-linkedin"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/gilotin" target="_blank" rel="nofollow">
-                            <i className="fa-brands fa-github"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav> */}
             <div className={styles.appWrapper}>
-                <aside>{<Navigation />}</aside>
+                <aside className={styles.desktopNav}>
+                    <DesktopNav />
+                </aside>
+                <aside className={styles.mobileNav}>
+                    <MobileNav />
+                </aside>
                 <main className={styles.main}>
                     <Outlet />
                 </main>

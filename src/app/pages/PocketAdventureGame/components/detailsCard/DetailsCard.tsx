@@ -22,7 +22,7 @@ export function DetailsCard({ activeItem }: FilterItemDataProps) {
                 {activeItem?.stats && (
                     <div className={styles.stats}>
                         <p>ATT:{activeItem?.stats?.attack}</p>
-                        <p>Armor:{activeItem?.stats?.armor}2</p>
+                        <p>Armor:{activeItem?.stats?.armor}</p>
                         <p>Elemental Protection:{activeItem?.stats?.elementalProtection}</p>
                         <p>Recovery: {activeItem?.stats?.recovery}</p>
                         <p>Drop chance: {activeItem?.stats?.dropChance}</p>

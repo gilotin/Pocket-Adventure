@@ -4,7 +4,7 @@
 .stats,
 .description,
 .flavorText {
-    color: var(--powder-blue);
+    color: var(--color-powder-blue);
 }
 
 
@@ -13,11 +13,10 @@
     top: 0;
     right: 0;
     z-index: 99;
-    background-color: var(--twilight-indigo);
+    background-color: var(--color-twilight-indigo);
     max-width: 20rem;
-    height: 22rem;
     padding: 1rem 2rem;
-    border: 5px solid var(--powder-blue);
+    border: 5px solid var(--color-powder-blue);
     border-radius: 0.6rem;
 
 }

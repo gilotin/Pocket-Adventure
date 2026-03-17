@@ -6,7 +6,7 @@ export function HomePage() {
     const featuredProjects = projectData.filter((project) => project.isFeatured === true);
 
     const otherProjects = projectData.filter((projects) => projects.isFeatured !== true);
-
+    // To move the maps here not in the child
     return (
         <div className={styles.homePage}>
             <header id="home" className={styles.heroWrapper}>
@@ -50,7 +50,7 @@ export function HomePage() {
                         <span className={styles.sectionNumber}>02</span>
                         <h2 className={styles.header}>Featured Works</h2>
                     </div>
-                    <div className={styles.cardWrapper}>
+                    <div className={styles.cardContainer}>
                         <HomeCard data={featuredProjects} />
                     </div>
                 </div>
@@ -62,7 +62,7 @@ export function HomePage() {
                         <span className={styles.sectionNumber}>03</span>
                         <h2 className={styles.header}>Other Projects</h2>
                     </div>
-                    <div className={styles.cardWrapper}>
+                    <div className={styles.cardContainer}>
                         <HomeCard data={otherProjects} />
                     </div>
                 </div>

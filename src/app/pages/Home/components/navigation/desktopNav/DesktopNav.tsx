@@ -1,6 +1,6 @@
-import styles from "./Navigation.module.css";
+import styles from "./DesktopNav.module.css";
 
-export function Navigation() {
+export function DesktopNav() {
     return (
         <nav className={styles.navWrapper}>
             <ul className={styles.list}>

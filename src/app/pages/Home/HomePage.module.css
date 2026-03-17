@@ -54,12 +54,19 @@
     font-size: var(--font-size-lg);
 }
 
-.cardWrapper {
+
+
+
+.cardContainer {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: var(--space-md)
+    gap: var(--space-md);
+    container-type: inline-size;
 }
+
+
+
 
 
 
