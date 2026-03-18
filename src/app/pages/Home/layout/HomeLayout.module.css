@@ -1,7 +1,5 @@
 .layoutBackground {
     background-color: var(--color-frozen-water);
-    /* min-height: 100vh; */
-    padding: var(--space-lg)
 }
 
 
@@ -25,8 +23,16 @@
 .main {
     grid-area: main;
     padding: var(--space-lg);
+    padding-left: clamp(var(--space-lg), 4.5vw, var(--space-2xl));
     color: var(--jet-black);
 }
+
+
+.navigation {
+    grid-area: sidebar;
+}
+
+
 
 
 /* Footer */
@@ -40,16 +46,15 @@
 
 @media (max-width: 768px) {
 
+
     .appWrapper {
         display: flex;
-        padding: auto;
     }
 
-    .desktopNav {
-        display: none;
+    .main {
+        padding: 0;
+        margin: auto;
     }
 
-    .mobileNav {
-        display: block;
-    }
+
 }

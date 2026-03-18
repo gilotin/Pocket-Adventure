@@ -1,34 +1,33 @@
-// import { DetailsModal } from "../../app/pages/Home/components/detailsModal/DetailsModal";
-import { DesktopNav } from "../components/navigation/desktopNav/DesktopNav";
-import { MobileNav } from "../components/navigation/mobileNav/MobileNav";
+import { useEffect, useState } from "react";
+import { Navigation } from "../components/navigation/Navigation";
 import styles from "./HomeLayout.module.css";
 import { Outlet } from "react-router";
 
 export function MainLayout() {
-    // const [isModalActive, setIsModalActive] = useState(false);
+    const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 786) {
+                setIsNavOpen(false);
+            }
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    });
 
     return (
         <div className={styles.layoutBackground}>
             <div className={styles.appWrapper}>
-                <aside className={styles.desktopNav}>
-                    <DesktopNav />
+                <aside className={styles.navigation}>
+                    <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
                 </aside>
-                <aside className={styles.mobileNav}>
-                    <MobileNav />
-                </aside>
+
                 <main className={styles.main}>
                     <Outlet />
                 </main>
-                {/* <footer className={styles.footer}>
-                    <p>Test footer. All bla bla reserved. 2025</p>
-                </footer> */}
             </div>
-            {/* {isModalActive && (
-                <>
-                    <div className={styles.backdrop}></div>
-                    <DetailsModal />
-                </>
-            )} */}
         </div>
     );
 }

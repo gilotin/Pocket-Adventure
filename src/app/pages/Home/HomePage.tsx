@@ -1,10 +1,9 @@
-import HomeCard from "./components/projectCard/HomeCard";
 import styles from "./HomePage.module.css";
+import HomeCard from "./components/projectCard/HomeCard";
 import { projectData } from "./staticData/staticHomeData";
 
 export function HomePage() {
     const featuredProjects = projectData.filter((project) => project.isFeatured === true);
-
     const otherProjects = projectData.filter((projects) => projects.isFeatured !== true);
     // To move the maps here not in the child
     return (

@@ -1,17 +1,17 @@
-import { useState } from "react";
-import styles from "./MobileNav.module.css";
+import styles from "./ToggleBtnMobile.module.css";
 
-export function MobileNav() {
-    const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+type ToggleBtnMobileProps = {
+    isNavOpen: boolean;
+    toggleNav: () => void;
+};
 
-    const buttonStateHandler = () => setIsNavOpen((prev) => !prev);
-
+export function ToggleBtnMobile({ isNavOpen, toggleNav: toggleNav }: ToggleBtnMobileProps) {
     return (
         <>
             <button
                 aria-controls="mobile-navigation"
                 aria-expanded={isNavOpen}
-                onClick={buttonStateHandler}
+                onClick={toggleNav}
                 className={`${styles.navBtn} ${isNavOpen ? styles.navActiveBtn : ""}`}
             >
                 <i className="fa-solid fa-angle-left icon"></i>

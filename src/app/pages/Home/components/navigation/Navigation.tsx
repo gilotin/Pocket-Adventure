@@ -1,0 +1,53 @@
+import styles from "./Navigation.module.css";
+import { ToggleBtnMobile } from "./toggleButtonMobile/ToggleBtnMobile";
+
+export type NavProps = {
+    setIsNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    isNavOpen: boolean;
+};
+
+export function Navigation({ isNavOpen, setIsNavOpen }: NavProps) {
+    const toggleNav = () => setIsNavOpen((prev: boolean) => !prev);
+
+    return (
+        <>
+            <nav className={`${styles.nav} ${isNavOpen ? styles.navOpen : ""}`}>
+                <ul onClick={toggleNav} className={styles.list}>
+                    <li className={styles.item}>
+                        <a className={styles.links} href="#home">
+                            Home
+                        </a>
+                    </li>
+                    <li className={styles.item}>
+                        <a className={styles.links} href="#about">
+                            About
+                        </a>
+                    </li>
+                    <li className={styles.item}>
+                        <a className={styles.links} href="#feature">
+                            Featured Works
+                        </a>
+                    </li>
+                    <li className={styles.item}>
+                        <a className={styles.links} href="#projects">
+                            Projects
+                        </a>
+                    </li>
+                    <li className={styles.item}>
+                        <a className={styles.links} href="#roadmap">
+                            Roadmap
+                        </a>
+                    </li>
+                    <li className={styles.item}>
+                        <a className={styles.links} href="#contacts">
+                            Contacts
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div className={styles.mobileBtn}>
+                <ToggleBtnMobile isNavOpen={isNavOpen} toggleNav={toggleNav} />
+            </div>
+        </>
+    );
+}

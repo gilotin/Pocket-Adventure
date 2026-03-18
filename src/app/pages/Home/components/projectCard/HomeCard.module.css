@@ -1,24 +1,27 @@
 .cardWrapper {
     border-radius: var(--radius-lg);
     border: var(--border-thin) solid var(--color-powder-blue);
-    padding: var(--space-md) var(--space-xl);
+    min-height: 24rem;
+    padding: clamp(var(--space-md), 2vw, var(--space-xl));
     transition: transform 0.3s ease-in-out;
     width: 19.5rem;
-    min-height: 24rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
 }
 
 @container (min-width: 312px) {
     .cardWrapper {
-        width: calc(50% - var(--space-md));
         min-width: 16rem;
+        width: calc(50% - var(--space-md));
     }
 }
 
 .cardWrapper:hover {
     background-color: #ffff;
-    outline: var(--border-medium) solid var(--color-rich-cerulean);
     box-shadow: var(--shadow-md);
+    outline: var(--border-medium) solid var(--color-rich-cerulean);
     transform: scale(1.02);
 
     & .technologies li {
@@ -29,11 +32,10 @@
     & .description {
         color: var(--color-jet-black);
     }
-
 }
 
 .header {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
 }
 
 .description {
@@ -49,27 +51,24 @@
 
 .technologies {
     display: flex;
+    flex-wrap: wrap;
     font-family: var(--font-jb-mono);
     gap: var(--space-sm);
     list-style: none;
     padding: 0;
-    flex-wrap: wrap;
+
 
     & li {
-        border: var(--border-thin) solid var(--color-powder-blue);
         border-radius: var(--radius-lg);
+        border: var(--border-thin) solid var(--color-powder-blue);
         color: var(--color-powder-blue);
         padding: var(--space-xs) var(--space-sm);
     }
-
-
 }
-
 
 .actions {
     display: flex;
     gap: var(--space-sm);
-
 }
 
 .linkButton {
@@ -85,4 +84,12 @@
 .linkButton:hover {
     background-color: #ffff;
     color: var(--color-jet-black);
+}
+
+
+@media (max-width: 768px) {
+    .cardWrapper {
+        width: 80%;
+        margin: auto;
+    }
 }

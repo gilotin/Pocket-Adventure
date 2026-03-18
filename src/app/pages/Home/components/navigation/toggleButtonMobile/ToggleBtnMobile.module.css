@@ -1,0 +1,40 @@
+.navBtn {
+    align-items: center;
+    background-color: var(--color-jet-black);
+    border-radius: 50%;
+    border: var(--border-medium) solid var(--color-rich-cerulean);
+    bottom: var(--space-2xl);
+    display: flex;
+    gap: var(--space-sm);
+    height: var(--space-2xl);
+    width: var(--space-2xl);
+    justify-content: center;
+    position: fixed;
+    right: clamp(var(--space-lg), 10vw, var(--space-3xl));
+    transition: transform 550ms ease-in-out;
+    z-index: 10;
+
+    & svg {
+        color: var(--color-frozen-water);
+        height: 70%;
+        width: 70%;
+    }
+}
+
+
+.navActiveBtn {
+    background-color: var(--color-frozen-water);
+    border-color: (--color-frozen-water);
+    transform: rotate(180deg);
+
+    & svg {
+        color: var(--color-jet-black);
+    }
+}
+
+
+@media(max-width:425px) {
+    .navBtn {
+        right: var(--space-md)
+    }
+}
