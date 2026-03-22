@@ -1,73 +1,114 @@
-# React + TypeScript + Vite
+# 🧑‍💻 Nikolay Toshev — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website built to showcase my frontend projects, technical skills, and development approach.
 
-Currently, two official plugins are available:
+**Live Demo:** https://nikolaytoshev.dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **React** — component-based UI architecture
+- **TypeScript** — type safety and maintainability
+- **Vite** — fast development and optimized builds
+- **CSS (custom)** — full control over styling and layout
+- **Firebase Hosting** — deployment and hosting
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Purpose
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This project is designed to:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Present my work in a structured and accessible way
+- Demonstrate practical frontend development skills
+- Serve as a foundation for more complex interactive projects
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Featured Project
+
+### 🎮 Pocket Adventure
+
+A browser-based RPG focused on simulating game systems in a frontend environment.
+
+**Highlights:**
+
+- State-driven UI and game-like interactions
+- Inventory and mission systems
+- Scalable architecture for future expansion
+- Planned persistence layer using IndexedDB
+
+---
+
+## Features
+
+- **Responsive Design**
+  Desktop-first layout with consistent experience across devices
+
+- **Mobile Navigation Drawer**
+  Accessible and user-friendly navigation for smaller screens
+
+- **Accessibility Focused**
+    - Semantic HTML structure
+    - ARIA attributes
+    - Improved keyboard navigation
+    - Lighthouse score: ~95 accessibility
+
+- **Performance Optimizations**
+    - Fast builds with Vite
+    - Optimized asset loading
+
+---
+
+## Development Focus
+
+This project emphasizes:
+
+- Clean and maintainable component structure
+- Strong TypeScript usage
+- Accessibility best practices
+- Real-world project organization
+
+---
+
+## Project Structure
+
+```
+src/
+ ├── components/
+ ├── pages/
+ ├── hooks/
+ ├── utils/
+ ├── assets/
+ └── styles/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔧 Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Clone the repository and install dependencies:
+
+```bash
+npm install
+npm run dev
 ```
+
+---
+
+## Future Improvements
+
+- Expand Pocket Adventure into a playable demo
+- Add Firebase (authentication & database)
+- Improve animations and micro-interactions
+- Introduce more advanced state management patterns
+
+---
+
+## Contact
+
+- GitHub: https://github.com/your-username
+- Email: [your@email.com](mailto:your@email.com)
+
+---
