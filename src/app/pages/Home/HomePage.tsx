@@ -96,6 +96,7 @@ export function HomePage() {
                     <ul className={styles.navIcons}>
                         <li>
                             <a
+                                aria-label="Learn more about Nikolay Toshev at Linkedin"
                                 href="https://www.linkedin.com/in/nikolay-m-toshev/"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -105,6 +106,7 @@ export function HomePage() {
                         </li>
                         <li>
                             <a
+                                aria-label="Learn more about Nikolay's projects at GitHub"
                                 href="https://github.com/gilotin"
                                 target="_blank"
                                 rel="noopener noreferrer"

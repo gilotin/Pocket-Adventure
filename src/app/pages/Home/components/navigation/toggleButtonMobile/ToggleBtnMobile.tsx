@@ -9,12 +9,15 @@ export function ToggleBtnMobile({ isNavOpen, toggleNav: toggleNav }: ToggleBtnMo
     return (
         <>
             <button
+                aria-label={
+                    isNavOpen ? "Close mobile navigation menu" : "Open mobile navigation menu"
+                }
                 aria-controls="mobile-navigation"
                 aria-expanded={isNavOpen}
                 onClick={toggleNav}
                 className={`${styles.navBtn} ${isNavOpen ? styles.navActiveBtn : ""}`}
             >
-                <i className="fa-solid fa-angle-left icon"></i>
+                <i className="fa-solid fa-angle-left icon" aria-hidden="true"></i>
             </button>
         </>
     );

@@ -17,11 +17,13 @@ export function MainLayout() {
         return () => window.removeEventListener("resize", handleResize);
     });
 
+    const toggleNav = () => setIsNavOpen((prev: boolean) => !prev);
+
     return (
         <div className={styles.layoutBackground}>
             <div className={styles.appWrapper}>
                 <aside className={styles.navigation}>
-                    <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+                    <Navigation toggleNav={toggleNav} isNavOpen={isNavOpen} />
                 </aside>
 
                 <main className={styles.main}>

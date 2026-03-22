@@ -86,6 +86,16 @@
     color: var(--color-jet-black);
 }
 
+.linkButton:focus-visible {
+    background-color: #ffff;
+    color: var(--color-jet-black);
+    border: var(--border-medium) solid var(--color-jet-black);
+    outline-offset: 2px;
+}
+
+
+
+
 
 @media (max-width: 768px) {
     .cardWrapper {

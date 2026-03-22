@@ -2,16 +2,18 @@ import styles from "./Navigation.module.css";
 import { ToggleBtnMobile } from "./toggleButtonMobile/ToggleBtnMobile";
 
 export type NavProps = {
-    setIsNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
     isNavOpen: boolean;
+    toggleNav: () => void;
 };
 
-export function Navigation({ isNavOpen, setIsNavOpen }: NavProps) {
-    const toggleNav = () => setIsNavOpen((prev: boolean) => !prev);
-
+export function Navigation({ isNavOpen, toggleNav }: NavProps) {
     return (
         <>
-            <nav className={`${styles.nav} ${isNavOpen ? styles.navOpen : ""}`}>
+            <nav
+                id="mobile-navigation"
+                aria-label="Main navigation"
+                className={`${styles.nav} ${isNavOpen ? styles.navOpen : ""}`}
+            >
                 <ul onClick={toggleNav} className={styles.list}>
                     <li className={styles.item}>
                         <a className={styles.links} href="#home">
