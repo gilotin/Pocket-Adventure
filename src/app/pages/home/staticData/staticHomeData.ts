@@ -15,7 +15,7 @@ export const projectData: ProjectData = [
         description:
             "A browser-based RPG application built with React and TypeScript that showcases structured state management, persistent client-side storage, and modular UI architecture through systems like missions, inventory management, and character progression.",
         repoUrl:
-            "https://github.com/gilotin/Pocket-Adventure/tree/main/src/app/pages/PocketAdventureGame",
+            "https://github.com/gilotin/Pocket-Adventure/tree/main/src/app/pages/pocketAdventureGame",
         liveUrl: "/game",
         technologies: ["React", "TypeScript", "CSS", "Firebase"],
         isFeatured: true,
