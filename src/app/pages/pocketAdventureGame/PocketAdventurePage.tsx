@@ -6,7 +6,7 @@ import { Inventory } from "./features/inventory/Inventory";
 import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
-import { STORAGE_KEY } from "./MockedData/TestItemGenerator";
+import { STORAGE_KEY } from "./mockedData/TestItemGenerator";
 import { CHARACTER_KEY } from "./auth/register/Register";
 import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";

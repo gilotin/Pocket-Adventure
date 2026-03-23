@@ -6,8 +6,8 @@ import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
 import { ConfirmModal } from "../components/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
-import { TestItemGenerator } from "../MockedData/TestItemGenerator";
 import type { AccountData, AuthErrorType, AuthMode, AuthStatus } from "../types/gameTypes";
+import { TestItemGenerator } from "../mockedData/TestItemGenerator";
 
 export function GameLayout() {
     const [authStatus, setAuthStatus] = useState<AuthStatus>("authenticated");

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { HomePage } from "./app/pages/Home/HomePage";
-import { MainLayout } from "./app/pages/Home/layout/HomeLayout";
-import { GameLayout } from "./app/pages/PocketAdventureGame/layout/GameLayout";
+import { HomePage } from "./app/pages/home/HomePage";
+import { MainLayout } from "./app/pages/home/layout/HomeLayout";
+import { GameLayout } from "./app/pages/pocketAdventureGame/layout/GameLayout";
 
 function App() {
     return (

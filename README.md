@@ -83,8 +83,8 @@ This project emphasizes:
 ```
 src/
  ├── pages/
-      ├──Home(portfolio page)
-      ├──PocketAdventureGame
+      ├──home(portfolio page)
+      ├──pocketAdventureGame
   └── styles/
 ```
 
