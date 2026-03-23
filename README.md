@@ -1,8 +1,10 @@
-# 🧑‍💻 Nikolay Toshev — Portfolio
+> ⚠️ *Currently the Portfolio and the Pocket Adventure project share same repository. They will be separated letter*
+
+# Nikolay Toshev — Portfolio
 
 A personal portfolio website built to showcase my frontend projects, technical skills, and development approach.
 
-**Live Demo:** https://nikolaytoshev.dev
+**Live Demo:** <https://nikolaytoshev.dev>
 
 ---
 
@@ -28,9 +30,13 @@ This project is designed to:
 
 ## Featured Project
 
-### 🎮 Pocket Adventure
+### Pocket Adventure
+
+> ⚠️ This project is currently part of my portfolio repository and will be extracted into a standalone project in the future.
 
 A browser-based RPG focused on simulating game systems in a frontend environment.
+
+[View detailed documentation](./src/features/pocket-adventure/README.md)
 
 **Highlights:**
 
@@ -50,14 +56,14 @@ A browser-based RPG focused on simulating game systems in a frontend environment
   Accessible and user-friendly navigation for smaller screens
 
 - **Accessibility Focused**
-    - Semantic HTML structure
-    - ARIA attributes
-    - Improved keyboard navigation
-    - Lighthouse score: ~95 accessibility
+  - Semantic HTML structure
+  - ARIA attributes
+  - Improved keyboard navigation
+  - Lighthouse score: ~95 accessibility
 
 - **Performance Optimizations**
-    - Fast builds with Vite
-    - Optimized asset loading
+  - Fast builds with Vite
+  - Optimized asset loading
 
 ---
 
@@ -76,17 +82,15 @@ This project emphasizes:
 
 ```
 src/
- ├── components/
  ├── pages/
- ├── hooks/
- ├── utils/
- ├── assets/
- └── styles/
+      ├──Home(portfolio page)
+      ├──PocketAdventureGame
+  └── styles/
 ```
 
 ---
 
-## 🔧 Getting Started
+## Getting Started
 
 Clone the repository and install dependencies:
 
@@ -108,7 +112,7 @@ npm run dev
 
 ## Contact
 
-- GitHub: https://github.com/your-username
+- GitHub: <https://github.com/your-username>
 - Email: [your@email.com](mailto:your@email.com)
 
 ---
