@@ -58,4 +58,14 @@ export const projectData: ProjectData = [
         technologies: ["React"],
         isFeatured: false,
     },
+    {
+        id: "6",
+        title: "Fate - Plovdiv Game Jam'26 (Case Study)",
+        description:
+            "Case study of a 48-hour game jam project where I contributed to level design, mechanics, and presentation.",
+        repoUrl: "https://github.com/gilotin/fate-game-jam-case-study",
+        liveUrl: "https://globalgamejam.org/games/2026/fate-1",
+        technologies: ["Unity", ".NET"],
+        isFeatured: true,
+    },
 ];
