@@ -65,7 +65,6 @@
     }
 
     .nav {
-        /* font-size: clamp(var(--font-size-lg), 5vw, var(--font-size-xl)); */
         color: var(--color-frozen-water);
         position: fixed;
         right: 0;
