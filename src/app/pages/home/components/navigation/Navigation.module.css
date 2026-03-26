@@ -71,7 +71,7 @@
         right: 0;
         top: 0;
         height: 100vh;
-        width: 35%;
+        width: clamp(55vw, 5vw, 60vw);
         color: var(--color-frozen-water);
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(3px);
@@ -96,10 +96,4 @@
     }
 
 
-}
-
-@media(max-width:426px) {
-    .nav {
-        width: 45%;
-    }
 }
