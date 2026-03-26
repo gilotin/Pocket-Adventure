@@ -4,7 +4,9 @@
     min-height: 24rem;
     padding: clamp(var(--space-md), 2vw, var(--space-xl));
     transition: transform 0.3s ease-in-out;
-    width: 19.5rem;
+    width: calc(50% - 1rem);
+    min-width: 16rem;
+    max-width: 19rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
