@@ -1,25 +1,18 @@
 import type React from "react";
 import styles from "../login/Login.module.css";
 
-import type { AccountData, AuthStatus } from "../../types/gameTypes";
-
-type AuthMode = "login" | "register";
+import type { AccountData, AuthMode, AuthUser } from "../../types/gameTypes";
 
 type LoginProps = {
-    setAuthStatus: (value: AuthStatus) => void;
+    setAuthUser: (value: AuthUser) => void;
     setAuthMode: (mode: AuthMode) => void;
     setAuthError: (value: null | string) => void;
     setUserData: (value: null | AccountData) => void;
 };
 
-export function Login({
-    setAuthStatus: setIsAuthenticated,
-    setAuthMode,
-    setAuthError,
-    setUserData,
-}: LoginProps) {
-    const handleRegisterNavigation = () => {
-        setAuthMode("register");
+export function Login({ setAuthUser, setAuthMode, setAuthError, setUserData }: LoginProps) {
+    const handleAuthNavigation = (mode: AuthMode) => {
+        setAuthMode(mode);
     };
 
     function getAccountData() {
@@ -81,7 +74,7 @@ export function Login({
 
         if (user?.accountName === normalizedName) {
             setUserData(user);
-            setIsAuthenticated("authenticated");
+            // setIsAuthenticated("authenticated");
         } else {
             setAuthError("Password or account name mismatch. try again!");
         }
@@ -106,8 +99,17 @@ export function Login({
                     </button>
                 </form>
                 <button className={styles.formNavigation}>Forgot your password?</button>
-                <button className={styles.formNavigation} onClick={handleRegisterNavigation}>
+                <button
+                    className={styles.formNavigation}
+                    onClick={() => handleAuthNavigation("register")}
+                >
                     Want to register?
+                </button>
+                <button
+                    className={styles.formNavigation}
+                    onClick={() => handleAuthNavigation("menu")}
+                >
+                    return to menu
                 </button>
             </div>
         </section>

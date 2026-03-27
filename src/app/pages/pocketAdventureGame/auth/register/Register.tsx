@@ -9,8 +9,8 @@ type RegisterProps = {
 };
 
 export function Register({ setAuthMode, setAuthError }: RegisterProps) {
-    const handleAuthNavigation = () => {
-        setAuthMode("login");
+    const handleAuthNavigation = (mode: AuthMode) => {
+        setAuthMode(mode);
     };
 
     const registerSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -141,9 +141,17 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
                         Register
                     </button>
                 </form>
-
-                <button className={styles.formNavigation} onClick={handleAuthNavigation}>
+                <button
+                    className={styles.formNavigation}
+                    onClick={() => handleAuthNavigation("register")}
+                >
                     Are you registered?
+                </button>{" "}
+                <button
+                    className={styles.formNavigation}
+                    onClick={() => handleAuthNavigation("menu")}
+                >
+                    return to menu
                 </button>
             </div>
         </>

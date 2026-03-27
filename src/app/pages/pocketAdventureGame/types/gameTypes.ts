@@ -2,9 +2,13 @@
  AUTH TYPES
 ======================================*/
 
-export type AuthStatus = "unknown" | "guest" | "authenticated";
-export type AuthMode = "login" | "register";
+export type AuthAction = "login" | "register" | "guest";
+export type AuthMode = "menu" | "login" | "register";
 export type AuthErrorType = string | null;
+export type AuthUser = {
+    id: string;
+    type: "guest" | "user";
+};
 
 /*======================================
  ACCOUNT TYPES

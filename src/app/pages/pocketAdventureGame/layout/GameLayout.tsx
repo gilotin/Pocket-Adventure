@@ -1,58 +1,84 @@
 import styles from "./GameLayout.module.css";
 import { PocketAdventurePage } from "../PocketAdventurePage";
 import { useEffect, useState } from "react";
-import { Login } from "../auth/login/Login";
-import { Register } from "../auth/register/Register";
 import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
 import { ConfirmModal } from "../components/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
-import type { AccountData, AuthErrorType, AuthMode, AuthStatus } from "../types/gameTypes";
+import type {
+    AccountData,
+    AuthAction,
+    AuthErrorType,
+    AuthMode,
+    AuthUser,
+} from "../types/gameTypes";
 import { TestItemGenerator } from "../mockedData/TestItemGenerator";
+import { AuthMenu } from "../auth/authMenu/AuthMenu";
+import { Register } from "../auth/register/Register";
+import { Login } from "../auth/login/Login";
+import { loginAsGuest } from "../auth/authService";
+import { AUTH_KEY } from "../constants/gameConstants";
 
 export function GameLayout() {
-    const [authStatus, setAuthStatus] = useState<AuthStatus>("authenticated");
-    const [authMode, setAuthMode] = useState<AuthMode>("login");
+    const [authUser, setAuthUser] = useState<AuthUser | null>(null);
+    const [authMode, setAuthMode] = useState<AuthMode>("menu");
     const [authError, setAuthError] = useState<AuthErrorType>(null);
     const [userData, setUserData] = useState<AccountData>(null);
-    // const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false);
     const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
 
     useEffect(() => {
-        const storageData = localStorage.getItem("accountData");
+        const storedAuth = localStorage.getItem("auth");
 
-        if (!storageData) {
-            setAuthStatus("guest");
+        if (!storedAuth) {
+            setAuthUser(null);
             return;
         }
 
         try {
-            const parsedData: AccountData = JSON.parse(storageData);
-            setUserData(parsedData);
-            setAuthStatus("authenticated");
+            const parsedData: AuthUser = JSON.parse(storedAuth);
+            setAuthUser(parsedData);
         } catch {
-            setUserData(null);
-            setAuthStatus("guest");
+            setAuthUser(null);
         }
     }, []);
 
     const handleLogout = () => {
         logout();
         setUserData(null);
-        setAuthStatus("guest");
-        setAuthMode("login");
+        setAuthUser(null);
+        setAuthMode("menu");
+        localStorage.removeItem(AUTH_KEY);
     };
 
-    if (authStatus === "unknown") {
-        return null;
-    }
+    const handleAuthAction = (action: AuthAction) => {
+        if (action === "guest") {
+            const guest = loginAsGuest();
+            setAuthUser(guest);
+            return;
+        }
 
-    if (authStatus === "authenticated") {
+        setAuthMode(action);
+    };
+
+    const AuthMenuMap = {
+        login: (
+            <Login
+                setAuthUser={setAuthUser}
+                setAuthMode={setAuthMode}
+                setAuthError={setAuthError}
+                setUserData={setUserData}
+            />
+        ),
+        register: <Register setAuthMode={setAuthMode} setAuthError={setAuthError} />,
+        menu: <AuthMenu handleAuthAction={handleAuthAction} />,
+    };
+
+    if (authUser !== null) {
         return (
             <>
                 <div className={styles.layoutBackground}>
                     <div className={styles.gameWrapper}>
                         <header className={styles.gameHeader}>
-                            <p>Hello {userData?.accountName}!</p>
+                            <p>Hello {CharacterData.name ?? "Adventurer"}!</p>
                             <p>Stats</p>
                             <button onClick={() => setConfirmAction(() => handleLogout)}>
                                 logout
@@ -89,16 +115,7 @@ export function GameLayout() {
 
     return (
         <>
-            {authMode === "login" ? (
-                <Login
-                    setAuthStatus={setAuthStatus}
-                    setAuthMode={setAuthMode}
-                    setAuthError={setAuthError}
-                    setUserData={setUserData}
-                />
-            ) : (
-                <Register setAuthMode={setAuthMode} setAuthError={setAuthError} />
-            )}
+            {AuthMenuMap[authMode]}
 
             {authError && <AuthErrorHandler message={authError} setAuthError={setAuthError} />}
         </>
