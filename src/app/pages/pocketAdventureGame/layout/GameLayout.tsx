@@ -62,13 +62,18 @@ export function GameLayout() {
     const AuthMenuMap = {
         login: (
             <Login
-                setAuthUser={setAuthUser}
                 setAuthMode={setAuthMode}
                 setAuthError={setAuthError}
-                setUserData={setUserData}
+                setAuthUser={setAuthUser}
             />
         ),
-        register: <Register setAuthMode={setAuthMode} setAuthError={setAuthError} />,
+        register: (
+            <Register
+                setAuthMode={setAuthMode}
+                setAuthError={setAuthError}
+                setAuthUser={setAuthUser}
+            />
+        ),
         menu: <AuthMenu handleAuthAction={handleAuthAction} />,
     };
 

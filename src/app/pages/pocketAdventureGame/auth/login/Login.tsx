@@ -4,13 +4,12 @@ import styles from "../login/Login.module.css";
 import type { AccountData, AuthMode, AuthUser } from "../../types/gameTypes";
 
 type LoginProps = {
-    setAuthUser: (value: AuthUser) => void;
     setAuthMode: (mode: AuthMode) => void;
     setAuthError: (value: null | string) => void;
-    setUserData: (value: null | AccountData) => void;
+    setAuthUser: (value: null | AuthUser) => void;
 };
 
-export function Login({ setAuthUser, setAuthMode, setAuthError, setUserData }: LoginProps) {
+export function Login({ setAuthMode, setAuthError, setAuthUser }: LoginProps) {
     const handleAuthNavigation = (mode: AuthMode) => {
         setAuthMode(mode);
     };
@@ -70,13 +69,18 @@ export function Login({ setAuthUser, setAuthMode, setAuthError, setUserData }: L
 
         if (!user) {
             setAuthError("No such account!");
+            return;
         }
 
         if (user?.accountName === normalizedName) {
-            setUserData(user);
-            // setIsAuthenticated("authenticated");
-        } else {
-            setAuthError("Password or account name mismatch. try again!");
+            const authUser = {
+                id: `user-${normalizedName}`,
+                type: "user" as const,
+            };
+
+            localStorage.setItem("auth", JSON.stringify(authUser));
+
+            setAuthUser(authUser);
         }
     }
 

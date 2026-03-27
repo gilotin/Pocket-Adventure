@@ -1,14 +1,14 @@
 import type React from "react";
 import styles from "../register//Register.module.css";
-import type { AuthMode, Character } from "../../types/gameTypes";
+import type { AuthMode, AuthUser, Character } from "../../types/gameTypes";
 import { ACCOUNT_KEY, CHARACTER_KEY } from "../../constants/gameConstants";
 
 type RegisterProps = {
     setAuthMode: (value: AuthMode) => void;
     setAuthError: (value: string | null) => void;
+    setAuthUser: (user: AuthUser) => void;
 };
-
-export function Register({ setAuthMode, setAuthError }: RegisterProps) {
+export function Register({ setAuthMode, setAuthError, setAuthUser }: RegisterProps) {
     const handleAuthNavigation = (mode: AuthMode) => {
         setAuthMode(mode);
     };
@@ -105,8 +105,15 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
         localStorage.setItem(ACCOUNT_KEY, JSON.stringify(accountData));
         localStorage.setItem(CHARACTER_KEY, JSON.stringify(characterData));
 
+        const authUser: AuthUser = {
+            id: `user-${normalizedName}`,
+            type: "user",
+        };
+
+        localStorage.setItem("auth", JSON.stringify(authUser));
+
+        setAuthUser(authUser);
         setAuthError(null);
-        setAuthMode("login");
     };
 
     return (
@@ -143,10 +150,10 @@ export function Register({ setAuthMode, setAuthError }: RegisterProps) {
                 </form>
                 <button
                     className={styles.formNavigation}
-                    onClick={() => handleAuthNavigation("register")}
+                    onClick={() => handleAuthNavigation("login")}
                 >
                     Are you registered?
-                </button>{" "}
+                </button>
                 <button
                     className={styles.formNavigation}
                     onClick={() => handleAuthNavigation("menu")}
