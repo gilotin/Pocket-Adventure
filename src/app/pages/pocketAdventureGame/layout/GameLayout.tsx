@@ -5,7 +5,7 @@ import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandle
 import { ConfirmModal } from "../components/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
 import type {
-    AccountData,
+    // AccountData,
     AuthAction,
     AuthErrorType,
     AuthMode,
@@ -22,7 +22,7 @@ export function GameLayout() {
     const [authUser, setAuthUser] = useState<AuthUser | null>(null);
     const [authMode, setAuthMode] = useState<AuthMode>("menu");
     const [authError, setAuthError] = useState<AuthErrorType>(null);
-    const [userData, setUserData] = useState<AccountData>(null);
+    // const [userData, setUserData] = useState<AccountData>(null);
     const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
 
     useEffect(() => {
@@ -43,13 +43,15 @@ export function GameLayout() {
 
     const handleLogout = () => {
         logout();
-        setUserData(null);
+        // setUserData(null);
         setAuthUser(null);
         setAuthMode("menu");
         localStorage.removeItem(AUTH_KEY);
     };
 
     const handleAuthAction = (action: AuthAction) => {
+        // To compare the characterData id vs auth id and if not,
+        // the same to crate new characterData for the current user
         if (action === "guest") {
             const guest = loginAsGuest();
             setAuthUser(guest);
@@ -83,7 +85,8 @@ export function GameLayout() {
                 <div className={styles.layoutBackground}>
                     <div className={styles.gameWrapper}>
                         <header className={styles.gameHeader}>
-                            <p>Hello {CharacterData.name ?? "Adventurer"}!</p>
+                            {/* Latter will add proper profile name visualization */}
+                            <p>Hello Adventurer!</p>
                             <p>Stats</p>
                             <button onClick={() => setConfirmAction(() => handleLogout)}>
                                 logout
