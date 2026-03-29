@@ -99,10 +99,11 @@ export function GameLayout() {
 
                             <PocketAdventurePage setConfirmAction={setConfirmAction} />
                         </main>
+                    </div>
 
-                        <footer>
-                            <p>Test footer. All bla bla reserved. 2025</p>
-                        </footer>
+                    <div className={styles.displayMessage}>
+                        <p>Displays below 768px are currently unavailable.</p>
+                        <p>Please check again later. Thanks for understanding.</p>
                     </div>
                 </div>
                 {confirmAction && (

@@ -1,5 +1,5 @@
 .layoutBackground {
-    background-color: var(--game-light-blue);
+    background: var(--game-light-blue);
     width: auto;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
@@ -40,8 +40,28 @@
     margin-bottom: 1rem;
 }
 
-footer {
-    border: 3px solid black;
-    border-radius: 0.4rem;
-    padding: 1rem 2rem;
+.displayMessage {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    font-family: var(--font-game-pixel);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--weight-regular);
+    color: var(--game-dark-blue)
+}
+
+@media (max-width: 765px) {
+    .gameWrapper {
+        display: none;
+    }
+
+    .displayMessage {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+
+    }
 }
