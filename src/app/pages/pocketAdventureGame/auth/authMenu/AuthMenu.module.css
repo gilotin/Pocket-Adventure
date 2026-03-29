@@ -1,0 +1,48 @@
+.wrapper {
+    font-family: var(--font-game-pixel);
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menuHeader {
+    font-size: calc(var(--font-size-4xl) * 1.5);
+    font-family: var(--font-game-pixel);
+    letter-spacing: .2rem;
+    -webkit-text-stroke: 1px var(--game-dark-blue);
+    color: var(--game-medium-blue);
+    position: absolute;
+    padding: var(--space-md);
+    top: var(--space-2xl);
+    border-bottom: 6px solid;
+    outline: 5px solid;
+    box-shadow: -1px 10px 27px 1px rgba(41, 57, 82, 0.77);
+    border-radius: var(--radius-sm)
+}
+
+.menuList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: 0;
+    margin-top: var(--space-4xl);
+}
+
+.menuButton {
+    padding: var(--space-sm) var(--space-xl);
+    border-radius: var(--radius-md);
+    border: var(--border-thick) solid var(--game-orange);
+    color: var(--game-dark-blue);
+    font-size: var(--font-size-3xl);
+    background-color: var(--game-yellow);
+    transition: background-color 0.3s ease, color 0.5s ease;
+}
+
+
+
+.menuButton:hover {
+    background-color: var(--game-orange);
+    color: white;
+}

@@ -3,6 +3,7 @@
     --font-ui: "Inter", system-ui, sans-serif;
     --font-heading: "Space Grotesk", sans-serif;
     --font-jb-mono: "JetBrains Mono", sans-serif;
+    --font-game-pixel: "Jersey 10", sans-serif;
 
     /* Font weights */
     --weight-regular: 400;
@@ -79,4 +80,14 @@
     --rarity-rare: #3fa7ff;
     --rarity-epic: #b44cff;
     --rarity-legendary: #ff9f1c;
+
+
+    /* GAME COLORS */
+
+    --game-yellow: #FFC13E;
+    --game-orange: #FF7E3C;
+    --game-medium-blue: #426798;
+    --game-dark-blue: #293952;
+    --game-light-blue: #78AFD5;
+
 }

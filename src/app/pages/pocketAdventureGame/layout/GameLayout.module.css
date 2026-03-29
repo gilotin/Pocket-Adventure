@@ -1,5 +1,5 @@
 .layoutBackground {
-    background-color: #e5e5e5ff;
+    background-color: var(--game-light-blue);
     width: auto;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;

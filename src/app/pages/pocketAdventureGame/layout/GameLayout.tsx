@@ -44,14 +44,13 @@ export function GameLayout() {
     const handleLogout = () => {
         logout();
         // setUserData(null);
+        // To compare the characterData id vs auth id and if not the same to crate new characterData
         setAuthUser(null);
         setAuthMode("menu");
         localStorage.removeItem(AUTH_KEY);
     };
 
     const handleAuthAction = (action: AuthAction) => {
-        // To compare the characterData id vs auth id and if not,
-        // the same to crate new characterData for the current user
         if (action === "guest") {
             const guest = loginAsGuest();
             setAuthUser(guest);
