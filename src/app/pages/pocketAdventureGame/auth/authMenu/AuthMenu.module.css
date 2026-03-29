@@ -8,7 +8,7 @@
 }
 
 .menuHeader {
-    font-size: calc(var(--font-size-4xl) * 1.5);
+    font-size: clamp(1rem, 11vw, 10rem);
     font-family: var(--font-game-pixel);
     letter-spacing: .2rem;
     -webkit-text-stroke: 1px var(--game-dark-blue);

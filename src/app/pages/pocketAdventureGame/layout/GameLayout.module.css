@@ -51,6 +51,8 @@
     color: var(--game-dark-blue)
 }
 
+/* add unsupported screen size message */
+
 @media (max-width: 765px) {
     .gameWrapper {
         display: none;
