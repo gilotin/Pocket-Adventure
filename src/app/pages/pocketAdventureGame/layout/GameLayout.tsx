@@ -104,6 +104,9 @@ export function GameLayout() {
                     <div className={styles.displayMessage}>
                         <p>Displays below 768px are currently unavailable.</p>
                         <p>Please check again later. Thanks for understanding.</p>
+                        <p>
+                            You can force the game with <i>"Desktop site"</i> option on your phone
+                        </p>
                     </div>
                 </div>
                 {confirmAction && (
