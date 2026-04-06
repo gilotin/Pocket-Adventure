@@ -6,7 +6,7 @@ import { Inventory } from "./features/inventory/Inventory";
 import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
-import { STORAGE_KEY } from "./mockedData/TestItemGenerator";
+
 import { CHARACTER_KEY } from "./auth/register/Register";
 import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
@@ -16,7 +16,8 @@ import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
 import { missionData } from "./features/missions/data/missionsData";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
-import { MISSION_KEY } from "./constants/gameConstants";
+import { MISSION_KEY, STORAGE_KEY } from "./constants/gameConstants";
+import { generateItem } from "./systems/items/generateItems";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -36,7 +37,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
     const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
     const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
-    const [activeItemId, setActiveItemId] = useState<number | null>(null);
+    const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const [characterData, setCharacterData] = useState<Character | null>(null);
     const [activeMission, setActiveMission] = useState<ActiveMission>(null);
 
@@ -67,7 +68,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
 
-    const handleDeleteItem = (itemId: number) => {
+    const handleDeleteItem = (itemId: string) => {
         deleteItem(STORAGE_KEY, itemId);
         setInventoryItems(loadStorageData(STORAGE_KEY, []));
 
@@ -75,7 +76,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setShowDetailsCard(false);
     };
 
-    const handleActiveItemState = (itemId: number | null) => {
+    const handleActiveItemState = (itemId: string | null) => {
         if (itemId === null) {
             setActiveItemId(null);
             setShowDetailsCard(false);
@@ -85,7 +86,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setShowDetailsCard(true);
     };
 
-    const sellItems = (itemId: number) => {
+    const sellItems = (itemId: string) => {
         const itemForSell = inventoryItems.find((item) => item.itemId === itemId);
         if (!itemForSell) return;
         const itemPrice = itemForSell.itemValue;
@@ -235,6 +236,14 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             />
         ),
     };
+
+    const characterXpProgress = CalculateCharacterXp({ characterData });
+
+    const item = generateItem({
+        characterLevel: characterXpProgress.level,
+        itemType: "materials",
+    });
+    console.log(item);
 
     return (
         <>
