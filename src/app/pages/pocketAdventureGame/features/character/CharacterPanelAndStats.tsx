@@ -5,7 +5,7 @@ type CharacterPanelAndStatsProps = {
     characterData: Character;
     inventoryItems: Item[];
     unequipItem: () => void;
-    handleActiveItemState: (itemId: number | null) => void;
+    handleActiveItemState: (itemId: string | null) => void;
     calculatedEquipmentStats: ItemStats;
     // NOTE: To fix that type and move it in types
     characterProgress: {
@@ -24,7 +24,7 @@ export function CharacterPanelAndStats({
     calculatedEquipmentStats,
     characterProgress,
 }: CharacterPanelAndStatsProps) {
-    const handleMouseEnter = (itemId: number) => {
+    const handleMouseEnter = (itemId: string) => {
         handleActiveItemState(itemId);
     };
 
@@ -66,12 +66,14 @@ export function CharacterPanelAndStats({
             <div>
                 <p>Stats:</p>
                 <p>HP:100</p>
-                <p>Attack:{calculatedEquipmentStats.attack}</p>
-                <p>Armor:{calculatedEquipmentStats.armor}</p>
-                <p>Ele. protection:{calculatedEquipmentStats.elementalProtection}</p>
+
                 <p>Recovery:{calculatedEquipmentStats.recovery}</p>
                 <p>Drop Chance:{calculatedEquipmentStats.dropChance}</p>
             </div>
         </section>
     );
 }
+
+//    <p>Attack:{calculatedEquipmentStats.attack}</p>
+// <p>Armor:{calculatedEquipmentStats.armor}</p>
+// <p>Ele. protection:{calculatedEquipmentStats.elementalProtection}</p>

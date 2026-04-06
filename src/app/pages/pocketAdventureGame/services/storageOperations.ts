@@ -17,10 +17,10 @@ export function saveItems(storageKey: string, items: ItemStore) {
     return localStorage.setItem(storageKey, JSON.stringify(items));
 }
 
-export function deleteItem(storageKey: string, itemId: number) {
+export function deleteItem(storageKey: string, itemId: string) {
     const itemDataArray = loadStorageData<ItemStore>(storageKey, []);
 
-    const updatedArray = itemDataArray.filter((item: { itemId: number }) => {
+    const updatedArray = itemDataArray.filter((item: { itemId: string }) => {
         return item.itemId !== itemId;
     });
 

@@ -5,9 +5,9 @@ import { ItemCard } from "../../components/itemCard/ItemCard";
 
 type InventoryProps = {
     inventoryItems: Item[];
-    onDeleteItem: (itemId: number) => void;
-    handleActiveItemState: (itemId: number | null) => void;
-    handleSellItems: (itemId: number) => void;
+    onDeleteItem: (itemId: string) => void;
+    handleActiveItemState: (itemId: string | null) => void;
+    handleSellItems: (itemId: string) => void;
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
     equipItem: () => void;
     unequipItem: () => void;
@@ -22,7 +22,7 @@ export function Inventory({
     equipItem,
     unequipItem,
 }: InventoryProps) {
-    const handleMouseEnter = (itemId: number) => {
+    const handleMouseEnter = (itemId: string) => {
         handleActiveItemState(itemId);
     };
 
@@ -30,7 +30,7 @@ export function Inventory({
         handleActiveItemState(null);
     };
 
-    const confirmDeleteItem = (itemId: number) => {
+    const confirmDeleteItem = (itemId: string) => {
         setConfirmAction(() => () => onDeleteItem(itemId));
     };
 

@@ -3,10 +3,10 @@ import styles from "./ItemCard.module.css";
 
 type ItemCardProps = {
     item: Item;
-    handleMouseEnter: (itemid: number) => void;
+    handleMouseEnter: (itemid: string) => void;
     handleMouseLeave: () => void;
-    handleSellItems: (itemId: number) => void;
-    confirmDeleteItem: (itemId: number) => void;
+    handleSellItems: (itemId: string) => void;
+    confirmDeleteItem: (itemId: string) => void;
     handleEquipItem: () => void;
     handleUnequipItem: () => void;
 };
