@@ -16,11 +16,8 @@ export const ITEM_LEVEL_RANGE = 1;
 export const MAX_PRICE = 100;
 export const MIN_PRICE = 10;
 
-// MATERIALS
-export const MATERIAL_QUANTITY_MULTIPLIER = 5;
-
-// CONSUMABLES
-export const CONSUMABLE_QUANTITY_MULTIPLIER = 1;
+// QUANTITY
+export const QUANTITY_MULTIPLIER = 5;
 
 // ITEM STATS
 export const BASE_DROP_CHANCE_MULTIPLIER = 0.1;

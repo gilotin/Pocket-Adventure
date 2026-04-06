@@ -1,11 +1,10 @@
-import type { Character, EquipmentType, Item, ItemStats } from "../../types/gameTypes";
+import type { EquipmentType, Item, ItemStats } from "../../types/gameTypes";
 import {
     BASE_DROP_CHANCE_MULTIPLIER,
-    CONSUMABLE_QUANTITY_MULTIPLIER,
     ITEM_LEVEL_RANGE,
-    MATERIAL_QUANTITY_MULTIPLIER,
     MAX_PRICE,
     MIN_PRICE,
+    QUANTITY_MULTIPLIER,
 } from "../../constants/gameConstants";
 import { ITEM_NAME_PARTS, RARITY_MULTIPLIER } from "./itemTable";
 
@@ -37,6 +36,8 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     const itemValue = Math.floor(Math.random() * (MAX_PRICE - MIN_PRICE + 1)) + MIN_PRICE;
 
+    // GENERATE ITEM NAME
+
     const parts = ITEM_NAME_PARTS[props.itemType];
     const itemPrefix = getRandomItemElement(parts.prefixes);
     const itemSuffixes = getRandomItemElement(parts.suffixes);
@@ -52,18 +53,23 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     const characterLevel = props.characterLevel;
 
+    // GENERATE ITEM QUANTITY
+
     let quantity = 1;
     if (props.itemType === "materials" || props.itemType === "consumable") {
-        quantity = Math.floor(Math.random() * (characterLevel * MATERIAL_QUANTITY_MULTIPLIER)) + 1;
+        quantity = Math.floor(Math.random() * (characterLevel * QUANTITY_MULTIPLIER)) + 1;
     }
 
     // ITEM LEVEL AND REQUIRED LEVEL
+
     let requiredLevel = 1;
 
     const minItemLevel = Math.max(1, characterLevel - ITEM_LEVEL_RANGE);
     const maxItemLevel = characterLevel + ITEM_LEVEL_RANGE;
 
     requiredLevel = Math.floor(Math.random() * (maxItemLevel - minItemLevel + 1)) + minItemLevel;
+
+    // RARITY AND STATS
 
     const rarity = itemPrefix?.toLowerCase();
 
@@ -105,6 +111,9 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     return item;
 }
+
+// NOTE: THIS IS REALLY SIMPLE FUNCTION AND CANNOT,
+//  GENERATE DIFFERENT ITEMS - ONLY THE SAME TYPE
 
 export function generateMoreItems(cycles: number, props: GenerateItemsOptions) {
     const itemArray = [];
