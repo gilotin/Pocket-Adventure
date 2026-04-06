@@ -92,10 +92,9 @@ export function GameLayout() {
                             </button>
                         </header>
                         <main className={styles.mainGame}>
-                            <div>
-                                {/* It's for testing!!! */}
+                            {/* <div>
                                 <TestItemGenerator />
-                            </div>
+                            </div> */}
 
                             <PocketAdventurePage setConfirmAction={setConfirmAction} />
                         </main>

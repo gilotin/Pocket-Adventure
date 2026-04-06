@@ -17,7 +17,7 @@ import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem"
 import { missionData } from "./features/missions/data/missionsData";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
 import { MISSION_KEY, STORAGE_KEY } from "./constants/gameConstants";
-import { generateItem } from "./systems/items/generateItems";
+import { generateItem, generateMoreItems } from "./systems/items/generateItems";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -239,11 +239,11 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     const characterXpProgress = CalculateCharacterXp({ characterData });
 
-    const item = generateItem({
+    const arrayOfItems = generateMoreItems(2, {
         characterLevel: characterXpProgress.level,
         itemType: "materials",
     });
-    console.log(item);
+    console.log(arrayOfItems);
 
     return (
         <>

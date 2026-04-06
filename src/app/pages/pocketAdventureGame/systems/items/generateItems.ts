@@ -107,3 +107,14 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     return item;
 }
+
+export function generateMoreItems(cycles: number, props: GenerateItemsOptions) {
+    const itemArray = [];
+    for (let index = 0; index < cycles; index++) {
+        const item = generateItem(props);
+
+        itemArray.push(item);
+    }
+
+    return itemArray;
+}
