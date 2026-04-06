@@ -24,24 +24,33 @@ export type AccountData = {
  ITEM TYPES
 ======================================*/
 
-export type ItemStats = {
+export type ItemRarity = "common" | "magic" | "unique";
+
+export type WeaponStats = {
     attack: number;
+    recovery: number;
+    dropChance: number;
+};
+
+export type ArmorStats = {
     armor: number;
     elementalProtection: number;
     recovery: number;
     dropChance: number;
 };
 
+export type ItemStats = WeaponStats | ArmorStats;
+
 export type Item = {
-    itemId: number;
-    itemLevel: number;
-    requireLevel: number;
+    itemId: string;
+    itemLevel?: number;
+    requiredLevel: number;
     name: string;
-    type: "equipment" | "materials" | "consumables";
+    type: "equipment" | "materials" | "consumable";
+    equipmentSlot?: EquipmentType;
     stats?: ItemStats;
     quantity: number;
     itemValue: number;
-    equipmentSlot: EquipmentSlot;
     isEquipped: boolean;
 };
 
@@ -50,8 +59,9 @@ export type ItemStore = Item[];
 /*======================================
  EQUIPMENT TYPES
 ======================================*/
+export type ItemType = "equipment" | "materials" | "consumable";
 
-export type EquipmentSlot = "weapon" | "armor" | "helm" | "boots";
+export type EquipmentType = "armor" | "boots" | "weapon" | "helm";
 
 /*======================================
  CHARACTER TYPES

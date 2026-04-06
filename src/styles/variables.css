@@ -82,12 +82,18 @@
     --rarity-legendary: #ff9f1c;
 
 
-    /* GAME COLORS */
+    /* GAME UI COLORS */
 
     --game-yellow: #FFC13E;
     --game-orange: #FF7E3C;
+    --game-light-blue: #78AFD5;
     --game-medium-blue: #426798;
     --game-dark-blue: #293952;
-    --game-light-blue: #78AFD5;
+    --game-light-green: #a7c957;
+    --game-medium-green: #6a994e;
+    --game-dark-green: #386641;
+    --game-light-brown: #a98467;
+    --game-dark-brown: #6c584c;
+
 
 }
