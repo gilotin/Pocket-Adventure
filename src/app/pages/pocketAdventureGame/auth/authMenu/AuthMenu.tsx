@@ -39,7 +39,7 @@ export function AuthMenu({ handleAuthAction: handleAuthAction }: AuthProps) {
                 </li>
             </ul>
             <footer className={styles.menuFooter}>
-                <p>This game is currently in development.</p>
+                <p>This project is currently in development.</p>
                 <p> Nikolay Toshev 2026</p>
             </footer>
         </section>
