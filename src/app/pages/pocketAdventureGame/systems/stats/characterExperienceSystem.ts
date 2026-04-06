@@ -1,3 +1,4 @@
+import { BASE_LEVEL_EXPERIENCE, BASE_LEVEL_MULTIPLIER } from "../../constants/gameConstants";
 import type { Character } from "../../types/gameTypes";
 
 type CharacterXpProps = {
@@ -5,9 +6,6 @@ type CharacterXpProps = {
 };
 
 export function CalculateCharacterXp({ characterData }: CharacterXpProps) {
-    const BASE_LEVEL_EXPERIENCE = 100;
-    const BASE_LEVEL_MULTIPLIER = 1.25;
-
     let level = 1;
     let currentXp = characterData?.totalExperience;
 

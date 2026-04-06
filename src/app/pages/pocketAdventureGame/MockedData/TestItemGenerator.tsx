@@ -1,14 +1,12 @@
 import type React from "react";
 import { loadStorageData, saveItems } from "../services/storageOperations";
-import type { Item } from "../types/gameTypes";
+import type { Item, ItemType } from "../types/gameTypes";
+import { STORAGE_KEY } from "../constants/gameConstants";
 
 /* ======================
    Types
 ====================== */
-type ItemType = "equipment" | "materials" | "consumables";
 type EquipmentType = "armor" | "boots" | "weapon" | "helm";
-
-export const STORAGE_KEY = "spawnedData";
 
 function idGenerator() {
     // latter this will be removed latter so magic numbers for now are OK!
@@ -63,9 +61,9 @@ export function TestItemGenerator() {
         }
 
         const newItem: Item = {
-            itemId: Number(itemId),
+            itemId: String(itemId),
             itemLevel: 1,
-            requireLevel: 1,
+            requiredLevel: 1,
             name: itemName,
             type: itemType as ItemType,
             stats: itemStats,
