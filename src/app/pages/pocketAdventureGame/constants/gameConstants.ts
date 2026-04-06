@@ -1,4 +1,26 @@
+// STORAGE RELATED
 export const ACCOUNT_KEY = "accountData";
 export const CHARACTER_KEY = "characterData";
 export const MISSION_KEY = "missionData";
 export const AUTH_KEY = "auth";
+export const STORAGE_KEY = "itemData";
+
+// CHARACTER
+export const BASE_LEVEL_EXPERIENCE = 100;
+export const BASE_LEVEL_MULTIPLIER = 1.25;
+
+// ITEM CONSTANTS
+export const ITEM_LEVEL_RANGE = 1;
+
+// PRICE
+export const MAX_PRICE = 100;
+export const MIN_PRICE = 10;
+
+// MATERIALS
+export const MATERIAL_QUANTITY_MULTIPLIER = 5;
+
+// CONSUMABLES
+export const CONSUMABLE_QUANTITY_MULTIPLIER = 1;
+
+// ITEM STATS
+export const BASE_DROP_CHANCE_MULTIPLIER = 0.1;
