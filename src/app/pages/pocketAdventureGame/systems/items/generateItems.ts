@@ -53,10 +53,8 @@ export function generateItem(props: GenerateItemsOptions): Item {
     const characterLevel = props.characterLevel;
 
     let quantity = 1;
-    if (props.itemType === "materials") {
-        quantity = Math.floor(characterLevel * MATERIAL_QUANTITY_MULTIPLIER) + 1;
-    } else if (props.itemType === "consumable") {
-        quantity = Math.floor(characterLevel * CONSUMABLE_QUANTITY_MULTIPLIER) + 1;
+    if (props.itemType === "materials" || props.itemType === "consumable") {
+        quantity = Math.floor(Math.random() * (characterLevel * MATERIAL_QUANTITY_MULTIPLIER)) + 1;
     }
 
     // ITEM LEVEL AND REQUIRED LEVEL
