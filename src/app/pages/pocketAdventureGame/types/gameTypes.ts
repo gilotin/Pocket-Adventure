@@ -26,20 +26,13 @@ export type AccountData = {
 
 export type ItemRarity = "common" | "magic" | "unique";
 
-export type WeaponStats = {
-    attack: number;
+export type ItemStats = {
+    attack?: number;
+    armor?: number;
+    elementalProtection?: number;
     recovery: number;
     dropChance: number;
 };
-
-export type ArmorStats = {
-    armor: number;
-    elementalProtection: number;
-    recovery: number;
-    dropChance: number;
-};
-
-export type ItemStats = WeaponStats | ArmorStats;
 
 export type Item = {
     itemId: string;
@@ -110,9 +103,9 @@ export type MissionData = Mission[];
 export type MissionReward = {
     xp: number;
     gold: number;
-    materials?: string[];
-    items?: ItemRewards;
-    potions?: number;
+    materials?: number;
+    equipment?: number;
+    consumable?: number;
 };
 
 export type ItemRewards = ("armor" | "helm" | "gloves" | "boots")[];

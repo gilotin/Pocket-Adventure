@@ -5,11 +5,13 @@ export const missionData: MissionData = [
         id: "s1",
         type: "story",
         title: "What happened",
-        duration: 5,
+        duration: 1,
         description: "Here will be added description to the story mission.",
         rewards: {
             xp: 5,
             gold: 10,
+            materials: 2,
+            consumable: 1,
         },
     },
     {
@@ -125,7 +127,6 @@ export const missionData: MissionData = [
         rewards: {
             xp: 150,
             gold: 250,
-            items: ["gloves", "boots"],
         },
     },
     {
@@ -137,7 +138,6 @@ export const missionData: MissionData = [
         rewards: {
             xp: 300,
             gold: 2500,
-            items: ["gloves", "boots", "armor", "helm"],
         },
     },
 ];

@@ -13,9 +13,9 @@ export function MissionRewards({ currentMission }: MissionRewardsProps) {
     const rewardList = [
         { label: "Xp", value: currentMission.rewards.xp },
         { label: "Gold", value: currentMission.rewards.gold },
-        { label: "Materials", value: currentMission.rewards.materials?.join(", ") },
-        { label: "Items", value: currentMission.rewards.items?.join(", ") },
-        { label: "Potions", value: currentMission.rewards.potions },
+        { label: "Materials", value: currentMission.rewards.materials },
+        { label: "Consumable", value: currentMission.rewards.consumable },
+        { label: "Equipment", value: currentMission.rewards.equipment },
     ];
 
     const filteredList = rewardList.filter((req) => req.value !== undefined);

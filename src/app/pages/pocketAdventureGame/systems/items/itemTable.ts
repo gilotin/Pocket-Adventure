@@ -11,7 +11,7 @@ export const ITEM_NAME_PARTS = {
     },
     materials: {
         prefixes: ["Raw", "Refined", "Exceptional"],
-        bases: ["Iron", "Wood"],
+        bases: ["Iron", "Wood", "stone", "leather"],
         suffixes: [],
     },
 };

@@ -17,7 +17,7 @@ import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem"
 import { missionData } from "./features/missions/data/missionsData";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
 import { MISSION_KEY, STORAGE_KEY } from "./constants/gameConstants";
-import { generateItem, generateMoreItems } from "./systems/items/generateItems";
+import { generateMoreItems } from "./systems/items/generateItems";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -32,6 +32,8 @@ export function createFallbackCharacter(): Character {
         totalExperience: 0,
     };
 }
+
+//  TO GENERATE BASES RANDOMLY !!! NEED UPDATE
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
@@ -155,6 +157,26 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     =================
     */
 
+    function mergeInventory(prevInventory: ItemStore, newItems: ItemStore): ItemStore {
+        const updatedInventory = [...prevInventory];
+
+        newItems.forEach((newItem) => {
+            const existingItem = updatedInventory.find(
+                (item) => item.name === newItem.name && item.type === newItem.type,
+            );
+
+            if (existingItem) {
+                existingItem.quantity += newItem.quantity;
+            } else {
+                updatedInventory.push({ ...newItem });
+            }
+        });
+
+        return updatedInventory;
+    }
+
+    const characterXpProgress = CalculateCharacterXp({ characterData });
+
     const startMission = (missionId: string) => {
         if (activeMission) {
             return;
@@ -164,6 +186,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         if (!missionDefinition) {
             return;
         }
+
         const missionStartTime = Date.now();
         const durationSeconds = missionDefinition.duration;
         const missionRewards = missionDefinition.rewards;
@@ -190,6 +213,33 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             return;
         }
 
+        let itemRewardsList: ItemStore = [];
+
+        for (const reward in missionDefinition.rewards) {
+            if (reward === "materials" || reward === "consumable" || reward === "equipment") {
+                const rewardName = reward;
+                let rewardQuantity = missionDefinition.rewards[reward];
+
+                if (rewardQuantity === undefined) {
+                    continue;
+                }
+                const itemReward = generateMoreItems(rewardQuantity, {
+                    characterLevel: characterXpProgress.level,
+                    itemType: rewardName,
+                });
+
+                itemRewardsList.push(...itemReward);
+            }
+        }
+
+        setInventoryItems((prev) => {
+            const update = mergeInventory(prev, itemRewardsList);
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(update));
+
+            return update;
+        });
+
         setCharacterData((prev) => {
             if (!prev) {
                 return prev;
@@ -205,6 +255,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 return updated;
             }
         });
+
         setGameNavigation("character");
         setActiveMission(null);
     };
@@ -236,14 +287,6 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             />
         ),
     };
-
-    const characterXpProgress = CalculateCharacterXp({ characterData });
-
-    const arrayOfItems = generateMoreItems(2, {
-        characterLevel: characterXpProgress.level,
-        itemType: "materials",
-    });
-    console.log(arrayOfItems);
 
     return (
         <>

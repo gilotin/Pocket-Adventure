@@ -7,7 +7,6 @@ type CharacterPanelAndStatsProps = {
     unequipItem: () => void;
     handleActiveItemState: (itemId: string | null) => void;
     calculatedEquipmentStats: ItemStats;
-    // NOTE: To fix that type and move it in types
     characterProgress: {
         level: number;
         xpIntoLevel: number;

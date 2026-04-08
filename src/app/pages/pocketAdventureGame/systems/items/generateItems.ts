@@ -1,4 +1,4 @@
-import type { EquipmentType, Item, ItemStats } from "../../types/gameTypes";
+import type { EquipmentType, Item, ItemStats, ItemType } from "../../types/gameTypes";
 import {
     BASE_DROP_CHANCE_MULTIPLIER,
     ITEM_LEVEL_RANGE,
@@ -8,21 +8,11 @@ import {
 } from "../../constants/gameConstants";
 import { ITEM_NAME_PARTS, RARITY_MULTIPLIER } from "./itemTable";
 
-type BaseGenerateOptions = {
+type GenerateItemsOptions = {
     characterLevel: number;
+    itemType: ItemType;
+    equipmentType?: EquipmentType;
 };
-
-type GenerateItemsOptions =
-    | (BaseGenerateOptions & {
-          itemType: "equipment";
-          equipmentType: EquipmentType;
-      })
-    | (BaseGenerateOptions & {
-          itemType: "consumable";
-      })
-    | (BaseGenerateOptions & {
-          itemType: "materials";
-      });
 
 function getRandomItemElement(element: string[]): string | undefined {
     if (!element?.length) return undefined;

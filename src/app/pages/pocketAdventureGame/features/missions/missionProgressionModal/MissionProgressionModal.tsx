@@ -43,6 +43,7 @@ export function MissionProgressionModal({
     const handleRewardsBtn = (missionId: string) => {
         collectRewards(missionId);
     };
+
     return (
         <section className={styles.missionModalWrapper}>
             <h1>Mission progress</h1>
@@ -50,13 +51,15 @@ export function MissionProgressionModal({
             <ul>
                 <li>XP:{activeMission.rewards.xp}</li>
                 <li>Gold:{activeMission.rewards.gold}</li>
-                {activeMission.rewards.items && (
-                    <li>Items:{activeMission.rewards.items.join(", ")}</li>
+                {activeMission.rewards.equipment && (
+                    <li>Items:{activeMission.rewards.equipment}</li>
                 )}
                 {activeMission.rewards.materials && (
                     <li>Materials:{activeMission.rewards.materials}</li>
                 )}
-                {activeMission.rewards.potions && <li>Potions:{activeMission.rewards.potions}</li>}
+                {activeMission.rewards.consumable && (
+                    <li>Potions:{activeMission.rewards.consumable}</li>
+                )}
             </ul>
             {isCompleted ? (
                 <p>Mission Completed!</p>

@@ -11,7 +11,7 @@ import type {
     AuthMode,
     AuthUser,
 } from "../types/gameTypes";
-import { TestItemGenerator } from "../mockedData/TestItemGenerator";
+// import { TestItemGenerator } from "../mockedData/TestItemGenerator";
 import { AuthMenu } from "../auth/authMenu/AuthMenu";
 import { Register } from "../auth/register/Register";
 import { Login } from "../auth/login/Login";
