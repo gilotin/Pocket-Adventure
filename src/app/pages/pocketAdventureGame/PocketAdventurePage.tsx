@@ -8,7 +8,7 @@ import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 
 import { CHARACTER_KEY } from "./auth/register/Register";
-import { deleteItem, loadStorageData, saveItems } from "./services/storageOperations";
+import { loadStorageData } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
 import type { ActiveMission, Character, GameMenuState, ItemStore } from "./types/gameTypes";
@@ -18,7 +18,7 @@ import { missionData } from "./features/missions/data/missionsData";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
 import { MISSION_KEY, STORAGE_KEY } from "./constants/gameConstants";
 import { generateMoreItems } from "./systems/items/generateItems";
-import { useInventory } from "./features/inventory/hooks/useInvenotry";
+import { useInventory } from "./features/inventory/hooks/useInventory";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -76,51 +76,6 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     }, []);
 
     if (!characterData) return null;
-
-    //   to pass sellItem to character !!!
-
-    // const equipSelectedItem = () => {
-    //     if (!activeItemId) return;
-    //     if (activeItem?.type !== "equipment") return;
-    //     if (!activeItem.equipmentSlot) return;
-
-    //     const equipmentType = activeItem.equipmentSlot;
-
-    //     const updatedInventory = inventoryItems.map((item) => {
-    //         let updatedItem = item;
-
-    //         if (item.equipmentSlot === equipmentType && item.isEquipped) {
-    //             updatedItem = { ...item, isEquipped: false };
-    //         }
-
-    //         if (item.itemId === activeItemId) {
-    //             updatedItem = { ...item, isEquipped: true };
-    //         }
-
-    //         return updatedItem;
-    //     });
-
-    //     setInventoryItems(updatedInventory);
-    //     saveItems(STORAGE_KEY, updatedInventory);
-    //     setShowDetailsCard(false);
-    // };
-
-    // const unequipSelectedItem = () => {
-    //     if (!activeItemId) return;
-    //     if (activeItem?.type !== "equipment") return;
-    //     if (!activeItem.equipmentSlot) return;
-
-    //     const updatedInventory = inventoryItems.map((item) => {
-    //         if (item.itemId === activeItemId) {
-    //             return { ...item, isEquipped: false };
-    //         }
-    //         return item;
-    //     });
-
-    //     setInventoryItems(updatedInventory);
-    //     saveItems(STORAGE_KEY, updatedInventory);
-    //     setShowDetailsCard(false);
-    // };
 
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 

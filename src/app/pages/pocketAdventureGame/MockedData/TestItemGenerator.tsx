@@ -1,5 +1,5 @@
 import type React from "react";
-import { loadStorageData, saveItems } from "../services/storageOperations";
+import { loadStorageData, saveToStorage } from "../services/storageOperations";
 import type { Item, ItemType } from "../types/gameTypes";
 import { STORAGE_KEY } from "../constants/gameConstants";
 
@@ -75,7 +75,7 @@ export function TestItemGenerator() {
 
         const currentItems = loadStorageData(STORAGE_KEY, []);
         const updatedItems = [...currentItems, newItem];
-        saveItems(STORAGE_KEY, updatedItems);
+        saveToStorage(STORAGE_KEY, updatedItems);
     };
 
     return (
