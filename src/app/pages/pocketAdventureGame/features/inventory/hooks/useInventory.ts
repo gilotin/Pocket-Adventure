@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Item, ItemStore } from "../../../types/gameTypes";
+import type { ItemStore } from "../../../types/gameTypes";
 
 export function useInventory() {
     const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
