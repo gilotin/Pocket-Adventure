@@ -17,6 +17,7 @@ import { Register } from "../auth/register/Register";
 import { Login } from "../auth/login/Login";
 import { loginAsGuest } from "../auth/authService";
 import { AUTH_KEY } from "../constants/gameConstants";
+import { TestItemGenerator } from "../mockedData/TestItemGenerator";
 
 export function GameLayout() {
     const [authUser, setAuthUser] = useState<AuthUser | null>(null);
@@ -92,9 +93,9 @@ export function GameLayout() {
                             </button>
                         </header>
                         <main className={styles.mainGame}>
-                            {/* <div>
+                            <div>
                                 <TestItemGenerator />
-                            </div> */}
+                            </div>
 
                             <PocketAdventurePage setConfirmAction={setConfirmAction} />
                         </main>

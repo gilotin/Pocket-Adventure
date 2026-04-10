@@ -256,7 +256,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 characterData={characterData}
                 inventoryItems={inventoryItems}
                 selectActiveItem={selectItem}
-                unequipItem={unequipSelectedItem}
+                unequipItem={unequipItem}
                 calculatedEquipmentStats={calculatedEquipmentStats}
                 characterProgress={characterProgress}
             />

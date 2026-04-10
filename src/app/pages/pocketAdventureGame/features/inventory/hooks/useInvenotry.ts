@@ -11,7 +11,7 @@ export function useInventory() {
     const deleteItemById = (itemId: string) => {
         setInventoryItems((prev) => {
             const updated = prev.filter((item) => {
-                item.itemId !== itemId;
+                return item.itemId !== itemId;
             });
             return updated;
         });
@@ -74,7 +74,24 @@ export function useInventory() {
         setShowDetailsCard(false);
     };
 
-    const unequipItem = () => {};
+    const unequipItem = () => {
+        if (!activeItemId) return;
+        setInventoryItems((prev) => {
+            const activeItem = prev.find((item) => item.itemId === activeItemId);
+
+            if (!activeItem) return prev;
+
+            const updatedInventory = prev.map((item) => {
+                if (item.itemId === activeItemId) {
+                    return { ...item, isEquipped: false };
+                }
+                return item;
+            });
+            return updatedInventory;
+        });
+
+        setShowDetailsCard(false);
+    };
 
     return {
         inventoryItems,
