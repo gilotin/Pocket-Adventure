@@ -13,18 +13,6 @@ export function loadStorageData<T>(storageKey: string, fallback: T): T {
     }
 }
 
-export function saveItems(storageKey: string, items: ItemStore) {
+export function saveToStorage(storageKey: string, items: ItemStore) {
     return localStorage.setItem(storageKey, JSON.stringify(items));
-}
-
-export function deleteItem(storageKey: string, itemId: string) {
-    const itemDataArray = loadStorageData<ItemStore>(storageKey, []);
-
-    const updatedArray = itemDataArray.filter((item: { itemId: string }) => {
-        return item.itemId !== itemId;
-    });
-
-    localStorage.setItem(storageKey, JSON.stringify(updatedArray));
-
-    return;
 }
