@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ItemStore } from "../../../types/gameTypes";
+import type { Item, ItemStore } from "../../../types/gameTypes";
 
 export function useInventory() {
     const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
@@ -46,7 +46,35 @@ export function useInventory() {
         return itemPrice;
     };
 
-    // TODO : equipItem and unequipItem
+    // TODO : unequipItem
+    const equipItem = () => {
+        if (!activeItemId) return;
+
+        setInventoryItems((prev) => {
+            const activeItem = prev.find((item) => item.itemId === activeItemId);
+
+            if (!activeItem) return prev;
+            if (activeItem.type !== "equipment") return prev;
+            if (!activeItem.equipmentSlot) return prev;
+
+            const updatedInventory = prev.map((item) => {
+                if (item.itemId === activeItem.itemId) {
+                    return { ...item, isEquipped: true };
+                }
+                if (item.equipmentSlot === activeItem.equipmentSlot && item.isEquipped) {
+                    return { ...item, isEquipped: false };
+                }
+
+                return item;
+            });
+
+            return updatedInventory;
+        });
+
+        setShowDetailsCard(false);
+    };
+
+    const unequipItem = () => {};
 
     return {
         inventoryItems,
@@ -56,5 +84,7 @@ export function useInventory() {
         selectItem,
         sellItem,
         setInventoryItems,
+        equipItem,
+        unequipItem,
     };
 }

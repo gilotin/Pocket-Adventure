@@ -48,6 +48,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         selectItem,
         sellItem,
         setInventoryItems,
+        equipItem,
+        unequipItem,
     } = useInventory();
 
     useEffect(() => {
@@ -242,8 +244,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 selectActiveItem={selectItem}
                 onSellItem={sellItem}
                 setConfirmAction={setConfirmAction}
-                equipItem={equipSelectedItem}
-                unequipItem={unequipSelectedItem}
+                equipItem={equipItem}
+                unequipItem={unequipItem}
             />
         ),
         missions: <Missions startMission={startMission} />,

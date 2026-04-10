@@ -5,7 +5,7 @@ type CharacterPanelAndStatsProps = {
     characterData: Character;
     inventoryItems: Item[];
     unequipItem: () => void;
-    handleActiveItemState: (itemId: string | null) => void;
+    selectActiveItem: (itemId: string | null) => void;
     calculatedEquipmentStats: ItemStats;
     characterProgress: {
         level: number;
@@ -19,16 +19,16 @@ export function CharacterPanelAndStats({
     characterData,
     inventoryItems,
     unequipItem,
-    handleActiveItemState,
+    selectActiveItem,
     calculatedEquipmentStats,
     characterProgress,
 }: CharacterPanelAndStatsProps) {
     const handleMouseEnter = (itemId: string) => {
-        handleActiveItemState(itemId);
+        selectActiveItem(itemId);
     };
 
     const handleMouseLeave = () => {
-        handleActiveItemState(null);
+        selectActiveItem(null);
     };
 
     const filteredEquippedItems = inventoryItems.filter((item) => item.isEquipped === true);

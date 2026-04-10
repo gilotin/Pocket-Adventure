@@ -34,11 +34,11 @@ export function Inventory({
         setConfirmAction(() => () => onDeleteItem(itemId));
     };
 
-    const handleEquipItem = () => {
+    const onEquipItem = () => {
         equipItem();
     };
 
-    const handleUnequipItem = () => {
+    const onUnequipItem = () => {
         unequipItem();
     };
 
@@ -52,8 +52,7 @@ export function Inventory({
                 handleMouseLeave={handleMouseLeave}
                 onSellItem={onSellItem}
                 confirmDeleteItem={confirmDeleteItem}
-                handleEquipItem={handleEquipItem}
-                handleUnequipItem={handleUnequipItem}
+                onEquipItem={onEquipItem}
             />
         ));
 

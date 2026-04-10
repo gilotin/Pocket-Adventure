@@ -7,8 +7,7 @@ type ItemCardProps = {
     handleMouseLeave: () => void;
     onSellItem: (itemId: string) => void;
     confirmDeleteItem: (itemId: string) => void;
-    handleEquipItem: () => void;
-    handleUnequipItem: () => void;
+    onEquipItem: () => void;
 };
 
 export function ItemCard({
@@ -17,7 +16,7 @@ export function ItemCard({
     handleMouseLeave,
     onSellItem,
     confirmDeleteItem,
-    handleEquipItem,
+    onEquipItem,
 }: ItemCardProps) {
     return (
         <div
@@ -30,7 +29,7 @@ export function ItemCard({
             <div>Type: {item.type}</div>
             <div>Qty:{item.quantity}</div>
 
-            {item.type === "equipment" && <button onClick={handleEquipItem}>Equip</button>}
+            {item.type === "equipment" && <button onClick={onEquipItem}>Equip</button>}
             <button onClick={() => onSellItem(item.itemId)}>Sell</button>
             <button
                 onClick={(e) => {
