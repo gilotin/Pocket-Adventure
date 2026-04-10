@@ -6,8 +6,8 @@ import { ItemCard } from "../../components/itemCard/ItemCard";
 type InventoryProps = {
     inventoryItems: Item[];
     onDeleteItem: (itemId: string) => void;
-    handleActiveItemState: (itemId: string | null) => void;
-    handleSellItems: (itemId: string) => void;
+    selectActiveItem: (itemId: string | null) => void;
+    onSellItem: (itemId: string) => void;
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
     equipItem: () => void;
     unequipItem: () => void;
@@ -16,18 +16,18 @@ type InventoryProps = {
 export function Inventory({
     inventoryItems,
     onDeleteItem,
-    handleActiveItemState,
-    handleSellItems,
+    selectActiveItem,
+    onSellItem,
     setConfirmAction,
     equipItem,
     unequipItem,
 }: InventoryProps) {
     const handleMouseEnter = (itemId: string) => {
-        handleActiveItemState(itemId);
+        selectActiveItem(itemId);
     };
 
     const handleMouseLeave = () => {
-        handleActiveItemState(null);
+        selectActiveItem(null);
     };
 
     const confirmDeleteItem = (itemId: string) => {
@@ -50,7 +50,7 @@ export function Inventory({
                 item={item}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
-                handleSellItems={handleSellItems}
+                onSellItem={onSellItem}
                 confirmDeleteItem={confirmDeleteItem}
                 handleEquipItem={handleEquipItem}
                 handleUnequipItem={handleUnequipItem}

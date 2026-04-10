@@ -18,6 +18,7 @@ import { missionData } from "./features/missions/data/missionsData";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
 import { MISSION_KEY, STORAGE_KEY } from "./constants/gameConstants";
 import { generateMoreItems } from "./systems/items/generateItems";
+import { useInventory } from "./features/inventory/hooks/useInvenotry";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -37,11 +38,17 @@ export function createFallbackCharacter(): Character {
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
-    const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
-    const [showDetailsCard, setShowDetailsCard] = useState<boolean>(false);
-    const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const [characterData, setCharacterData] = useState<Character | null>(null);
     const [activeMission, setActiveMission] = useState<ActiveMission>(null);
+    const {
+        inventoryItems,
+        activeItem,
+        showDetailsCard,
+        deleteItemById,
+        selectItem,
+        sellItem,
+        setInventoryItems,
+    } = useInventory();
 
     useEffect(() => {
         const loadedInventoryData = loadStorageData<ItemStore | []>(STORAGE_KEY, []);
@@ -68,84 +75,50 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     if (!characterData) return null;
 
-    const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
+    //   to pass sellItem to character !!!
 
-    const handleDeleteItem = (itemId: string) => {
-        deleteItem(STORAGE_KEY, itemId);
-        setInventoryItems(loadStorageData(STORAGE_KEY, []));
+    // const equipSelectedItem = () => {
+    //     if (!activeItemId) return;
+    //     if (activeItem?.type !== "equipment") return;
+    //     if (!activeItem.equipmentSlot) return;
 
-        setActiveItemId(null);
-        setShowDetailsCard(false);
-    };
+    //     const equipmentType = activeItem.equipmentSlot;
 
-    const handleActiveItemState = (itemId: string | null) => {
-        if (itemId === null) {
-            setActiveItemId(null);
-            setShowDetailsCard(false);
-            return;
-        }
-        setActiveItemId(itemId);
-        setShowDetailsCard(true);
-    };
+    //     const updatedInventory = inventoryItems.map((item) => {
+    //         let updatedItem = item;
 
-    const sellItems = (itemId: string) => {
-        const itemForSell = inventoryItems.find((item) => item.itemId === itemId);
-        if (!itemForSell) return;
-        const itemPrice = itemForSell.itemValue;
-        setCharacterData((prev) => {
-            if (!prev) {
-                return prev;
-            } else {
-                const updated = { ...prev, gold: prev.gold + itemPrice };
-                localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
-                return updated;
-            }
-        });
-        handleDeleteItem(itemId);
-    };
+    //         if (item.equipmentSlot === equipmentType && item.isEquipped) {
+    //             updatedItem = { ...item, isEquipped: false };
+    //         }
 
-    const equipSelectedItem = () => {
-        if (!activeItemId) return;
-        if (activeItem?.type !== "equipment") return;
-        if (!activeItem.equipmentSlot) return;
+    //         if (item.itemId === activeItemId) {
+    //             updatedItem = { ...item, isEquipped: true };
+    //         }
 
-        const equipmentType = activeItem.equipmentSlot;
+    //         return updatedItem;
+    //     });
 
-        const updatedInventory = inventoryItems.map((item) => {
-            let updatedItem = item;
+    //     setInventoryItems(updatedInventory);
+    //     saveItems(STORAGE_KEY, updatedInventory);
+    //     setShowDetailsCard(false);
+    // };
 
-            if (item.equipmentSlot === equipmentType && item.isEquipped) {
-                updatedItem = { ...item, isEquipped: false };
-            }
+    // const unequipSelectedItem = () => {
+    //     if (!activeItemId) return;
+    //     if (activeItem?.type !== "equipment") return;
+    //     if (!activeItem.equipmentSlot) return;
 
-            if (item.itemId === activeItemId) {
-                updatedItem = { ...item, isEquipped: true };
-            }
+    //     const updatedInventory = inventoryItems.map((item) => {
+    //         if (item.itemId === activeItemId) {
+    //             return { ...item, isEquipped: false };
+    //         }
+    //         return item;
+    //     });
 
-            return updatedItem;
-        });
-
-        setInventoryItems(updatedInventory);
-        saveItems(STORAGE_KEY, updatedInventory);
-        setShowDetailsCard(false);
-    };
-
-    const unequipSelectedItem = () => {
-        if (!activeItemId) return;
-        if (activeItem?.type !== "equipment") return;
-        if (!activeItem.equipmentSlot) return;
-
-        const updatedInventory = inventoryItems.map((item) => {
-            if (item.itemId === activeItemId) {
-                return { ...item, isEquipped: false };
-            }
-            return item;
-        });
-
-        setInventoryItems(updatedInventory);
-        saveItems(STORAGE_KEY, updatedInventory);
-        setShowDetailsCard(false);
-    };
+    //     setInventoryItems(updatedInventory);
+    //     saveItems(STORAGE_KEY, updatedInventory);
+    //     setShowDetailsCard(false);
+    // };
 
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
@@ -265,9 +238,9 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         inventory: (
             <Inventory
                 inventoryItems={inventoryItems}
-                onDeleteItem={handleDeleteItem}
-                handleActiveItemState={handleActiveItemState}
-                handleSellItems={sellItems}
+                onDeleteItem={deleteItemById}
+                selectActiveItem={selectItem}
+                onSellItem={sellItem}
                 setConfirmAction={setConfirmAction}
                 equipItem={equipSelectedItem}
                 unequipItem={unequipSelectedItem}
@@ -280,7 +253,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             <CharacterPanelAndStats
                 characterData={characterData}
                 inventoryItems={inventoryItems}
-                handleActiveItemState={handleActiveItemState}
+                selectActiveItem={selectItem}
                 unequipItem={unequipSelectedItem}
                 calculatedEquipmentStats={calculatedEquipmentStats}
                 characterProgress={characterProgress}
