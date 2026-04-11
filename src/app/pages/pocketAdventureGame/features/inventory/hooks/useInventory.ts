@@ -1,3 +1,10 @@
+/**
+ * Manages inventory state, selection, and item interactions.
+ * All mutations are persisted to localStorage.
+ *
+ * This hook is the single entry point for modifying inventory data.
+ */
+
 import { useEffect, useState } from "react";
 import type { ItemStore } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
@@ -36,6 +43,13 @@ export function useInventory() {
         setShowDetailsCard(true);
     };
 
+    /**
+     * Removes an item from inventory and returns its gold value.
+     *
+     * @param itemId - ID of the item to sell
+     * @returns Gold earned from the item (0 if not found)
+     */
+
     const sellItem = (itemId: string): number => {
         let itemPrice = 0;
 
@@ -55,6 +69,11 @@ export function useInventory() {
 
         return itemPrice;
     };
+
+    /**
+     * Equips the currently selected item.
+     * Ensures only one item per equipment slot is active at a time.
+     */
 
     const equipItem = () => {
         if (!activeItemId) return;
@@ -99,6 +118,10 @@ export function useInventory() {
         setShowDetailsCard(false);
     };
 
+    /**
+     * Merges new items into an existing inventory.
+     * Items with the same name and type are stacked by increasing quantity.
+     */
     const mergeInventory = (prevInventory: ItemStore, newItems: ItemStore): ItemStore => {
         const updatedInventory = prevInventory.map((item) => ({ ...item }));
 
@@ -116,6 +139,11 @@ export function useInventory() {
 
         return updatedInventory;
     };
+
+    /**
+     * Adds new items to the inventory, merging with existing ones
+     * based on item name and type.
+     */
 
     const addItems = (newItemList: ItemStore) => {
         setInventoryItems((prev) => {
