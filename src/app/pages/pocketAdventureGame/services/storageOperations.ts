@@ -13,6 +13,6 @@ export function loadStorageData<T>(storageKey: string, fallback: T): T {
     }
 }
 
-export function saveToStorage(storageKey: string, items: ItemStore) {
-    return localStorage.setItem(storageKey, JSON.stringify(items));
+export function saveToStorage(storageKey: string, items: ItemStore): void {
+    localStorage.setItem(storageKey, JSON.stringify(items));
 }
