@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ItemStore } from "../../../types/gameTypes";
+import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
+import { STORAGE_KEY } from "../../../constants/gameConstants";
 
 export function useInventory() {
     const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const [showDetailsCard, setShowDetailsCard] = useState(false);
 
+    useEffect(() => {
+        const loadedInventoryData = loadStorageData<ItemStore>(STORAGE_KEY, []);
+        setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
+    }, []);
+
     const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
 
     const deleteItemById = (itemId: string) => {
         setInventoryItems((prev) => {
-            const updated = prev.filter((item) => {
-                return item.itemId !== itemId;
-            });
-            return updated;
+            const updatedInventory = prev.filter((item) => item.itemId !== itemId);
+            saveToStorage(STORAGE_KEY, updatedInventory);
+            return updatedInventory;
         });
         setActiveItemId(null);
         setShowDetailsCard(false);
@@ -32,12 +38,16 @@ export function useInventory() {
 
     const sellItem = (itemId: string): number => {
         let itemPrice = 0;
+
         setInventoryItems((prev) => {
             const item = prev.find((i) => i.itemId === itemId);
             if (!item) return prev;
 
             itemPrice = item.itemValue;
-            return prev.filter((i) => i.itemId !== itemId);
+
+            const updatedInventory = prev.filter((i) => i.itemId !== itemId);
+            saveToStorage(STORAGE_KEY, updatedInventory);
+            return updatedInventory;
         });
 
         setActiveItemId(null);
@@ -46,7 +56,6 @@ export function useInventory() {
         return itemPrice;
     };
 
-    // TODO : unequipItem
     const equipItem = () => {
         if (!activeItemId) return;
 
@@ -67,7 +76,7 @@ export function useInventory() {
 
                 return item;
             });
-
+            saveToStorage(STORAGE_KEY, updatedInventory);
             return updatedInventory;
         });
 
@@ -77,20 +86,45 @@ export function useInventory() {
     const unequipItem = () => {
         if (!activeItemId) return;
         setInventoryItems((prev) => {
-            const activeItem = prev.find((item) => item.itemId === activeItemId);
-
-            if (!activeItem) return prev;
-
             const updatedInventory = prev.map((item) => {
                 if (item.itemId === activeItemId) {
                     return { ...item, isEquipped: false };
                 }
                 return item;
             });
+            saveToStorage(STORAGE_KEY, updatedInventory);
             return updatedInventory;
         });
 
         setShowDetailsCard(false);
+    };
+
+    const mergeInventory = (prevInventory: ItemStore, newItems: ItemStore): ItemStore => {
+        const updatedInventory = prevInventory.map((item) => ({ ...item }));
+
+        newItems.forEach((newItem) => {
+            const existingItem = updatedInventory.find(
+                (item) => item.name === newItem.name && item.type === newItem.type,
+            );
+
+            if (existingItem) {
+                existingItem.quantity += newItem.quantity;
+            } else {
+                updatedInventory.push({ ...newItem });
+            }
+        });
+
+        return updatedInventory;
+    };
+
+    const addItems = (newItemList: ItemStore) => {
+        setInventoryItems((prev) => {
+            const updatedInventory = mergeInventory(prev, newItemList);
+
+            saveToStorage(STORAGE_KEY, updatedInventory);
+
+            return updatedInventory;
+        });
     };
 
     return {
@@ -100,7 +134,7 @@ export function useInventory() {
         deleteItemById,
         selectItem,
         sellItem,
-        setInventoryItems,
+        addItems,
         equipItem,
         unequipItem,
     };

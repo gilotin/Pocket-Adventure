@@ -47,15 +47,12 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         deleteItemById,
         selectItem,
         sellItem,
-        setInventoryItems,
         equipItem,
         unequipItem,
+        addItems,
     } = useInventory();
 
     useEffect(() => {
-        const loadedInventoryData = loadStorageData<ItemStore | []>(STORAGE_KEY, []);
-        setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
-
         const storedCharacterData = loadStorageData<Character | null>(CHARACTER_KEY, null);
 
         const storedMission = loadStorageData<ActiveMission | null>(MISSION_KEY, null);
@@ -86,24 +83,6 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     MISSIONS
     =================
     */
-
-    function mergeInventory(prevInventory: ItemStore, newItems: ItemStore): ItemStore {
-        const updatedInventory = [...prevInventory];
-
-        newItems.forEach((newItem) => {
-            const existingItem = updatedInventory.find(
-                (item) => item.name === newItem.name && item.type === newItem.type,
-            );
-
-            if (existingItem) {
-                existingItem.quantity += newItem.quantity;
-            } else {
-                updatedInventory.push({ ...newItem });
-            }
-        });
-
-        return updatedInventory;
-    }
 
     const characterXpProgress = CalculateCharacterXp({ characterData });
 
@@ -162,13 +141,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             }
         }
 
-        setInventoryItems((prev) => {
-            const update = mergeInventory(prev, itemRewardsList);
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(update));
-
-            return update;
-        });
+        addItems(itemRewardsList);
 
         setCharacterData((prev) => {
             if (!prev) {
