@@ -51,14 +51,11 @@ export function useInventory() {
      */
 
     const sellItem = (itemId: string): number => {
-        let itemPrice = 0;
+        const item = inventoryItems.find((item) => item.itemId === itemId);
+        //0 indicates invalid sell operation (item not found)
+        const itemPrice = item?.itemValue ?? 0;
 
         setInventoryItems((prev) => {
-            const item = prev.find((i) => i.itemId === itemId);
-            if (!item) return prev;
-
-            itemPrice = item.itemValue;
-
             const updatedInventory = prev.filter((i) => i.itemId !== itemId);
             saveToStorage(STORAGE_KEY, updatedInventory);
             return updatedInventory;
@@ -66,7 +63,6 @@ export function useInventory() {
 
         setActiveItemId(null);
         setShowDetailsCard(false);
-
         return itemPrice;
     };
 
