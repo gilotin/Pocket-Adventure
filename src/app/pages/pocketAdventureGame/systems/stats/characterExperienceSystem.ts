@@ -7,7 +7,7 @@ type CharacterXpProps = {
 
 export function CalculateCharacterXp({ characterData }: CharacterXpProps) {
     let level = 1;
-    let currentXp = characterData?.totalExperience;
+    let currentXp = Math.max(0, characterData.totalExperience ?? 0);
 
     const requireXp = (level: number) => {
         return BASE_LEVEL_EXPERIENCE * BASE_LEVEL_MULTIPLIER ** (level - 1);
