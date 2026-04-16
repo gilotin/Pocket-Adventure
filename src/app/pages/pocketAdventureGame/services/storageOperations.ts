@@ -1,5 +1,3 @@
-import type { ItemStore } from "../types/gameTypes";
-
 export function loadStorageData<T>(storageKey: string, fallback: T): T {
     const rawData = localStorage.getItem(storageKey);
     if (!rawData) {
@@ -13,6 +11,6 @@ export function loadStorageData<T>(storageKey: string, fallback: T): T {
     }
 }
 
-export function saveToStorage(storageKey: string, items: ItemStore): void {
-    localStorage.setItem(storageKey, JSON.stringify(items));
+export function saveToStorage<T>(storageKey: string, data: T) {
+    localStorage.setItem(storageKey, JSON.stringify(data));
 }

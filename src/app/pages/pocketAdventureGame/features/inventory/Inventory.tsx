@@ -20,7 +20,6 @@ export function Inventory({
     onSellItem,
     setConfirmAction,
     equipItem,
-    unequipItem,
 }: InventoryProps) {
     const handleMouseEnter = (itemId: string) => {
         selectActiveItem(itemId);
@@ -36,10 +35,6 @@ export function Inventory({
 
     const onEquipItem = () => {
         equipItem();
-    };
-
-    const onUnequipItem = () => {
-        unequipItem();
     };
 
     const inventorySpace = inventoryItems

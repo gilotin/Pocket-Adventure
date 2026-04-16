@@ -19,6 +19,7 @@ import { MissionProgressionModal } from "./features/missions/missionProgressionM
 import { MISSION_KEY, STORAGE_KEY } from "./constants/gameConstants";
 import { generateMoreItems } from "./systems/items/generateItems";
 import { useInventory } from "./features/inventory/hooks/useInventory";
+import { useCharacter } from "./features/character/hooks/useCharacter";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -26,20 +27,12 @@ type GamePageProps = {
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
 };
 
-export function createFallbackCharacter(): Character {
-    return {
-        name: "Adventurer",
-        gold: 100,
-        totalExperience: 0,
-    };
-}
-
 //  TO GENERATE BASES RANDOMLY !!! NEED UPDATE
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
-    const [characterData, setCharacterData] = useState<Character | null>(null);
     const [activeMission, setActiveMission] = useState<ActiveMission>(null);
+    const { characterData, addGold, addExperience } = useCharacter();
     const {
         inventoryItems,
         activeItem,
@@ -53,17 +46,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     } = useInventory();
 
     useEffect(() => {
-        const storedCharacterData = loadStorageData<Character | null>(CHARACTER_KEY, null);
-
         const storedMission = loadStorageData<ActiveMission | null>(MISSION_KEY, null);
-
-        if (!storedCharacterData) {
-            const fallBackCharacter = createFallbackCharacter();
-            localStorage.setItem(CHARACTER_KEY, JSON.stringify(fallBackCharacter));
-            setCharacterData(fallBackCharacter);
-        } else {
-            setCharacterData(storedCharacterData);
-        }
 
         if (!storedMission) {
             setActiveMission(null);
@@ -72,19 +55,20 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         }
     }, []);
 
-    if (!characterData) return null;
-
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
-    const characterProgress = CalculateCharacterXp({ characterData });
+    const characterXpProgress = CalculateCharacterXp({ characterData });
+
+    const onSellItem = (itemId: string) => {
+        const itemValue = sellItem(itemId);
+        addGold(itemValue);
+    };
 
     /*
     =================
     MISSIONS
     =================
     */
-
-    const characterXpProgress = CalculateCharacterXp({ characterData });
 
     const startMission = (missionId: string) => {
         if (activeMission) {
@@ -142,22 +126,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         }
 
         addItems(itemRewardsList);
-
-        setCharacterData((prev) => {
-            if (!prev) {
-                return prev;
-            } else {
-                const updated = {
-                    ...prev,
-                    gold: prev.gold + missionDefinition.rewards.gold,
-                    totalExperience: prev.totalExperience + missionDefinition.rewards.xp,
-                };
-
-                localStorage.setItem(CHARACTER_KEY, JSON.stringify(updated));
-                localStorage.removeItem(MISSION_KEY);
-                return updated;
-            }
-        });
+        addGold(missionDefinition.rewards.gold);
+        addExperience(missionDefinition.rewards.xp);
 
         setGameNavigation("character");
         setActiveMission(null);
@@ -170,7 +140,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 inventoryItems={inventoryItems}
                 onDeleteItem={deleteItemById}
                 selectActiveItem={selectItem}
-                onSellItem={sellItem}
+                onSellItem={onSellItem}
                 setConfirmAction={setConfirmAction}
                 equipItem={equipItem}
                 unequipItem={unequipItem}
@@ -186,7 +156,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 selectActiveItem={selectItem}
                 unequipItem={unequipItem}
                 calculatedEquipmentStats={calculatedEquipmentStats}
-                characterProgress={characterProgress}
+                characterProgress={characterXpProgress}
             />
         ),
     };
