@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import type { Character, ItemStore } from "../../../types/gameTypes";
+import { useState } from "react";
+import type { Character } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
-import { CHARACTER_KEY, MISSION_KEY } from "../../../constants/gameConstants";
-import { CalculateCharacterXp } from "../../../systems/stats/characterExperienceSystem";
-import { generateMoreItems } from "../../../systems/items/generateItems";
+import { CHARACTER_KEY } from "../../../constants/gameConstants";
 
 export function createFallbackCharacter(): Character {
     return {
@@ -20,16 +18,16 @@ export function useCharacter() {
 
     const addGold = (amount: number) => {
         setCharacterData((prev) => {
-            const updatedGold = prev.gold + amount;
-            const characterUpdate = { ...prev, gold: updatedGold };
+            const updated = prev.gold + amount;
+            const characterUpdate = { ...prev, gold: updated };
             saveToStorage(CHARACTER_KEY, characterUpdate);
             return characterUpdate;
         });
     };
 
-    const addExperience = (amountXp: number) => {
+    const addExperience = (amount: number) => {
         setCharacterData((prev) => {
-            const updatedXp = prev.totalExperience + amountXp;
+            const updatedXp = prev.totalExperience + amount;
             const updatedCharacter = { ...prev, totalExperience: updatedXp };
             saveToStorage(CHARACTER_KEY, updatedCharacter);
             return updatedCharacter;
