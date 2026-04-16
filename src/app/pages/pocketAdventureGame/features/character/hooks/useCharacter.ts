@@ -1,3 +1,12 @@
+/**
+ * Manages character state, including gold and experience.
+ * All mutations are persisted to localStorage.
+ *
+ * This hook is the single source of truth for all character-related data and mutations.
+ * It ensures that character state is always initialized and updated immutably.
+ *
+ * Note: Level calculation and XP progression are handled by external systems.
+ */
 import { useState } from "react";
 import type { Character } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
@@ -16,6 +25,11 @@ export function useCharacter() {
         return loadStorageData<Character>(CHARACTER_KEY, createFallbackCharacter());
     });
 
+    /**
+     * Increments character gold by a given amount.
+     *
+     * @param amount - Amount of gold to add. Expected to be a non-negative number.
+     */
     const addGold = (amount: number) => {
         setCharacterData((prev) => {
             const updated = prev.gold + amount;
@@ -25,6 +39,11 @@ export function useCharacter() {
         });
     };
 
+    /**
+     * Increments character experience by a given amount.
+     *
+     * @param amount - Amount of experience to add. Expected to be a non-negative number.
+     */
     const addExperience = (amount: number) => {
         setCharacterData((prev) => {
             const updatedXp = prev.totalExperience + amount;
