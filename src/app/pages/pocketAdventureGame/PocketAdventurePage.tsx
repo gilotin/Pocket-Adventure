@@ -23,10 +23,7 @@ type GamePageProps = {
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
 };
 
-type RewardEntry = {
-    type: "materials" | "consumable" | "equipment";
-    quantity: number;
-};
+type RewardTypes = "materials" | "consumable" | "equipment";
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
@@ -55,31 +52,20 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
     const collectRewards = () => {
         const completedMission = completeMission();
-        if (!completedMission) return null;
+        if (!completedMission) return;
 
         const itemRewardsList: ItemStore = [];
-        const itemTypeList: RewardEntry[] = [];
+
+        const typeList: RewardTypes[] = ["materials", "consumable", "equipment"];
 
         const missionRewards = completedMission.rewards;
 
-        for (const rewardType in missionRewards) {
-            if (
-                rewardType === "materials" ||
-                rewardType === "consumable" ||
-                rewardType === "equipment"
-            ) {
-                if (!missionRewards[rewardType]) continue;
-                itemTypeList.push({
-                    type: rewardType,
-                    quantity: missionRewards[rewardType],
-                });
-            }
-        }
-
-        itemTypeList.forEach((reward) => {
-            const generatedReward = generateMoreItems(reward.quantity, {
+        typeList.forEach((type) => {
+            const quantity = missionRewards[type];
+            if (quantity === undefined) return;
+            const generatedReward = generateMoreItems(quantity, {
                 characterLevel: characterXpProgress.level,
-                itemType: reward.type,
+                itemType: type,
             });
             itemRewardsList.push(...generatedReward);
         });
