@@ -1,3 +1,20 @@
+/**
+ * Main game orchestrator component.
+ *
+ * Coordinates core systems:
+ * - useMission (mission lifecycle)
+ * - useInventory (item management)
+ * - useCharacter (character stats, gold, and XP)
+ *
+ * Handles user-driven actions such as:
+ * - collecting mission rewards
+ * - selling items
+ *
+ * This component does not manage or persist state directly.
+ * All state and mutations are delegated to their respective hooks,
+ * which act as the single source of truth.
+ */
+
 import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import { GameNavigation } from "./navigation/GameNavigation";
 import styles from "./PocketAdventurePage.module.css";
@@ -55,9 +72,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         if (!completedMission) return;
 
         const itemRewardsList: ItemStore = [];
-
         const typeList: RewardTypes[] = ["materials", "consumable", "equipment"];
-
         const missionRewards = completedMission.rewards;
 
         typeList.forEach((type) => {
