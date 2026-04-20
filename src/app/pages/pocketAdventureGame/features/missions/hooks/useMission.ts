@@ -1,3 +1,14 @@
+/**
+ * Manages mission lifecycle: starting, completing, and abandoning missions.
+ * All mission state is persisted to localStorage.
+ *
+ * This hook is the single source of truth for mission data and mutations.
+ * It ensures that mission state is initialized from storage and kept in sync on updates.
+ *
+ * Note:
+ * - Does not handle reward application or game-side effects.
+ * - Does not manage mission progress timing (UI responsibility).
+ */
 import { useEffect, useState } from "react";
 import type { ActiveMission } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
