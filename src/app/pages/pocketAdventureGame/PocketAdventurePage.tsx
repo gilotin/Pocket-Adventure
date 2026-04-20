@@ -8,7 +8,7 @@ import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
-import type { GameMenuState, ItemStore, ItemType } from "./types/gameTypes";
+import type { GameMenuState, ItemStore } from "./types/gameTypes";
 import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
