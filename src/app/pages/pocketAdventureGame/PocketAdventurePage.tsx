@@ -1,4 +1,4 @@
-import { useEffect, useState, type Dispatch, type JSX, type SetStateAction } from "react";
+import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import { GameNavigation } from "./navigation/GameNavigation";
 import styles from "./PocketAdventurePage.module.css";
 import { Crafting } from "./features/crafting/Crafting";
@@ -6,20 +6,16 @@ import { Inventory } from "./features/inventory/Inventory";
 import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
-
-import { CHARACTER_KEY } from "./auth/register/Register";
-import { loadStorageData } from "./services/storageOperations";
 import { DetailsCard } from "./components/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
-import type { ActiveMission, Character, GameMenuState, ItemStore } from "./types/gameTypes";
+import type { GameMenuState, ItemStore, ItemType } from "./types/gameTypes";
 import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
-import { missionData } from "./features/missions/data/missionsData";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
-import { MISSION_KEY, STORAGE_KEY } from "./constants/gameConstants";
 import { generateMoreItems } from "./systems/items/generateItems";
 import { useInventory } from "./features/inventory/hooks/useInventory";
 import { useCharacter } from "./features/character/hooks/useCharacter";
+import { useMission } from "./features/missions/hooks/useMission";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -27,11 +23,14 @@ type GamePageProps = {
     setConfirmAction: Dispatch<SetStateAction<(() => void) | null>>;
 };
 
-//  TO GENERATE BASES RANDOMLY !!! NEED UPDATE
+type RewardEntry = {
+    type: "materials" | "consumable" | "equipment";
+    quantity: number;
+};
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
-    const [activeMission, setActiveMission] = useState<ActiveMission>(null);
+    const { activeMission, startMission, abandonMission, completeMission } = useMission();
     const { characterData, addGold, addExperience } = useCharacter();
     const {
         inventoryItems,
@@ -45,16 +44,6 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         addItems,
     } = useInventory();
 
-    useEffect(() => {
-        const storedMission = loadStorageData<ActiveMission | null>(MISSION_KEY, null);
-
-        if (!storedMission) {
-            setActiveMission(null);
-        } else {
-            setActiveMission(storedMission);
-        }
-    }, []);
-
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
     const characterXpProgress = CalculateCharacterXp({ characterData });
@@ -64,73 +53,42 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         addGold(itemValue);
     };
 
-    /*
-    =================
-    MISSIONS
-    =================
-    */
+    const collectRewards = () => {
+        const completedMission = completeMission();
+        if (!completedMission) return null;
 
-    const startMission = (missionId: string) => {
-        if (activeMission) {
-            return;
-        }
-        const missionDefinition = missionData.find((mission) => mission.id === missionId);
+        const itemRewardsList: ItemStore = [];
+        const itemTypeList: RewardEntry[] = [];
 
-        if (!missionDefinition) {
-            return;
-        }
+        const missionRewards = completedMission.rewards;
 
-        const missionStartTime = Date.now();
-        const durationSeconds = missionDefinition.duration;
-        const missionRewards = missionDefinition.rewards;
-
-        const currentActiveMissionData: ActiveMission = {
-            missionId: missionId,
-            rewards: missionRewards,
-            startedAt: missionStartTime,
-            durationMs: durationSeconds * 1000,
-        };
-
-        localStorage.setItem(MISSION_KEY, JSON.stringify(currentActiveMissionData));
-        setActiveMission(currentActiveMissionData);
-    };
-
-    const abandonMission = () => {
-        localStorage.removeItem(MISSION_KEY);
-        setActiveMission(null);
-    };
-
-    const collectRewards = (missionId: string) => {
-        const missionDefinition = missionData.find((mission) => mission.id === missionId);
-        if (!missionDefinition) {
-            return;
-        }
-
-        let itemRewardsList: ItemStore = [];
-
-        for (const reward in missionDefinition.rewards) {
-            if (reward === "materials" || reward === "consumable" || reward === "equipment") {
-                const rewardName = reward;
-                let rewardQuantity = missionDefinition.rewards[reward];
-
-                if (rewardQuantity === undefined) {
-                    continue;
-                }
-                const itemReward = generateMoreItems(rewardQuantity, {
-                    characterLevel: characterXpProgress.level,
-                    itemType: rewardName,
+        for (const rewardType in missionRewards) {
+            if (
+                rewardType === "materials" ||
+                rewardType === "consumable" ||
+                rewardType === "equipment"
+            ) {
+                if (!missionRewards[rewardType]) continue;
+                itemTypeList.push({
+                    type: rewardType,
+                    quantity: missionRewards[rewardType],
                 });
-
-                itemRewardsList.push(...itemReward);
             }
         }
 
+        itemTypeList.forEach((reward) => {
+            const generatedReward = generateMoreItems(reward.quantity, {
+                characterLevel: characterXpProgress.level,
+                itemType: reward.type,
+            });
+            itemRewardsList.push(...generatedReward);
+        });
+
         addItems(itemRewardsList);
-        addGold(missionDefinition.rewards.gold);
-        addExperience(missionDefinition.rewards.xp);
+        addGold(missionRewards.gold);
+        addExperience(missionRewards.xp);
 
         setGameNavigation("character");
-        setActiveMission(null);
     };
 
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
