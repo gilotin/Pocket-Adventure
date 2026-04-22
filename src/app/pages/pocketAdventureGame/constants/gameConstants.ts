@@ -4,7 +4,7 @@ export const CHARACTER_KEY = "characterData";
 export const MISSION_KEY = "missionData";
 export const AUTH_KEY = "auth";
 export const STORAGE_KEY = "itemData";
-export const SHOP_LIST_KET = "shopList";
+export const SHOP_LIST_KEY = "shopList";
 
 // CHARACTER
 export const BASE_LEVEL_EXPERIENCE = 100;
