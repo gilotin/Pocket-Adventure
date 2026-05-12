@@ -15,7 +15,7 @@
  * which act as the single source of truth.
  */
 
-import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
+import { useEffect, useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import { GameNavigation } from "./navigation/GameNavigation";
 import styles from "./PocketAdventurePage.module.css";
 import { Crafting } from "./features/crafting/Crafting";
@@ -33,6 +33,9 @@ import { generateMoreItems } from "./systems/items/generateItems";
 import { useInventory } from "./features/inventory/hooks/useInventory";
 import { useCharacter } from "./features/character/hooks/useCharacter";
 import { useMission } from "./features/missions/hooks/useMission";
+import { useShop } from "./features/shop/hooks/useShop";
+import { generateRandomNumber } from "./systems/items/generateRandomNumber";
+import { REFRESH_INTERVAL } from "./constants/gameConstants";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -43,7 +46,7 @@ type GamePageProps = {
 type RewardTypes = "materials" | "consumable" | "equipment";
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
-    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("character");
+    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("shop");
     const { activeMission, startMission, abandonMission, completeMission } = useMission();
     const { characterData, addGold, addExperience } = useCharacter();
     const {
@@ -57,10 +60,21 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         unequipItem,
         addItems,
     } = useInventory();
+    const { shop, updateShop, removeItem, isLoaded } = useShop();
 
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
     const characterXpProgress = CalculateCharacterXp({ characterData });
+
+    useEffect(() => {
+        if (gameNavigation === "shop" && isLoaded) {
+            handleRefreshShop();
+        }
+    }, [gameNavigation, isLoaded]);
+
+    /*======================================
+                    MISSION
+    ======================================*/
 
     const onSellItem = (itemId: string) => {
         const itemValue = sellItem(itemId);
@@ -92,6 +106,40 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         setGameNavigation("character");
     };
 
+    /*======================================
+                    SHOP
+    ======================================*/
+
+    const handleRefreshShop = () => {
+        const currentTime = Date.now();
+
+        if (!shop.timer || currentTime > shop.timer) {
+            const quantity = generateRandomNumber(1, 3);
+
+            const newConsumables = generateMoreItems(quantity, {
+                characterLevel: characterXpProgress.level,
+                itemType: "consumable",
+            });
+
+            const newMaterials = generateMoreItems(quantity, {
+                characterLevel: characterXpProgress.level,
+                itemType: "materials",
+            });
+
+            const newShopList = [...newConsumables, ...newMaterials];
+
+            const nextTimer = currentTime + REFRESH_INTERVAL;
+
+            updateShop({ items: newShopList, timer: nextTimer });
+        }
+    };
+
+    const handleBuyItems = () => {};
+
+    /*======================================
+                IN-GAME NAVIGATION
+    ======================================*/
+
     const featureMap: Record<GameMenuStateKey, JSX.Element> = {
         crafting: <Crafting />,
         inventory: (
@@ -107,7 +155,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         ),
         missions: <Missions startMission={startMission} />,
         garden: <Garden />,
-        shop: <Shop />,
+        shop: <Shop shop={shop} />,
         character: (
             <CharacterPanelAndStats
                 characterData={characterData}
