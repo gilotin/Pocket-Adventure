@@ -22,3 +22,7 @@ export const QUANTITY_MULTIPLIER = 5;
 
 // ITEM STATS
 export const BASE_DROP_CHANCE_MULTIPLIER = 0.1;
+
+// SHOP
+
+export const REFRESH_INTERVAL = 10 * 60 * 1000;
