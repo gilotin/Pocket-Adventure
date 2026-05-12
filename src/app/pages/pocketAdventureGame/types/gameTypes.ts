@@ -116,3 +116,12 @@ export type ActiveMission = {
     startedAt: number;
     durationMs: number;
 } | null;
+
+/*======================================
+ SHOP TYPES
+======================================*/
+
+export type Shop = {
+    items: Item[];
+    timer: number | null;
+};
