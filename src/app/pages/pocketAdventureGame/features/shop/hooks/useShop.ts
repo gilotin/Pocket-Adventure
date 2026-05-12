@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
-import type { Item } from "../../../types/gameTypes";
+import type { Shop } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
-import { SHOP_KEY, STORAGE_KEY } from "../../../constants/gameConstants";
+import { SHOP_KEY } from "../../../constants/gameConstants";
 
-type Shop = {
-    items: Item[];
-    timer: number | null;
-};
 export function useShop() {
     const [shop, setShop] = useState<Shop>({ items: [], timer: null });
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     useEffect(() => {
         const storedShop = loadStorageData(SHOP_KEY, { items: [], timer: null });
 
         setShop(storedShop);
+        setIsLoaded(true);
     }, []);
 
     const updateShop = (nextShop: Shop) => {
@@ -33,5 +31,5 @@ export function useShop() {
         return selectedItem;
     };
 
-    return { shop, updateShop, removeItem };
+    return { shop, updateShop, removeItem, isLoaded };
 }
