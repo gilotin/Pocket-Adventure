@@ -24,7 +24,8 @@ export function useShop() {
 
         setShop((prev) => {
             const updatedShopList = prev.items.filter((item) => item.itemId !== itemId);
-            saveToStorage(SHOP_KEY, updatedShopList);
+
+            saveToStorage(SHOP_KEY, { ...prev, items: updatedShopList });
             return { ...prev, items: updatedShopList };
         });
 
