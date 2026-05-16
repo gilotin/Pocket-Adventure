@@ -3,6 +3,7 @@ import styles from "./Shop.module.css";
 
 type ShopProps = {
     shop: Shop;
+    onBuyItem: (itemId: string) => void;
 };
 
 function calculateRemainingTime(time: number | null) {
@@ -19,14 +20,23 @@ function calculateRemainingTime(time: number | null) {
     }
 }
 
-export function Shop({ shop }: ShopProps) {
+export function Shop({ shop, onBuyItem }: ShopProps) {
+    const handleFormFilter = (input: React.ChangeEvent<HTMLInputElement>) => {
+        const filteredValue = input.currentTarget.value;
+        console.log(filteredValue);
+    };
+
+    const handleBuyItem = (itemId: string) => {
+        onBuyItem(itemId);
+    };
+
     const shopInventory = shop.items.map((item) => {
         return (
             <div className={styles.itemCard} key={item.itemId}>
                 <div>Name:{item.name}</div>
                 <div>Type: {item.type}</div>
                 <div>Qty:{item.quantity}</div>
-                <button>buy</button>
+                <button onClick={() => handleBuyItem(item.itemId)}>buy</button>
             </div>
         );
     });
@@ -34,24 +44,58 @@ export function Shop({ shop }: ShopProps) {
     return (
         <>
             <div>
-                <form>
-                    <fieldset>
-                        <legend>Filter:</legend>
-                        <input type="radio" id="materials" value="materials" name="shop" />
-                        <label htmlFor="materials">Materials</label>
+                <form className={styles.filterForm}>
+                    <fieldset className={styles.fieldset}>
+                        <legend className={styles.filterLegend}>Filter:</legend>
+                        <div className={styles.inputGroup}>
+                            <input
+                                onChange={handleFormFilter}
+                                type="radio"
+                                id="materials"
+                                value="materials"
+                                name="shop"
+                            />
+                            <label className={styles.formLabel} htmlFor="materials">
+                                Materials
+                            </label>
+                        </div>
 
-                        <input type="radio" id="consumables" value="consumables" name="shop" />
-                        <label htmlFor="consumables">Consumables</label>
+                        <div className={styles.inputGroup}>
+                            <input
+                                onChange={handleFormFilter}
+                                type="radio"
+                                id="consumables"
+                                value="consumables"
+                                name="shop"
+                            />
+                            <label className={styles.formLabel} htmlFor="consumables">
+                                Consumables
+                            </label>
+                        </div>
 
-                        <input type="radio" id="items" value="items" name="shop" />
-                        <label htmlFor="items">Items</label>
+                        <div className={styles.inputGroup}>
+                            <input
+                                onChange={handleFormFilter}
+                                type="radio"
+                                id="items"
+                                value="items"
+                                name="shop"
+                            />
+                            <label className={styles.formLabel} htmlFor="items">
+                                Items
+                            </label>
+                        </div>
                     </fieldset>
                 </form>
             </div>
             <div className={styles.shopWrapper}>
                 <p>Time before shop reset: {calculateRemainingTime(shop.timer)}</p>
 
-                <div>{shopInventory}</div>
+                <div>
+                    {shop.items.length
+                        ? shopInventory
+                        : "Shop is currently empty. Try again latter."}
+                </div>
             </div>
         </>
     );

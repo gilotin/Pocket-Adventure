@@ -39,6 +39,15 @@ export function useCharacter() {
         });
     };
 
+    const removeGold = (amount: number) => {
+        setCharacterData((prev) => {
+            const updated = prev.gold - amount;
+            const characterUpdate = { ...prev, gold: updated };
+            saveToStorage(CHARACTER_KEY, characterUpdate);
+            return characterUpdate;
+        });
+    };
+
     /**
      * Increments character experience by a given amount.
      *
@@ -53,5 +62,5 @@ export function useCharacter() {
         });
     };
 
-    return { characterData, addExperience, addGold };
+    return { characterData, addExperience, addGold, removeGold };
 }

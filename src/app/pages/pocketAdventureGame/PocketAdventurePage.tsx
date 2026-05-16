@@ -30,12 +30,12 @@ import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats
 import { CalculateCharacterXp } from "./systems/stats/characterExperienceSystem";
 import { MissionProgressionModal } from "./features/missions/missionProgressionModal/MissionProgressionModal";
 import { generateMoreItems } from "./systems/items/generateItems";
-import { useInventory } from "./features/inventory/hooks/useInventory";
 import { useCharacter } from "./features/character/hooks/useCharacter";
 import { useMission } from "./features/missions/hooks/useMission";
 import { useShop } from "./features/shop/hooks/useShop";
 import { generateRandomNumber } from "./systems/items/generateRandomNumber";
 import { REFRESH_INTERVAL } from "./constants/gameConstants";
+import { useInventory } from "./features/inventory/hooks/useInventory";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -48,7 +48,7 @@ type RewardTypes = "materials" | "consumable" | "equipment";
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("shop");
     const { activeMission, startMission, abandonMission, completeMission } = useMission();
-    const { characterData, addGold, addExperience } = useCharacter();
+    const { characterData, addGold, removeGold, addExperience } = useCharacter();
     const {
         inventoryItems,
         activeItem,
@@ -56,9 +56,10 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         deleteItemById,
         selectItem,
         sellItem,
+        addItems,
+        addItem,
         equipItem,
         unequipItem,
-        addItems,
     } = useInventory();
     const { shop, updateShop, removeItem, isLoaded } = useShop();
 
@@ -73,13 +74,17 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     }, [gameNavigation, isLoaded]);
 
     /*======================================
-                    MISSION
+                    INVENTORY
     ======================================*/
 
     const onSellItem = (itemId: string) => {
         const itemValue = sellItem(itemId);
         addGold(itemValue);
     };
+
+    /*======================================
+                    MISSION
+    ======================================*/
 
     const collectRewards = () => {
         const completedMission = completeMission();
@@ -134,7 +139,16 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         }
     };
 
-    const handleBuyItems = () => {};
+    const onBuyItem = (itemId: string) => {
+        const soldItem = removeItem(itemId);
+        const itemValue = soldItem?.itemValue;
+
+        if (!itemValue) return;
+        removeGold(itemValue);
+
+        if (!soldItem) return;
+        addItem(soldItem);
+    };
 
     /*======================================
                 IN-GAME NAVIGATION
@@ -155,7 +169,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         ),
         missions: <Missions startMission={startMission} />,
         garden: <Garden />,
-        shop: <Shop shop={shop} />,
+        shop: <Shop shop={shop} onBuyItem={onBuyItem} />,
         character: (
             <CharacterPanelAndStats
                 characterData={characterData}

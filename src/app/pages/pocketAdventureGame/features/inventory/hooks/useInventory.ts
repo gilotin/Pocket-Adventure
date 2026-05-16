@@ -6,7 +6,7 @@
  */
 
 import { useEffect, useState } from "react";
-import type { ItemStore } from "../../../types/gameTypes";
+import type { Item, ItemStore } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
 import { STORAGE_KEY } from "../../../constants/gameConstants";
 
@@ -151,6 +151,10 @@ export function useInventory() {
         });
     };
 
+    const addItem = (newItem: Item) => {
+        addItems([newItem]);
+    };
+
     return {
         inventoryItems,
         activeItem,
@@ -159,6 +163,7 @@ export function useInventory() {
         selectItem,
         sellItem,
         addItems,
+        addItem,
         equipItem,
         unequipItem,
     };

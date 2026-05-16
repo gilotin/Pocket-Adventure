@@ -1,3 +1,24 @@
+.fieldset {
+    border: hidden;
+    display: flex;
+    gap: 1rem;
+}
+
+.fieldset input {
+    display: none;
+}
+
+.fieldset input:checked+label {
+    color: var(--color-frozen-water);
+    background-color: var(--color-shadow-grey)
+}
+
+.fieldset label {
+    border: 1px solid var(--color-shadow-grey);
+    border-radius: var(--radius-md);
+    padding: 0.4rem 0.8rem;
+}
+
 .shopWrapper {
     display: flex;
     flex-direction: column;
