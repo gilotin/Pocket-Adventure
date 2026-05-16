@@ -28,8 +28,6 @@ export function useShop() {
             saveToStorage(SHOP_KEY, { ...prev, items: updatedShopList });
             return { ...prev, items: updatedShopList };
         });
-
-        return selectedItem;
     };
 
     return { shop, updateShop, removeItem, isLoaded };

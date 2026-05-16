@@ -48,7 +48,7 @@ type RewardTypes = "materials" | "consumable" | "equipment";
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("shop");
     const { activeMission, startMission, abandonMission, completeMission } = useMission();
-    const { characterData, addGold, removeGold, addExperience } = useCharacter();
+    const { characterData, addGold, removeGold, checkGold, addExperience } = useCharacter();
     const {
         inventoryItems,
         activeItem,
@@ -140,14 +140,18 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     };
 
     const onBuyItem = (itemId: string) => {
-        const soldItem = removeItem(itemId);
-        const itemValue = soldItem?.itemValue;
+        const item = shop.items.find((item) => item.itemId === itemId);
+        if (!item) return;
 
-        if (!itemValue) return;
-        removeGold(itemValue);
+        if (!checkGold(item.itemValue)) {
+            return; // Set Error
+        }
 
-        if (!soldItem) return;
-        addItem(soldItem);
+        removeItem(item.itemId);
+
+        removeGold(item.itemValue);
+
+        addItem(item);
     };
 
     /*======================================

@@ -48,6 +48,11 @@ export function useCharacter() {
         });
     };
 
+    const checkGold = (itemCost: number) => {
+        if (itemCost > characterData.gold) return false;
+        return true;
+    };
+
     /**
      * Increments character experience by a given amount.
      *
@@ -62,5 +67,5 @@ export function useCharacter() {
         });
     };
 
-    return { characterData, addExperience, addGold, removeGold };
+    return { characterData, addExperience, addGold, removeGold, checkGold };
 }
