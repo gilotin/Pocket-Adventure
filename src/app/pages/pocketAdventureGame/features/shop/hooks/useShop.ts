@@ -20,8 +20,6 @@ export function useShop() {
     };
 
     const removeItem = (itemId: string) => {
-        const selectedItem = shop.items.find((item) => item.itemId === itemId);
-
         setShop((prev) => {
             const updatedShopList = prev.items.filter((item) => item.itemId !== itemId);
 
