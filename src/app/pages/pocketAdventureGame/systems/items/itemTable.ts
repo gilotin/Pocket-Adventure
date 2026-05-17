@@ -16,6 +16,8 @@ export const ITEM_NAME_PARTS = {
     },
 };
 
+export const EQUIPMENT_TYPES = ["armor", "helm", "boots", "gloves"];
+
 export const RARITY_MULTIPLIER = {
     common: 1,
     magic: 2,
