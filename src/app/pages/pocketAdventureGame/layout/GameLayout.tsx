@@ -93,9 +93,9 @@ export function GameLayout() {
                             </button>
                         </header>
                         <main className={styles.mainGame}>
-                            <div>
+                            {/* <div>
                                 <TestItemGenerator />
-                            </div>
+                            </div> */}
 
                             <PocketAdventurePage setConfirmAction={setConfirmAction} />
                         </main>

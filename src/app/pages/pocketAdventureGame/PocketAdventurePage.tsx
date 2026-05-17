@@ -144,13 +144,14 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         if (!item) return;
 
         if (!checkGold(item.itemValue)) {
-            return; // Set Error
+            // Need proper errorHandler
+            console.log("not enough money");
+
+            return;
         }
 
         removeItem(item.itemId);
-
         removeGold(item.itemValue);
-
         addItem(item);
     };
 
