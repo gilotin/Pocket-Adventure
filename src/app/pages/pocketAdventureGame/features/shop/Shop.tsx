@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Shop } from "../../types/gameTypes";
 import styles from "./Shop.module.css";
 
@@ -21,32 +22,56 @@ function calculateRemainingTime(time: number | null) {
 }
 
 export function Shop({ shop, onBuyItem }: ShopProps) {
+    const [itemFilter, setItemFilter] = useState("allItems");
+
     const handleFormFilter = (input: React.ChangeEvent<HTMLInputElement>) => {
-        const filteredValue = input.currentTarget.value;
-        console.log(filteredValue);
+        const filterType = input.currentTarget.value;
+        if (filterType === "allItems") {
+            return setItemFilter("");
+        }
+        return setItemFilter(filterType);
     };
 
     const handleBuyItem = (itemId: string) => {
         onBuyItem(itemId);
     };
 
-    const shopInventory = shop.items.map((item) => {
-        return (
-            <div className={styles.itemCard} key={item.itemId}>
-                <div>Name:{item.name}</div>
-                <div>Type: {item.type}</div>
-                <div>Qty:{item.quantity}</div>
-                <button onClick={() => handleBuyItem(item.itemId)}>buy</button>
-            </div>
-        );
-    });
+    const shopInventory = shop.items
+        .filter((item) => {
+            if (itemFilter === "") {
+                return true;
+            }
+            return item.type === itemFilter;
+        })
+        .map((item) => {
+            return (
+                <div className={styles.itemCard} key={item.itemId}>
+                    <div>Name:{item.name}</div>
+                    <div>Type: {item.type}</div>
+                    <div>Qty:{item.quantity}</div>
+                    <button onClick={() => handleBuyItem(item.itemId)}>buy</button>
+                </div>
+            );
+        });
 
     return (
         <>
             <div>
                 <form className={styles.filterForm}>
                     <fieldset className={styles.fieldset}>
-                        <legend className={styles.filterLegend}>Filter:</legend>
+                        <div className={styles.inputGroup}>
+                            <input
+                                onChange={handleFormFilter}
+                                type="radio"
+                                id="allItems"
+                                value="allItems"
+                                name="shop"
+                            />
+                            <label className={styles.formLabel} htmlFor="allItems">
+                                All
+                            </label>
+                        </div>
+
                         <div className={styles.inputGroup}>
                             <input
                                 onChange={handleFormFilter}
@@ -64,11 +89,11 @@ export function Shop({ shop, onBuyItem }: ShopProps) {
                             <input
                                 onChange={handleFormFilter}
                                 type="radio"
-                                id="consumables"
-                                value="consumables"
+                                id="consumable"
+                                value="consumable"
                                 name="shop"
                             />
-                            <label className={styles.formLabel} htmlFor="consumables">
+                            <label className={styles.formLabel} htmlFor="consumable">
                                 Consumables
                             </label>
                         </div>
@@ -77,12 +102,12 @@ export function Shop({ shop, onBuyItem }: ShopProps) {
                             <input
                                 onChange={handleFormFilter}
                                 type="radio"
-                                id="items"
-                                value="items"
+                                id="equipment"
+                                value="equipment"
                                 name="shop"
                             />
-                            <label className={styles.formLabel} htmlFor="items">
-                                Items
+                            <label className={styles.formLabel} htmlFor="equipment">
+                                Equipment
                             </label>
                         </div>
                     </fieldset>
