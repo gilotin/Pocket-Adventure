@@ -5,6 +5,7 @@ import styles from "./Shop.module.css";
 type ShopProps = {
     shop: Shop;
     onBuyItem: (itemId: string) => void;
+    selectActiveShopItem: (itemId: string | null) => void;
 };
 
 function calculateRemainingTime(time: number | null) {
@@ -21,7 +22,7 @@ function calculateRemainingTime(time: number | null) {
     }
 }
 
-export function Shop({ shop, onBuyItem }: ShopProps) {
+export function Shop({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
     const [itemFilter, setItemFilter] = useState("");
 
     const handleFormFilter = (input: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +37,14 @@ export function Shop({ shop, onBuyItem }: ShopProps) {
         onBuyItem(itemId);
     };
 
+    const handleMouseEnter = (itemId: string) => {
+        selectActiveShopItem(itemId);
+    };
+
+    const handleMouseLeave = () => {
+        selectActiveShopItem(null);
+    };
+
     const shopInventory = shop.items
         .filter((item) => {
             if (itemFilter === "") {
@@ -45,7 +54,12 @@ export function Shop({ shop, onBuyItem }: ShopProps) {
         })
         .map((item) => {
             return (
-                <div className={styles.itemCard} key={item.itemId}>
+                <div
+                    onMouseEnter={() => handleMouseEnter(item.itemId)}
+                    onMouseLeave={handleMouseLeave}
+                    className={styles.itemCard}
+                    key={item.itemId}
+                >
                     <div>Name:{item.name}</div>
                     <div>Type: {item.type}</div>
                     <div>Qty:{item.quantity}</div>

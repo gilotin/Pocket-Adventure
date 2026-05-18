@@ -63,7 +63,15 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         equipItem,
         unequipItem,
     } = useInventory();
-    const { shop, updateShop, removeItem, isLoaded } = useShop();
+    const {
+        shop,
+        activeShopItem,
+        showShopDetailsCard,
+        selectShopItem,
+        updateShop,
+        removeItem,
+        isLoaded,
+    } = useShop();
 
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
@@ -183,7 +191,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         ),
         missions: <Missions startMission={startMission} />,
         garden: <Garden />,
-        shop: <Shop shop={shop} onBuyItem={onBuyItem} />,
+        shop: <Shop shop={shop} selectActiveShopItem={selectShopItem} onBuyItem={onBuyItem} />,
         character: (
             <CharacterPanelAndStats
                 characterData={characterData}
@@ -205,6 +213,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 {gameNavigation && featureMap[gameNavigation]}
             </div>
             {showDetailsCard && <DetailsCard activeItem={activeItem} />}
+            {showShopDetailsCard && <DetailsCard activeItem={activeShopItem} />}
             {activeMission && (
                 <MissionProgressionModal
                     abandonMission={abandonMission}

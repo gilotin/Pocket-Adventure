@@ -5,6 +5,9 @@ import { SHOP_KEY } from "../../../constants/gameConstants";
 
 export function useShop() {
     const [shop, setShop] = useState<Shop>({ items: [], timer: null });
+    const [activeShopItemId, setActiveShopItemId] = useState<string | null>(null);
+    const [showShopDetailsCard, setShowShopDetailsCard] = useState(false);
+
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     useEffect(() => {
@@ -13,6 +16,19 @@ export function useShop() {
         setShop(storedShop);
         setIsLoaded(true);
     }, []);
+
+    const activeShopItem = shop.items.find((item) => item.itemId === activeShopItemId) ?? null;
+
+    const selectShopItem = (itemId: string | null) => {
+        if (!itemId) {
+            setActiveShopItemId(null);
+            setShowShopDetailsCard(false);
+            return;
+        }
+
+        setActiveShopItemId(itemId);
+        setShowShopDetailsCard(true);
+    };
 
     const updateShop = (nextShop: Shop) => {
         saveToStorage(SHOP_KEY, nextShop);
@@ -28,5 +44,14 @@ export function useShop() {
         });
     };
 
-    return { shop, updateShop, removeItem, isLoaded };
+    return {
+        shop,
+        activeShopItem,
+        activeShopItemId,
+        showShopDetailsCard,
+        selectShopItem,
+        updateShop,
+        removeItem,
+        isLoaded,
+    };
 }
