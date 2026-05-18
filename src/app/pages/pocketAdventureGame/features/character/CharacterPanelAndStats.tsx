@@ -74,7 +74,3 @@ export function CharacterPanelAndStats({
         </section>
     );
 }
-
-//    <p>Attack:{calculatedEquipmentStats.attack}</p>
-// <p>Armor:{calculatedEquipmentStats.armor}</p>
-// <p>Ele. protection:{calculatedEquipmentStats.elementalProtection}</p>
