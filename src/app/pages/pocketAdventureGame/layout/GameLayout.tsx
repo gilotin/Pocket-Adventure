@@ -17,7 +17,7 @@ import { Register } from "../auth/register/Register";
 import { Login } from "../auth/login/Login";
 import { loginAsGuest } from "../auth/authService";
 import { AUTH_KEY } from "../constants/gameConstants";
-import { TestItemGenerator } from "../mockedData/TestItemGenerator";
+// import { TestItemGenerator } from "../mockedData/TestItemGenerator";
 
 export function GameLayout() {
     const [authUser, setAuthUser] = useState<AuthUser | null>(null);

@@ -47,7 +47,8 @@ type GamePageProps = {
 type RewardTypes = "materials" | "consumable" | "equipment";
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
-    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("shop");
+    const [gameNavigation, setGameNavigation] = useState<GameMenuState>("inventory");
+
     const { activeMission, startMission, abandonMission, completeMission } = useMission();
     const { characterData, addGold, removeGold, checkGold, addExperience } = useCharacter();
     const {
