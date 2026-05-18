@@ -65,7 +65,9 @@ export function CharacterPanelAndStats({
             <div>
                 <p>Stats:</p>
                 <p>HP:100</p>
-
+                <p>Att: {calculatedEquipmentStats.attack}</p>
+                <p>Def: {calculatedEquipmentStats.armor}</p>
+                <p>Ele. Protection: {calculatedEquipmentStats.elementalProtection}</p>
                 <p>Recovery:{calculatedEquipmentStats.recovery}</p>
                 <p>Drop Chance:{calculatedEquipmentStats.dropChance}</p>
             </div>
