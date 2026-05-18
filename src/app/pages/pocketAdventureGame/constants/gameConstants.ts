@@ -14,8 +14,8 @@ export const BASE_LEVEL_MULTIPLIER = 1.25;
 export const ITEM_LEVEL_RANGE = 1;
 
 // PRICE
-export const MAX_PRICE = 100;
-export const MIN_PRICE = 10;
+export const MAX_PRICE = 1000;
+export const MIN_PRICE = 100;
 
 // QUANTITY
 export const QUANTITY_MULTIPLIER = 5;

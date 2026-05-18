@@ -22,7 +22,7 @@ function calculateRemainingTime(time: number | null) {
 }
 
 export function Shop({ shop, onBuyItem }: ShopProps) {
-    const [itemFilter, setItemFilter] = useState("allItems");
+    const [itemFilter, setItemFilter] = useState("");
 
     const handleFormFilter = (input: React.ChangeEvent<HTMLInputElement>) => {
         const filterType = input.currentTarget.value;

@@ -1,3 +1,5 @@
+import type { EquipmentType } from "../../types/gameTypes";
+
 export const ITEM_NAME_PARTS = {
     equipment: {
         prefixes: ["Common", "Magic", "Unique"],
@@ -16,7 +18,7 @@ export const ITEM_NAME_PARTS = {
     },
 };
 
-export const EQUIPMENT_TYPES = ["armor", "helm", "boots", "gloves"];
+export const EQUIPMENT_TYPES: EquipmentType[] = ["armor", "helm", "boots", "weapon"];
 
 export const RARITY_MULTIPLIER = {
     common: 1,

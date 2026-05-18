@@ -35,6 +35,10 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     if (props.itemType === "equipment") {
         itemBase = props.equipmentType;
+        if (itemBase) {
+            const firsLetter = itemBase[0].toUpperCase();
+            itemBase = firsLetter?.concat(itemBase?.slice(1));
+        }
     }
 
     const itemName = [itemPrefix, itemBase, itemSuffixes].filter(Boolean).join(" ");
@@ -46,9 +50,9 @@ export function generateItem(props: GenerateItemsOptions): Item {
     // GENERATE ITEM QUANTITY
 
     let quantity = 1;
-    if (props.itemType === "materials" || props.itemType === "consumable") {
-        quantity = Math.floor(Math.random() * (characterLevel * QUANTITY_MULTIPLIER)) + 1;
-    }
+    // if (props.itemType === "materials" || props.itemType === "consumable") {
+    //     quantity = Math.floor(Math.random() * (characterLevel * QUANTITY_MULTIPLIER)) + 1;
+    // }
 
     // ITEM LEVEL AND REQUIRED LEVEL
 
@@ -76,14 +80,14 @@ export function generateItem(props: GenerateItemsOptions): Item {
         stats = {
             attack: getBaseStat() * rarityMultiplier,
             recovery: getBaseStat() * rarityMultiplier,
-            dropChance: rarityMultiplier * BASE_DROP_CHANCE_MULTIPLIER,
+            dropChance: Math.floor(rarityMultiplier * BASE_DROP_CHANCE_MULTIPLIER),
         };
     } else if (equipmentType === "armor" || equipmentType === "boots" || equipmentType === "helm") {
         stats = {
             armor: getBaseStat() * rarityMultiplier,
             elementalProtection: getBaseStat() * rarityMultiplier,
             recovery: getBaseStat() * rarityMultiplier,
-            dropChance: rarityMultiplier * BASE_DROP_CHANCE_MULTIPLIER,
+            dropChance: Math.floor(rarityMultiplier * BASE_DROP_CHANCE_MULTIPLIER),
         };
     }
 
@@ -101,9 +105,6 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     return item;
 }
-
-// NOTE: THIS IS REALLY SIMPLE FUNCTION AND CANNOT,
-//  GENERATE DIFFERENT ITEMS - ONLY THE SAME TYPE
 
 export function generateMoreItems(cycles: number, props: GenerateItemsOptions) {
     const itemArray = [];

@@ -36,6 +36,7 @@ import { useShop } from "./features/shop/hooks/useShop";
 import { generateRandomNumber } from "./systems/items/generateRandomNumber";
 import { REFRESH_INTERVAL } from "./constants/gameConstants";
 import { useInventory } from "./features/inventory/hooks/useInventory";
+import generateItemType from "./systems/items/generateItemType";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -119,7 +120,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         const currentTime = Date.now();
 
         if (!shop.timer || currentTime > shop.timer) {
-            const quantity = generateRandomNumber(1, 3);
+            const quantity = generateRandomNumber(1, 2);
+            const equipmentType = generateItemType();
 
             const newConsumables = generateMoreItems(quantity, {
                 characterLevel: characterXpProgress.level,
@@ -131,7 +133,13 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                 itemType: "materials",
             });
 
-            const newShopList = [...newConsumables, ...newMaterials];
+            const newEquipment = generateMoreItems(quantity, {
+                characterLevel: characterXpProgress.level,
+                itemType: "equipment",
+                equipmentType: equipmentType,
+            });
+
+            const newShopList = [...newConsumables, ...newMaterials, ...newEquipment];
 
             const nextTimer = currentTime + REFRESH_INTERVAL;
 

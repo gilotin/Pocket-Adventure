@@ -17,11 +17,10 @@ export function DetailsCard({ activeItem }: FilterItemDataProps) {
                             ? activeItem.equipmentSlot
                             : activeItem?.type}
                     </p>
-                    <p>{activeItem?.itemLevel}</p>
                 </div>
                 {activeItem?.stats && (
                     <div className={styles.stats}>
-                        <p>ATT:{activeItem?.stats?.attack}</p>
+                        {activeItem?.stats.attack ? <p>ATT:{activeItem?.stats?.attack}</p> : null}
                         <p>Armor:{activeItem?.stats?.armor}</p>
                         <p>Elemental Protection:{activeItem?.stats?.elementalProtection}</p>
                         <p>Recovery: {activeItem?.stats?.recovery}</p>
@@ -35,3 +34,4 @@ export function DetailsCard({ activeItem }: FilterItemDataProps) {
         </div>
     );
 }
+P;
