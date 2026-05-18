@@ -34,4 +34,3 @@ export function DetailsCard({ activeItem }: FilterItemDataProps) {
         </div>
     );
 }
-P;
