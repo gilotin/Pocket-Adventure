@@ -1,0 +1,22 @@
+.notificationWrapper {
+    position: absolute;
+    background-color: var(--game-light-green);
+    color: var(--game-dark-blue);
+    width: 14rem;
+    height: 5rem;
+    border-radius: var(--radius-md);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    bottom: 3rem;
+    right: 3rem;
+    border: var(--border-medium) solid var(--game-dark-green);
+
+}
+
+.notificationCard {}
+
+.message {
+    margin: 0;
+
+}

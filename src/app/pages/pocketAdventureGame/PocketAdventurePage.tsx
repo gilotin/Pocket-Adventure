@@ -37,6 +37,7 @@ import { generateRandomNumber } from "./systems/items/generateRandomNumber";
 import { REFRESH_INTERVAL } from "./constants/gameConstants";
 import { useInventory } from "./features/inventory/hooks/useInventory";
 import generateItemType from "./systems/items/generateItemType";
+import { GameNotificationCard } from "./components/gameNotification/gameNotificationCard";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 
@@ -48,6 +49,7 @@ type RewardTypes = "materials" | "consumable" | "equipment";
 
 export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const [gameNavigation, setGameNavigation] = useState<GameMenuState>("inventory");
+    const [gameNotification, setGameNotification] = useState<string | null>(null);
 
     const { activeMission, startMission, abandonMission, completeMission } = useMission();
     const { characterData, addGold, removeGold, checkGold, addExperience } = useCharacter();
@@ -82,6 +84,16 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             handleRefreshShop();
         }
     }, [gameNavigation, isLoaded]);
+
+    useEffect(() => {
+        if (!gameNotification) return;
+
+        const timeoutId = setTimeout(() => {
+            setGameNotification(null);
+        }, 1500);
+
+        return () => clearTimeout(timeoutId);
+    }, [gameNotification]);
 
     /*======================================
                     INVENTORY
@@ -161,8 +173,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         if (!item) return;
 
         if (!checkGold(item.itemValue)) {
-            // Need proper errorHandler
-            console.log("not enough money");
+            setGameNotification("Not enough money!");
 
             return;
         }
@@ -171,6 +182,10 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         removeGold(item.itemValue);
         addItem(item);
     };
+
+    /*======================================
+                NOTIFICATIONS
+    ======================================*/
 
     /*======================================
                 IN-GAME NAVIGATION
@@ -221,6 +236,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                     collectRewards={collectRewards}
                 />
             )}
+            {gameNotification ? <GameNotificationCard message={gameNotification} /> : null}
         </>
     );
 }

@@ -42,6 +42,7 @@ export function useShop() {
             saveToStorage(SHOP_KEY, { ...prev, items: updatedShopList });
             return { ...prev, items: updatedShopList };
         });
+        setShowShopDetailsCard(false);
     };
 
     return {
