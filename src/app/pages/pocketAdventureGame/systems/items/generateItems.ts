@@ -4,7 +4,6 @@ import {
     ITEM_LEVEL_RANGE,
     MAX_PRICE,
     MIN_PRICE,
-    QUANTITY_MULTIPLIER,
 } from "../../constants/gameConstants";
 import { ITEM_NAME_PARTS, RARITY_MULTIPLIER } from "./itemTable";
 

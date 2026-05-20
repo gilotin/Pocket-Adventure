@@ -1,7 +1,7 @@
 import styles from "./GameLayout.module.css";
 import { PocketAdventurePage } from "../PocketAdventurePage";
 import { useEffect, useState } from "react";
-import { AuthErrorHandler } from "../components/authErrorHandler/AuthErrorHandler";
+import { AuthError } from "../components/authError/AuthError";
 import { ConfirmModal } from "../components/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
 import type {
@@ -119,7 +119,7 @@ export function GameLayout() {
                     />
                 )}
 
-                {authError && <AuthErrorHandler message={authError} setAuthError={setAuthError} />}
+                {authError && <AuthError message={authError} setAuthError={setAuthError} />}
             </>
         );
     }
@@ -128,7 +128,7 @@ export function GameLayout() {
         <>
             {AuthMenuMap[authMode]}
 
-            {authError && <AuthErrorHandler message={authError} setAuthError={setAuthError} />}
+            {authError && <AuthError message={authError} setAuthError={setAuthError} />}
         </>
     );
 }
