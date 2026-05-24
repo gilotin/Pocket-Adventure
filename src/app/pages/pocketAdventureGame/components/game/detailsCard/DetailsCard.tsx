@@ -1,4 +1,4 @@
-import type { Item } from "../../types/gameTypes";
+import type { Item } from "../../../types/gameTypes";
 import styles from "./DetailsCard.module.css";
 
 type FilterItemDataProps = {
