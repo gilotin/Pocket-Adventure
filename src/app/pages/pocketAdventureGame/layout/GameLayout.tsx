@@ -1,8 +1,7 @@
 import styles from "./GameLayout.module.css";
 import { PocketAdventurePage } from "../PocketAdventurePage";
 import { useEffect, useState } from "react";
-import { AuthError } from "../components/authError/AuthError";
-import { ConfirmModal } from "../components/confirmModal/ConfirmModal";
+import { ConfirmModal } from "../components/game/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
 import type {
     // AccountData,
@@ -17,6 +16,7 @@ import { Register } from "../auth/register/Register";
 import { Login } from "../auth/login/Login";
 import { loginAsGuest } from "../auth/authService";
 import { AUTH_KEY } from "../constants/gameConstants";
+import { AuthError } from "../components/layout/authError/AuthError";
 // import { TestItemGenerator } from "../mockedData/TestItemGenerator";
 
 export function GameLayout() {

@@ -23,7 +23,7 @@ import { Inventory } from "./features/inventory/Inventory";
 import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
 import { Shop } from "./features/shop/Shop";
-import { DetailsCard } from "./components/detailsCard/DetailsCard";
+import { DetailsCard } from "./components/game/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
 import type { GameMenuState, ItemStore } from "./types/gameTypes";
 import { calculateCharacterStats } from "./systems/stats/calculateCharacterStats";
@@ -37,7 +37,7 @@ import { generateRandomNumber } from "./systems/items/generateRandomNumber";
 import { REFRESH_INTERVAL } from "./constants/gameConstants";
 import { useInventory } from "./features/inventory/hooks/useInventory";
 import generateItemType from "./systems/items/generateItemType";
-import { GameNotificationCard } from "./components/gameNotification/gameNotificationCard";
+import { GameNotificationCard } from "./components/game/gameNotification/GameNotificationCard";
 
 type GameMenuStateKey = Exclude<GameMenuState, null>;
 

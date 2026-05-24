@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import styles from "./Inventory.module.css";
 import type { Item } from "../../types/gameTypes";
-import { ItemCard } from "../../components/itemCard/ItemCard";
+import { ItemCard } from "../../components/game/itemCard/ItemCard";
 
 type InventoryProps = {
     inventoryItems: Item[];
