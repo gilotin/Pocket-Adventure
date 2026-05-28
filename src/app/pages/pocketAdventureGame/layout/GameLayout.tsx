@@ -4,26 +4,27 @@ import { useEffect, useState } from "react";
 import { ConfirmModal } from "../components/game/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
 import type {
-    // AccountData,
+    AccountData,
     AuthAction,
     AuthErrorType,
     AuthMode,
     AuthUser,
 } from "../types/gameTypes";
-// import { TestItemGenerator } from "../mockedData/TestItemGenerator";
 import { AuthMenu } from "../auth/authMenu/AuthMenu";
 import { Register } from "../auth/register/Register";
 import { Login } from "../auth/login/Login";
 import { loginAsGuest } from "../auth/authService";
-import { AUTH_KEY } from "../constants/gameConstants";
+import { ACCOUNT_KEY, AUTH_KEY } from "../constants/gameConstants";
 import { AuthError } from "../components/layout/authError/AuthError";
-// import { TestItemGenerator } from "../mockedData/TestItemGenerator";
+import profilePicture from "../../../../../public/assets/profile_male_profile.png";
+import { ProfilePanel } from "../components/layout/profilePanel/ProfilePanel";
 
 export function GameLayout() {
     const [authUser, setAuthUser] = useState<AuthUser | null>(null);
     const [authMode, setAuthMode] = useState<AuthMode>("menu");
     const [authError, setAuthError] = useState<AuthErrorType>(null);
-    // const [userData, setUserData] = useState<AccountData>(null);
+    const [accountData, setAccountData] = useState<AccountData>(null);
+    const [gameMapState, setGameMapState] = useState<"profile" | "game">("game");
     const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
 
     useEffect(() => {
@@ -42,10 +43,18 @@ export function GameLayout() {
         }
     }, []);
 
+    useEffect(() => {
+        const storedUser = localStorage.getItem(ACCOUNT_KEY);
+
+        if (!storedUser) return setAccountData(null);
+
+        const user = JSON.parse(storedUser);
+        setAccountData(user);
+    }, []);
+
     const handleLogout = () => {
         logout();
-        // setUserData(null);
-        // To compare the characterData id vs auth id and if not the same to crate new characterData
+        setAccountData(null);
         setAuthUser(null);
         setAuthMode("menu");
         localStorage.removeItem(AUTH_KEY);
@@ -59,6 +68,11 @@ export function GameLayout() {
         }
 
         setAuthMode(action);
+    };
+
+    const handleGameMenu = () => {
+        if (gameMapState === "game") return setGameMapState("profile");
+        return setGameMapState("game");
     };
 
     const AuthMenuMap = {
@@ -79,24 +93,38 @@ export function GameLayout() {
         menu: <AuthMenu handleAuthAction={handleAuthAction} />,
     };
 
-    if (authUser !== null) {
-        return (
+    const GameMenuMap = {
+        profile: <ProfilePanel accountData={accountData} handleGameMenu={handleGameMenu} />,
+        game: (
             <>
                 <div className={styles.layoutBackground}>
                     <div className={styles.gameWrapper}>
                         <header className={styles.gameHeader}>
-                            {/* Latter will add proper profile name visualization */}
-                            <p>Hello Adventurer!</p>
-                            <p>Stats</p>
-                            <button onClick={() => setConfirmAction(() => handleLogout)}>
+                            <button onClick={handleGameMenu} className={styles.characterBorder}>
+                                <div className={styles.innerBorder}>
+                                    <p className={styles.userName}>
+                                        {accountData ? accountData.profileName : "Guest"}
+                                    </p>
+                                    <div className={styles.iconBorder}>
+                                        <img
+                                            width={52}
+                                            height={52}
+                                            className={styles.profilePicture}
+                                            src={profilePicture}
+                                            alt="male warrior profile"
+                                        />
+                                    </div>
+                                </div>
+                            </button>
+                            <p className={styles.logo}>Pocket Adventure</p>
+                            <button
+                                className={styles.logout}
+                                onClick={() => setConfirmAction(() => () => handleLogout())}
+                            >
                                 logout
                             </button>
                         </header>
                         <main className={styles.mainGame}>
-                            {/* <div>
-                                <TestItemGenerator />
-                            </div> */}
-
                             <PocketAdventurePage setConfirmAction={setConfirmAction} />
                         </main>
                     </div>
@@ -121,7 +149,11 @@ export function GameLayout() {
 
                 {authError && <AuthError message={authError} setAuthError={setAuthError} />}
             </>
-        );
+        ),
+    };
+
+    if (authUser !== null) {
+        return <>{GameMenuMap[gameMapState]}</>;
     }
 
     return (

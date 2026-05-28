@@ -19,16 +19,10 @@
     display: flex;
     flex-direction: row-reverse;
     border-radius: 0.4rem;
-    padding: 1rem 2rem;
-    gap: 1rem;
+    padding: 0.5rem 1rem;
     margin-bottom: 1rem;
-
-    p {
-        border: 1px solid black;
-        padding: .3rem;
-        border-radius: .4rem;
-        background-color: grey;
-    }
+    justify-content: space-between;
+    align-items: center;
 
 }
 
@@ -64,6 +58,82 @@
         justify-content: center;
         align-items: center;
 
+
+    }
+}
+
+
+/* ================
+    Profile 
+==================*/
+
+
+.characterBorder {
+    border: var(--border-thick) solid var(--game-medium-blue);
+    padding: var(--space-xs);
+    background-color: var(--game-medium-green);
+    width: 14rem;
+    border-radius: var(--radius-md);
+    transition: ease-in 0.3s;
+
+}
+
+.characterBorder:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    background-color: var(--game-medium-blue);
+    border-color: var(--game-dark-blue);
+}
+
+
+.innerBorder {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    border: var(--border-thick) solid var(--game-medium-blue);
+    border-radius: var(--radius-sm);
+    gap: var(--space-md);
+    background-color: var(--game-medium-blue);
+}
+
+
+.userName {}
+
+.iconBorder {
+    border: var(--border-thick) solid var(--game-dark-blue);
+    border-radius: 50%;
+}
+
+.profilePicture {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.logo {
+    padding: var(--space-sm) var(--space-xl);
+    color: var(--game-dark-blue);
+    font-size: calc(var(--font-size-3xl) * 1.35);
+    text-align: center;
+    font-family: var(--font-game-pixel);
+    margin: 0;
+}
+
+
+.logout {
+    cursor: pointer;
+    border: 2px solid green;
+    padding: .2rem .4rem;
+    border-radius: .6rem;
+    margin: var(--space-md) var(--space-sm);
+    width: 8rem;
+
+
+    & :hover {
+        background-color: darkgray;
+        color: white;
+        transform: scale(115%);
+        transition: ease-in-out;
 
     }
 }
