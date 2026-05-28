@@ -1,4 +1,12 @@
-.logoutWrapper {
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+}
+
+
+.modalWrapper {
     background-color: #f7cbdd;
     text-align: center;
     width: 20rem;
@@ -20,14 +28,14 @@
     justify-content: center;
 }
 
-.logoutBtn {
+.modalBtn {
     font-weight: 600;
     height: 1.88rem;
     width: 3.75rem;
     border-radius: 0.4rem;
 }
 
-.LogoutAccept {
+.modalConfirm {
     background-color: rgb(59, 222, 59);
 
     &:hover {
@@ -36,7 +44,7 @@
     }
 }
 
-.buttonRefuse {
+.modalRefuse {
     background-color: rgb(239, 77, 77);
 
     &:hover {

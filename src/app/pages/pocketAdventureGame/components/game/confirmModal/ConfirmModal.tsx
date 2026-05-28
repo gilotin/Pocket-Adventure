@@ -7,24 +7,24 @@ type ConfirmProps = {
 
 export function ConfirmModal({ onConfirm, onCancel }: ConfirmProps) {
     return (
-        <>
-            <div className={styles.logoutWrapper}>
-                <h3 className={styles.logoutHeader}>Are you sure?</h3>
+        <div className={styles.overlay}>
+            <div className={styles.modalWrapper}>
+                <h3 className={styles.modalHeader}>Are you sure?</h3>
                 <div className={styles.buttonWrapper}>
                     <button
                         onClick={onConfirm}
-                        className={`${styles.logoutBtn} ${styles.LogoutAccept}`}
+                        className={`${styles.modalBtn} ${styles.modalConfirm}`}
                     >
                         YES
                     </button>
                     <button
                         onClick={onCancel}
-                        className={`${styles.logoutBtn} ${styles.buttonRefuse}`}
+                        className={`${styles.modalBtn} ${styles.modalRefuse}`}
                     >
                         NO
                     </button>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
