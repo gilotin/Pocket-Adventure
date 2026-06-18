@@ -96,46 +96,44 @@ export function GameLayout() {
     const GameMenuMap = {
         profile: <ProfilePanel accountData={accountData} handleGameMenu={handleGameMenu} />,
         game: (
-            <>
-                <div className={styles.layoutBackground}>
-                    <div className={styles.gameWrapper}>
-                        <header className={styles.gameHeader}>
-                            <button onClick={handleGameMenu} className={styles.characterBorder}>
-                                <div className={styles.innerBorder}>
-                                    <p className={styles.userName}>
-                                        {accountData ? accountData.profileName : "Guest"}
-                                    </p>
-                                    <div className={styles.iconBorder}>
-                                        <img
-                                            width={52}
-                                            height={52}
-                                            className={styles.profilePicture}
-                                            src={profilePicture}
-                                            alt="male warrior profile"
-                                        />
-                                    </div>
+            <div className={styles.layoutBackground}>
+                <div className={styles.gameWrapper}>
+                    <header className={styles.gameHeader}>
+                        <button onClick={handleGameMenu} className={styles.characterBorder}>
+                            <div className={styles.innerBorder}>
+                                <p className={styles.userName}>
+                                    {accountData ? accountData.profileName : "Guest"}
+                                </p>
+                                <div className={styles.iconBorder}>
+                                    <img
+                                        width={52}
+                                        height={52}
+                                        className={styles.profilePicture}
+                                        src={profilePicture}
+                                        alt="male warrior profile"
+                                    />
                                 </div>
-                            </button>
-                            <p className={styles.logo}>Pocket Adventure</p>
-                            <button
-                                className={styles.logout}
-                                onClick={() => setConfirmAction(() => () => handleLogout())}
-                            >
-                                logout
-                            </button>
-                        </header>
-                        <main className={styles.mainGame}>
-                            <PocketAdventurePage setConfirmAction={setConfirmAction} />
-                        </main>
-                    </div>
+                            </div>
+                        </button>
+                        <p className={styles.logo}>Pocket Adventure</p>
+                        <button
+                            className={styles.logout}
+                            onClick={() => setConfirmAction(() => () => handleLogout())}
+                        >
+                            logout
+                        </button>
+                    </header>
+                    <main className={styles.mainGame}>
+                        <PocketAdventurePage setConfirmAction={setConfirmAction} />
+                    </main>
+                </div>
 
-                    <div className={styles.displayMessage}>
-                        <p>Displays below 768px are currently unavailable.</p>
-                        <p>Please check again later. Thanks for the understanding.</p>
-                        <p>
-                            You can force the game with <i>"Desktop site"</i> option on your phone
-                        </p>
-                    </div>
+                <div className={styles.displayMessage}>
+                    <p>Displays below 768px are currently unavailable.</p>
+                    <p>Please check again later. Thanks for the understanding.</p>
+                    <p>
+                        You can force the game with <i>"Desktop site"</i> option on your phone
+                    </p>
                 </div>
                 {confirmAction && (
                     <ConfirmModal
@@ -148,7 +146,7 @@ export function GameLayout() {
                 )}
 
                 {authError && <AuthError message={authError} setAuthError={setAuthError} />}
-            </>
+            </div>
         ),
     };
 
@@ -157,10 +155,10 @@ export function GameLayout() {
     }
 
     return (
-        <>
+        <div className={styles.layoutBackground}>
             {AuthMenuMap[authMode]}
 
             {authError && <AuthError message={authError} setAuthError={setAuthError} />}
-        </>
+        </div>
     );
 }

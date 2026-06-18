@@ -8,7 +8,6 @@ type AuthProps = {
 export function AuthMenu({ handleAuthAction: handleAuthAction }: AuthProps) {
     return (
         <section className={styles.wrapper}>
-            <h1 className={styles.menuHeader}>Pocket Adventure</h1>
             <ul className={styles.menuList}>
                 <li className={styles.menuListItem}>
                     <button
