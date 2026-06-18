@@ -60,9 +60,10 @@
     height: 100vh;
     text-align: center;
     font-family: var(--font-game-pixel);
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--weight-regular);
-    color: var(--game-dark-blue)
+    color: white;
+
 }
 
 /* add unsupported screen size message */
@@ -77,9 +78,15 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
-
     }
+
+    .messageCard {
+        background-color: rgba(0, 0, 0, 0.6);
+        margin: 5rem;
+        border-radius: var(--radius-md);
+        padding: 1rem 2rem;
+    }
+
 }
 
 
@@ -142,18 +149,26 @@
 
 .logout {
     cursor: pointer;
-    border: 2px solid green;
-    padding: .2rem .4rem;
+    background-color: var(--game-bg);
+    border: 3px solid var(--inventory-border);
+    box-shadow:
+        inset 0 0 4px 1px #f3e7cd,
+        inset 0 0 2px 3px #8b6a3e,
+        inset 0 0 0 1px #d9c08f;
+
     border-radius: .6rem;
+    outline: 2px solid var(--game-dark-brown);
+    padding: .2rem .4rem;
     margin: var(--space-md) var(--space-sm);
     width: 8rem;
-
+    transition: transform 0.3s ease-in-out,
+        background-color 0.3s ease-in-out,
+        border-width 0.3s ease-in-out;
 
     &:hover {
         background-color: darkgray;
         color: white;
-        transform: scale(115%);
-        transition: ease-in-out;
-
+        transform: scale(1.15);
+        border-width: 4px;
     }
 }

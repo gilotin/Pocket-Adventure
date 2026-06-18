@@ -60,7 +60,7 @@
 
 .menuButton:hover,
 .menuButton:focus {
-    background-color: var(--game-orange);
+    background-color: var(--inventory-border);
     color: white;
 }
 
