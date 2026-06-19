@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styles from "./AuthError.module.css";
-import type { AuthErrorType } from "../../types/gameTypes";
+import type { AuthErrorType } from "../../../types/gameTypes";
 
 type ErrorProps = {
     message: AuthErrorType;

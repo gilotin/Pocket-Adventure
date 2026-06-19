@@ -5,7 +5,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-image: url("../../../../../../public/assets/background_image_clear.png")
+    background-image: url("/assets/background_image_clear.png")
 }
 
 .gameWrapper {
@@ -34,7 +34,7 @@
     margin-bottom: 1rem;
     justify-content: space-between;
     align-items: center;
-    background-image: url("/public/assets/noise_filter.png");
+    background-image: url("/assets/noise_filter.png");
 
 }
 
@@ -48,10 +48,10 @@
     outline: 2px solid var(--game-dark-brown);
     padding: 1rem 2rem;
     border-radius: 0.4rem;
-    min-height: 70vh;
+    min-height: 73vh;
     margin-bottom: 1rem;
     background-color: var(--game-bg);
-    background-image: url("/public/assets/noise_filter.png");
+    background-image: url("/assets/noise_filter.png");
 }
 
 .displayMessage {
