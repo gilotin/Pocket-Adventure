@@ -1,6 +1,6 @@
 .gamePanelWrapper {
-    height: 20rem;
     overflow-y: auto;
+    scroll-behavior: smooth;
 
 }
 

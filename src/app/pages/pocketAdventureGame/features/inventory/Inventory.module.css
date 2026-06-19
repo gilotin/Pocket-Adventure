@@ -1,8 +1,27 @@
 .inventorySpace {
-    max-height: 21rem;
+    height: 24rem;
     overflow-y: scroll;
     padding: 1rem 2rem;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: #a97940 #e9d9bc;
+
+}
+
+.inventorySpace::-webkit-scrollbar {
+    width: 12px;
+}
+
+.inventorySpace::-webkit-scrollbar-track {
+    background: var(--game-bg);
+}
+
+.inventorySpace::-webkit-scrollbar-thumb {
+    background: var(--inventory-border);
+    border-radius: 999px;
+}
+
+.inventorySpace::-webkit-scrollbar-thumb:hover {
+    background: var(--game-dark-brown);
 }
 
 .inventoryHeader {
@@ -11,12 +30,16 @@
 }
 
 .inventorySpace {
-    border: 1px solid black;
+
+    border: 4px solid var(--inventory-border);
+    border-radius: var(--radius-sm);
     gap: 1rem;
     justify-content: space-evenly;
     display: grid;
 
 }
+
+
 
 .inventoryItem {
     padding: 0.4rem;
