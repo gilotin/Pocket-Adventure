@@ -19,31 +19,40 @@ export function ItemCard({
     onEquipItem,
 }: ItemCardProps) {
     return (
-        <div
+        <article
             className={styles.itemCard}
-            key={item.itemId}
             onMouseEnter={() => handleMouseEnter(item.itemId)}
             onMouseLeave={handleMouseLeave}
         >
-            <div>Name:{item.name}</div>
-            <div>Type: {item.type}</div>
-            <div>Qty:{item.quantity}</div>
+            <div className={styles.itemIcon}>
+                <img src={`icons/${item.icon}.png`} alt={item.icon} />
+            </div>
+            <div className={styles.itemName}>{item.name}</div>
 
-            {item.type === "equipment" && <button onClick={onEquipItem}>Equip</button>}
-            <button onClick={() => onSellItem(item.itemId)}>Sell</button>
-            <button
-                onClick={(e) => {
-                    e.stopPropagation();
-                    confirmDeleteItem(item.itemId);
-                }}
-            >
-                <img
-                    // for testing purposes !!!
-                    style={{ width: 24, height: 24 }}
-                    src="icons/trash-can.svg"
-                    alt="discard"
-                />
-            </button>
-        </div>
+            <div className={styles.iconGroup}>
+                {item.type === "equipment" && (
+                    <button className={styles.iconEquip} onClick={onEquipItem}>
+                        <img src="/icons/plus.png" alt="equip item" />
+                    </button>
+                )}
+                <button
+                    type="button"
+                    className={styles.sellBtn}
+                    onClick={() => onSellItem(item.itemId)}
+                >
+                    <img src="icons/money-bag.png" alt="sell item" />
+                </button>
+                <button
+                    type="button"
+                    className={styles.deleteBtn}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        confirmDeleteItem(item.itemId);
+                    }}
+                >
+                    <img src="icons/delete.png" alt="discard item" />
+                </button>
+            </div>
+        </article>
     );
 }

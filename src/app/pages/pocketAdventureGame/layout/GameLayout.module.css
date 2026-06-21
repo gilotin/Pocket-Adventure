@@ -1,7 +1,7 @@
 .layoutBackground {
     background: var(--game-light-blue);
     width: auto;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-courier);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

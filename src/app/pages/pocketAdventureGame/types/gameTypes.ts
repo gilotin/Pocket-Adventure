@@ -45,6 +45,7 @@ export type Item = {
     quantity: number;
     itemValue: number;
     isEquipped: boolean;
+    icon?: string;
 };
 
 export type ItemStore = Item[];

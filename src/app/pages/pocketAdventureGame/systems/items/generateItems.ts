@@ -90,6 +90,27 @@ export function generateItem(props: GenerateItemsOptions): Item {
         };
     }
 
+    const equipmentIconMap = {
+        weapon: "weapons",
+        armor: "equipment",
+        boots: "equipment",
+        helm: "equipment",
+    };
+
+    const itemTypeIconMap = {
+        equipment: "equipment",
+        materials: "pouch",
+        consumable: "potion",
+    };
+
+    let icon = "";
+
+    if (equipmentType) {
+        icon = equipmentIconMap[equipmentType];
+    } else if (itemType === "materials" || itemType === "consumable") {
+        icon = itemTypeIconMap[itemType];
+    }
+
     const item: Item = {
         itemId: itemId,
         name: itemName,
@@ -100,6 +121,7 @@ export function generateItem(props: GenerateItemsOptions): Item {
         equipmentSlot: equipmentType,
         type: itemType,
         isEquipped: false,
+        icon: itemTypeIconMap[itemType],
     };
 
     return item;

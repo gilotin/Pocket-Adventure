@@ -93,8 +93,27 @@ export function GameLayout() {
         menu: <AuthMenu handleAuthAction={handleAuthAction} />,
     };
 
+    /* ===================== 
+        Profile Panel 
+       ===================== */
+
+    const changeProfileInfo = (profileData: string) => {
+        setAccountData((prev) => {
+            if (!prev) return prev;
+            const updated = { ...prev, profileName: profileData };
+            localStorage.setItem(ACCOUNT_KEY, JSON.stringify(updated));
+            return updated;
+        });
+    };
+
     const GameMenuMap = {
-        profile: <ProfilePanel accountData={accountData} handleGameMenu={handleGameMenu} />,
+        profile: (
+            <ProfilePanel
+                accountData={accountData}
+                handleGameMenu={handleGameMenu}
+                changeProfileInfo={changeProfileInfo}
+            />
+        ),
         game: (
             <div className={styles.layoutBackground}>
                 <div className={styles.gameWrapper}>
