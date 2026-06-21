@@ -121,7 +121,7 @@ export function generateItem(props: GenerateItemsOptions): Item {
         equipmentSlot: equipmentType,
         type: itemType,
         isEquipped: false,
-        icon: itemTypeIconMap[itemType],
+        icon,
     };
 
     return item;
