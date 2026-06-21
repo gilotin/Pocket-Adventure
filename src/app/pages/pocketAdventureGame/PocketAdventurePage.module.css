@@ -5,8 +5,18 @@
 }
 
 .header {
-    font-family: var(--font-heading);
+    margin-bottom: 0;
+    font-size: var(--font-size-2xl);
+    font-family: var(--font-courier);
     text-align: center;
     padding: 1rem;
     text-transform: uppercase;
+}
+
+.header::before {
+    content: "- ";
+}
+
+.header::after {
+    content: " -";
 }
