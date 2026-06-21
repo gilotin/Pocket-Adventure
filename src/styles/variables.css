@@ -4,6 +4,9 @@
     --font-heading: "Space Grotesk", sans-serif;
     --font-jb-mono: "JetBrains Mono", sans-serif;
     --font-game-pixel: "Jersey 10", sans-serif;
+    --font-courier: 'Courier New',
+        Courier,
+        monospace;
 
     /* Font weights */
     --weight-regular: 400;
@@ -94,7 +97,7 @@
     --game-dark-green: #386641;
     --game-light-brown: #a98467;
     --game-dark-brown: #6c584c;
-
+    --game-card-border: #3f2e28;
     --game-bg: #e9d9bc;
 
     --inventory-border: #a97940;
