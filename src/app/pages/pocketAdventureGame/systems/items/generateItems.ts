@@ -90,6 +90,8 @@ export function generateItem(props: GenerateItemsOptions): Item {
         };
     }
 
+    // ICONS
+
     const equipmentIconMap = {
         weapon: "weapons",
         armor: "equipment",

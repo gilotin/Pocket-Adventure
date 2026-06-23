@@ -22,7 +22,7 @@ function calculateRemainingTime(time: number | null) {
     }
 }
 
-export function Shop({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
+export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
     const [itemFilter, setItemFilter] = useState("");
 
     const handleFormFilter = (input: React.ChangeEvent<HTMLInputElement>) => {

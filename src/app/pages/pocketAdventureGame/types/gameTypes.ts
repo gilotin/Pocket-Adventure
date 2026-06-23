@@ -78,7 +78,13 @@ export type Character = {
  MENU TYPES
 ======================================*/
 
-export type GameMenuState = "crafting" | "garden" | "missions" | "shop" | "inventory" | "character";
+export type GameMenuState =
+    | "crafting"
+    | "garden"
+    | "missions"
+    | "merchant"
+    | "inventory"
+    | "character";
 
 /*======================================
  MISSIONS TYPES

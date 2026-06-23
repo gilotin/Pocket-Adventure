@@ -22,7 +22,7 @@ import { Crafting } from "./features/crafting/Crafting";
 import { Inventory } from "./features/inventory/Inventory";
 import { Garden } from "./features/crafting/garden/Garden";
 import { Missions } from "./features/missions/Missions";
-import { Shop } from "./features/shop/Shop";
+import { Merchant } from "./features/shop/Merchant";
 import { DetailsCard } from "./components/game/detailsCard/DetailsCard";
 import { CharacterPanelAndStats } from "./features/character/CharacterPanelAndStats";
 import type { GameMenuState, ItemStore } from "./types/gameTypes";
@@ -80,7 +80,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
     const characterXpProgress = CalculateCharacterXp({ characterData });
 
     useEffect(() => {
-        if (gameNavigation === "shop" && isLoaded) {
+        if (gameNavigation === "merchant" && isLoaded) {
             handleRefreshShop();
         }
     }, [gameNavigation, isLoaded]);
@@ -206,7 +206,9 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         ),
         missions: <Missions startMission={startMission} />,
         garden: <Garden />,
-        shop: <Shop shop={shop} selectActiveShopItem={selectShopItem} onBuyItem={onBuyItem} />,
+        merchant: (
+            <Merchant shop={shop} selectActiveShopItem={selectShopItem} onBuyItem={onBuyItem} />
+        ),
         character: (
             <CharacterPanelAndStats
                 characterData={characterData}
