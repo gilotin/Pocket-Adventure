@@ -1,7 +1,8 @@
 .itemCard {
     color: var(--rarity-legendary);
     display: flex;
-    background-color: var(--game-dark-brown);
+    background-image: url("/public/assets/itemcard_background.png");
+    background-size: cover;
     gap: 0.2rem;
     border: 2px solid var(--game-card-border);
     border-radius: var(--radius-md);

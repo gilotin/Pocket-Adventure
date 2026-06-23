@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import type { Shop } from "../../../types/gameTypes";
+import type { Merchant } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
 import { SHOP_KEY } from "../../../constants/gameConstants";
 
 export function useShop() {
-    const [shop, setShop] = useState<Shop>({ items: [], timer: null });
+    const [shop, setShop] = useState<Merchant>({ items: [], timer: null });
     const [activeShopItemId, setActiveShopItemId] = useState<string | null>(null);
     const [showShopDetailsCard, setShowShopDetailsCard] = useState(false);
 
@@ -30,7 +30,7 @@ export function useShop() {
         setShowShopDetailsCard(true);
     };
 
-    const updateShop = (nextShop: Shop) => {
+    const updateShop = (nextShop: Merchant) => {
         saveToStorage(SHOP_KEY, nextShop);
         setShop(nextShop);
     };

@@ -125,10 +125,10 @@ export type ActiveMission = {
 } | null;
 
 /*======================================
- SHOP TYPES
+ MERCHANT TYPES
 ======================================*/
 
-export type Shop = {
+export type Merchant = {
     items: Item[];
     timer: number | null;
 };

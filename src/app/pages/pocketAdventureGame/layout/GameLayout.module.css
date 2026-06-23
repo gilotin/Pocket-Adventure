@@ -34,7 +34,9 @@
     margin-bottom: 1rem;
     justify-content: space-between;
     align-items: center;
-    background-image: url("/assets/noise_filter.png");
+    background-image: url("/public/assets/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 
 }
 
@@ -51,7 +53,9 @@
     min-height: 73vh;
     margin-bottom: 1rem;
     background-color: var(--game-bg);
-    background-image: url("/assets/noise_filter.png");
+    background-image: url("/public/assets/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .displayMessage {

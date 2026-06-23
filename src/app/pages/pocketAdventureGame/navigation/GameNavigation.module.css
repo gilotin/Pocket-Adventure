@@ -5,15 +5,18 @@
     flex-wrap: wrap;
 
     & button {
+        text-transform: uppercase;
+        background-image: url("/public//assets/background.png");
+        background-repeat: no-repeat;
+        background-size: cover;
         cursor: pointer;
-        border: 2px solid green;
-        padding: .2rem .4rem;
-        border-radius: .6rem;
+        border: 3px solid var(--inventory-border);
+        padding: .4rem .8rem;
+        border-radius: 6px;
+        font-weight: var(--weight-bold);
     }
 
     & button:hover {
-        background-color: darkgray;
-        color: white;
         transform: scale(115%);
         transition: ease-in-out;
 
@@ -22,7 +25,10 @@
 
 }
 
-.active {
-    background-color: rgb(43, 112, 55);
+.gameNavigation .active {
+    border: 3px solid green;
+    background-image: url("/public//assets/green_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     color: white;
 }

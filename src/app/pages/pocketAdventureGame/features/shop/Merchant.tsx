@@ -1,11 +1,11 @@
 import { useState } from "react";
-import type { Shop } from "../../types/gameTypes";
+import type { Merchant } from "../../types/gameTypes";
 import styles from "./Merchant.module.css";
 
-type ShopProps = {
-    shop: Shop;
+type MerchantProps = {
+    merchant: Merchant;
     onBuyItem: (itemId: string) => void;
-    selectActiveShopItem: (itemId: string | null) => void;
+    selectActiveMerchantItem: (itemId: string | null) => void;
 };
 
 function calculateRemainingTime(time: number | null) {
@@ -22,14 +22,16 @@ function calculateRemainingTime(time: number | null) {
     }
 }
 
-export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
-    const [itemFilter, setItemFilter] = useState("");
+export function Merchant({
+    merchant,
+    onBuyItem,
+    selectActiveMerchantItem: selectActiveMerchantItem,
+}: MerchantProps) {
+    const [itemFilter, setItemFilter] = useState("allItems");
 
     const handleFormFilter = (input: React.ChangeEvent<HTMLInputElement>) => {
         const filterType = input.currentTarget.value;
-        if (filterType === "allItems") {
-            return setItemFilter("");
-        }
+
         return setItemFilter(filterType);
     };
 
@@ -38,38 +40,48 @@ export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
     };
 
     const handleMouseEnter = (itemId: string) => {
-        selectActiveShopItem(itemId);
+        selectActiveMerchantItem(itemId);
     };
 
     const handleMouseLeave = () => {
-        selectActiveShopItem(null);
+        selectActiveMerchantItem(null);
     };
 
-    const shopInventory = shop.items
+    const merchantInventory = merchant.items
         .filter((item) => {
-            if (itemFilter === "") {
+            if (itemFilter === "allItems") {
                 return true;
             }
             return item.type === itemFilter;
         })
         .map((item) => {
             return (
-                <div
+                <article
                     onMouseEnter={() => handleMouseEnter(item.itemId)}
                     onMouseLeave={handleMouseLeave}
                     className={styles.itemCard}
                     key={item.itemId}
                 >
-                    <div>Name:{item.name}</div>
-                    <div>Type: {item.type}</div>
+                    <div className={styles.itemIcon}>
+                        <img src={`icons/${item.icon}.png`} alt={item.icon} />
+                    </div>
+                    <div className={styles.itemName}>Name:{item.name}</div>
                     <div>Qty:{item.quantity}</div>
-                    <button onClick={() => handleBuyItem(item.itemId)}>buy</button>
-                </div>
+                    <div className={styles.iconGroup}>
+                        <button
+                            className={styles.buyBtn}
+                            type="button"
+                            onClick={() => handleBuyItem(item.itemId)}
+                        >
+                            <img src="/icons/money-bag.png" alt="buy item" />
+                        </button>
+                    </div>
+                </article>
             );
         });
 
     return (
-        <>
+        <section className={styles.merchantSpace}>
             <div>
                 <form className={styles.filterForm}>
                     <fieldset className={styles.fieldset}>
@@ -79,7 +91,8 @@ export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
                                 type="radio"
                                 id="allItems"
                                 value="allItems"
-                                name="shop"
+                                name="merchant"
+                                checked={itemFilter === "allItems"}
                             />
                             <label className={styles.formLabel} htmlFor="allItems">
                                 All
@@ -92,7 +105,8 @@ export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
                                 type="radio"
                                 id="materials"
                                 value="materials"
-                                name="shop"
+                                name="merchant"
+                                checked={itemFilter === "materials"}
                             />
                             <label className={styles.formLabel} htmlFor="materials">
                                 Materials
@@ -105,7 +119,8 @@ export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
                                 type="radio"
                                 id="consumable"
                                 value="consumable"
-                                name="shop"
+                                name="merchant"
+                                checked={itemFilter === "consumable"}
                             />
                             <label className={styles.formLabel} htmlFor="consumable">
                                 Consumables
@@ -118,7 +133,8 @@ export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
                                 type="radio"
                                 id="equipment"
                                 value="equipment"
-                                name="shop"
+                                name="merchant"
+                                checked={itemFilter === "equipment"}
                             />
                             <label className={styles.formLabel} htmlFor="equipment">
                                 Equipment
@@ -127,15 +143,18 @@ export function Merchant({ shop, onBuyItem, selectActiveShopItem }: ShopProps) {
                     </fieldset>
                 </form>
             </div>
-            <div className={styles.shopWrapper}>
-                <p>Time before shop reset: {calculateRemainingTime(shop.timer)}</p>
+            <div>
+                <p className={styles.timerInfo}>
+                    Time before merchant reset: {calculateRemainingTime(merchant.timer)}
+                </p>
 
                 <div>
-                    {shop.items.length
-                        ? shopInventory
-                        : "Shop is currently empty. Try again latter."}
+                    {merchant.items.length
+                        ? merchantInventory
+                        : "Merchant inventory is currently empty. Try again latter."}
                 </div>
             </div>
-        </>
+            {/* <img src="/assets/merchant.png" alt="" /> */}
+        </section>
     );
 }
