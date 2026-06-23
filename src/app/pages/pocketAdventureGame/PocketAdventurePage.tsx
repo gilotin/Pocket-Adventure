@@ -207,7 +207,11 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         missions: <Missions startMission={startMission} />,
         garden: <Garden />,
         merchant: (
-            <Merchant shop={shop} selectActiveShopItem={selectShopItem} onBuyItem={onBuyItem} />
+            <Merchant
+                merchant={shop}
+                selectActiveMerchantItem={selectShopItem}
+                onBuyItem={onBuyItem}
+            />
         ),
         character: (
             <CharacterPanelAndStats
