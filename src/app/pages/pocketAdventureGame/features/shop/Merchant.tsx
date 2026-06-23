@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Shop } from "../../types/gameTypes";
-import styles from "./Shop.module.css";
+import styles from "./Merchant.module.css";
 
 type ShopProps = {
     shop: Shop;
