@@ -45,35 +45,46 @@ export function MissionProgressionModal({
     };
 
     return (
-        <section className={styles.missionModalWrapper}>
-            <h1>Mission progress</h1>
-            <h2>Rewards:</h2>
-            <ul>
-                <li>XP:{activeMission.rewards.xp}</li>
-                <li>Gold:{activeMission.rewards.gold}</li>
-                {activeMission.rewards.equipment && (
-                    <li>Items:{activeMission.rewards.equipment}</li>
-                )}
-                {activeMission.rewards.materials && (
-                    <li>Materials:{activeMission.rewards.materials}</li>
-                )}
-                {activeMission.rewards.consumable && (
-                    <li>Potions:{activeMission.rewards.consumable}</li>
-                )}
-            </ul>
-            {isCompleted ? (
-                <p>Mission Completed!</p>
-            ) : (
-                <p>Time remaining: {formatTime(remainingTime)} </p>
-            )}
+        <div className={styles.overlay}>
+            <div className={styles.missionModalWrapper}>
+                <section className={styles.missionCard}>
+                    <h1 className={styles.header}>Mission progress</h1>
+                    <h2 className={styles.rewardsHeader}>Rewards:</h2>
+                    <ul className={styles.rewardsList}>
+                        <li>XP:{activeMission.rewards.xp}</li>
+                        <li>Gold:{activeMission.rewards.gold}</li>
+                        {activeMission.rewards.equipment && (
+                            <li>Items:{activeMission.rewards.equipment}</li>
+                        )}
+                        {activeMission.rewards.materials && (
+                            <li>Materials:{activeMission.rewards.materials}</li>
+                        )}
+                        {activeMission.rewards.consumable && (
+                            <li>Potions:{activeMission.rewards.consumable}</li>
+                        )}
+                    </ul>
+                    {isCompleted ? (
+                        <p className={styles.progress}>Mission Completed!</p>
+                    ) : (
+                        <p className={styles.progress}>
+                            Time remaining: {formatTime(remainingTime)}{" "}
+                        </p>
+                    )}
 
-            {isCompleted ? (
-                <button onClick={() => handleRewardsBtn(activeMission.missionId)}>
-                    Collect rewards
-                </button>
-            ) : (
-                <button onClick={handleAbandonBtn}>Abandon mission</button>
-            )}
-        </section>
+                    {isCompleted ? (
+                        <button
+                            className={styles.rewardModalBtn}
+                            onClick={() => handleRewardsBtn(activeMission.missionId)}
+                        >
+                            Collect rewards
+                        </button>
+                    ) : (
+                        <button className={styles.rewardModalBtn} onClick={handleAbandonBtn}>
+                            Abandon mission
+                        </button>
+                    )}
+                </section>
+            </div>
+        </div>
     );
 }
