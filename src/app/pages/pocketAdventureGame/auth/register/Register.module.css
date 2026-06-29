@@ -5,46 +5,81 @@
     height: 100vh;
     align-items: center;
     flex-direction: column;
+    color: var(--game-dark-blue);
+
 }
 
 .registerFormCard {
-    width: 20rem;
+    width: 22rem;
+    border-radius: var(--border-medium);
+    box-shadow:
+        inset 0 0 4px 1px #f3e7cd,
+        inset 0 0 2px 3px #8b6a3e,
+        inset 0 0 0 1px #d9c08f;
+    background-color: var(--game-bg);
+    outline: 2px solid var(--game-dark-brown);
     display: flex;
     flex-direction: column;
+    padding: 1.5rem 2rem;
+    justify-content: center;
+
+}
+
+.registerForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 2px solid;
-    background-color: var(--frozen-water);
-    padding: 2rem 1rem;
-    border-radius: 0.6rem;
+}
+
+.registerFormCard input {
+    font-weight: var(--weight-bold);
+    color: var(--game-dark-blue);
 }
 
 .formHeader {
     text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--game-dark-blue);
+    text-transform: uppercase;
+    font-size: var(--font-size-2xl);
 }
 
 .registerButton {
-    margin-top: 1rem;
-    border: 3px solid black;
-    padding: 1rem;
-    border-radius: 0.4rem;
-    font-weight: 600;
-    font-size: 1.4rem;
 
-    &:hover {
-        background-color: darkgrey;
-        color: white;
-    }
+    background-color: var(--game-bg);
+    background-image: url("/assets/noise_filter.png");
+    border-radius: var(--radius-md);
+    border: 3px solid var(--inventory-border);
+    box-shadow:
+        inset 0 0 4px 1px #f3e7cd,
+        inset 0 0 2px 3px #8b6a3e,
+        inset 0 0 0 1px #d9c08f;
+    color: var(--game-dark-blue);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--weight-bold);
+    margin: 1rem auto;
+    outline: 2px solid var(--game-dark-brown);
+    padding: var(--space-sm) var(--space-xl);
+    transition: background-color 0.3s ease, color 0.5s ease;
+    width: 15rem;
+}
+
+.registerButton:hover,
+.registerButton:focus {
+    background-color: var(--inventory-border);
+    color: white;
 }
 
 .formNavigation {
     all: unset;
     text-align: center;
+    font-size: var(--font-size-sm);
+    line-height: var(--lh-tight);
 
-    &:hover {
-        font-weight: 600;
-        cursor: pointer;
 
-    }
+}
+
+.formNavigation:hover {
+    font-weight: 600;
+    cursor: pointer;
 }

@@ -117,10 +117,10 @@ export function Register({ setAuthMode, setAuthError, setAuthUser }: RegisterPro
     };
 
     return (
-        <>
-            <div className={styles.registerWrapper}>
+        <section className={styles.registerWrapper}>
+            <div className={styles.registerFormCard}>
                 <form
-                    className={styles.registerFormCard}
+                    className={styles.registerForm}
                     method="POST"
                     onSubmit={registerSubmitHandler}
                 >
@@ -161,7 +161,7 @@ export function Register({ setAuthMode, setAuthError, setAuthUser }: RegisterPro
                     return to menu
                 </button>
             </div>
-        </>
+        </section>
     );
 }
 export { CHARACTER_KEY };
