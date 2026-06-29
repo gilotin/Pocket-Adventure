@@ -25,9 +25,10 @@
     --space-4xl: 8rem;
 
     /* radius */
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
+    --radius-xs: 0.2rem;
+    --radius-sm: 0.4rem;
+    --radius-md: 0.6rem;
+    --radius-lg: 0.8rem;
 
     /* Borders */
     --border-thin: 1px;
