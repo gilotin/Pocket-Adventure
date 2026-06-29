@@ -1,5 +1,4 @@
 .wrapper {
-    font-family: var(--font-game-pixel);
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -13,7 +12,8 @@
 
 .menuHeader {
     font-size: clamp(1rem, 11vw, 8rem);
-    font-family: var(--font-game-pixel);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: var(--weight-bold);
     letter-spacing: .2rem;
     -webkit-text-stroke: 1px var(--game-dark-blue);
     color: var(--game-medium-blue);
@@ -50,7 +50,8 @@
     background-color: var(--game-bg);
     outline: 2px solid var(--game-dark-brown);
     color: var(--game-dark-blue);
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
+    font-weight: var(--weight-bold);
     transition: background-color 0.3s ease, color 0.5s ease;
     width: 15rem;
     background-image: url("/assets/noise_filter.png");
