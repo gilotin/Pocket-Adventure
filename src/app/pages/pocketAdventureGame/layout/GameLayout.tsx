@@ -145,6 +145,10 @@ export function GameLayout() {
                     <main className={styles.mainGame}>
                         <PocketAdventurePage setConfirmAction={setConfirmAction} />
                     </main>
+                    <footer className={styles.footer}>
+                        <p>This project is currently in development.</p>
+                        <p> Nikolay Toshev 2026</p>
+                    </footer>
                 </div>
 
                 <div className={styles.displayMessage}>

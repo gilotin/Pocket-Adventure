@@ -14,7 +14,7 @@
     padding: 1rem 2rem;
     max-width: 860px;
     margin: auto;
-    height: 100vh;
+    min-height: 100vh;
     font-weight: bold;
 
 }
@@ -50,7 +50,7 @@
     outline: 2px solid var(--game-dark-brown);
     padding: 1rem 2rem;
     border-radius: 0.4rem;
-    min-height: 73vh;
+    min-height: 72vh;
     margin-bottom: 1rem;
     background-color: var(--game-bg);
     background-image: url("/public/assets/background.png");
@@ -174,5 +174,21 @@
         color: white;
         transform: scale(1.15);
         border-width: 4px;
+    }
+}
+
+/* Pseudo Footer */
+
+.footer {
+    font-family: var(--font-heading);
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: var(--radius-md);
+    text-align: center;
+    color: var(--color-frozen-water);
+    line-height: 1.2;
+    padding-block: 0.5rem;
+
+    & p {
+        margin-block: 0;
     }
 }
