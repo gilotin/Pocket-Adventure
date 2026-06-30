@@ -1,3 +1,4 @@
+import styles from "./MissionDetails.module.css";
 import type { Mission } from "../../../../types/gameTypes";
 import { MissionRequirements } from "./MissionRequirements";
 import { MissionRewards } from "./MissionRewards";
@@ -13,15 +14,17 @@ export function MissionDetails({ currentMission, startMission }: MissionDetailsP
     };
 
     return (
-        <article>
-            <div>
-                <h2>{currentMission.title}</h2>
-                <img src="#" alt="quest picture" />
-                {currentMission.description}
+        <article className={styles.detailsCardWrapper}>
+            <div className={styles.detailsCard}>
+                <h1 className={styles.header}>{currentMission.title}</h1>
+                <div className={styles.decorativeLine}></div>
+                <div className={styles.description}>{currentMission.description}</div>
                 <MissionRequirements currentMission={currentMission} />
                 <MissionRewards currentMission={currentMission} />
             </div>
-            <button onClick={handleStartMissionButton}>start</button>
+            <button className={styles.missionStartBtn} onClick={handleStartMissionButton}>
+                start
+            </button>
         </article>
     );
 }

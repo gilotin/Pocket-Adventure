@@ -32,7 +32,11 @@ export function MissionTypeNavigation({
 
     const missionTypeNavigationMenu = missionTypeButtonList.map((button) => {
         return (
-            <button key={button.value} onClick={() => missionNavigationHandler(button.value)}>
+            <button
+                className={styles.missionNavBtn}
+                key={button.value}
+                onClick={() => missionNavigationHandler(button.value)}
+            >
                 {button.label}
             </button>
         );
@@ -49,7 +53,7 @@ export function MissionTypeNavigation({
                         className={styles.missionListBtn}
                         onClick={() => onClickMissionHandler(mission)}
                     >
-                        {mission.type}:{index + 1}
+                        {index + 1}
                     </button>
                 </li>
             );

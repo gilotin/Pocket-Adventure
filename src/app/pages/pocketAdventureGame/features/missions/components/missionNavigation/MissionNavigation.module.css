@@ -1,32 +1,64 @@
-.missionWrapper {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 200px 200px 1fr;
-    gap: 1rem;
-}
-
 .menuSelect {
     display: flex;
-    flex-direction: column;
-    width: 200px;
+    justify-content: space-evenly;
     gap: .4rem;
 }
 
+.missionNavBtn {
+    width: 15ch;
+    background-image: url("/public/assets/background.png");
+    background-size: cover;
+    border: 3px solid var(--inventory-border);
+    border-radius: var(--radius-md);
+    color: var(--game-dark-blue);
+    font-weight: var(--weight-bold);
+    transition: background-color 0.3s ease, color 0.5s ease;
+    font-size: var(--font-size-md);
+    padding: .4rem .8rem;
+}
+
 .menuSelect>button:focus,
+.menuList>li>button:focus,
+.menuSelect>button:hover,
 .menuList>li>button:focus {
+    border: 3px solid green;
+    background-image: url("/public/assets/green_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     color: white;
-    background-color: black;
+}
+
+.menuList>li>button:focus,
+.menuSelect>button:focus {
+    outline: none;
 }
 
 .menuList {
     list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+    gap: 1rem;
+    flex-wrap: wrap;
     padding: 0;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: .5rem;
+    padding-bottom: 1rem;
 }
 
+
+
+
+
 .missionListBtn {
-    width: stretch;
+    width: 4ch;
+    font-family: var(--font-jb-mono);
+    background-image: url("/public/assets/background.png");
+    background-size: cover;
+    border: 3px solid var(--inventory-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--game-dark-blue);
+    font-weight: var(--weight-bold);
+    transition: background-color 0.3s ease, color 0.5s ease;
+
+
 }

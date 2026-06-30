@@ -1,5 +1,5 @@
 import type { Mission } from "../../../../types/gameTypes";
-
+import styles from "./MissionDetails.module.css";
 type MissionRewardsProps = {
     currentMission: Mission;
 };
@@ -23,7 +23,8 @@ export function MissionRewards({ currentMission }: MissionRewardsProps) {
     return (
         <>
             {currentMission.rewards && (
-                <div>
+                <section className={styles.rewards}>
+                    <div className={styles.decorative}></div>
                     <h3>Rewards:</h3>
                     <ul>
                         {filteredList.map((reward) => {
@@ -34,7 +35,8 @@ export function MissionRewards({ currentMission }: MissionRewardsProps) {
                             );
                         })}
                     </ul>
-                </div>
+                    <div className={styles.decorative}></div>
+                </section>
             )}
         </>
     );

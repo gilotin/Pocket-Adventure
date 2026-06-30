@@ -2,3 +2,18 @@
     text-align: center;
     padding: 1rem;
 }
+
+.missionWrapper {
+
+    height: 53vh;
+    width: 90%;
+    margin: auto;
+    padding: 1rem 2rem;
+    border: 4px solid var(--inventory-border);
+    border-radius: var(--radius-sm);
+    gap: 1rem;
+    background-image: url("/public/assets/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+}

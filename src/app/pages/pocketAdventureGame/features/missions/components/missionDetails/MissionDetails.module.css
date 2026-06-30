@@ -1,0 +1,78 @@
+.detailsCardWrapper {
+    overflow-y: auto;
+    height: 35vh;
+    scrollbar-width: thin;
+    scrollbar-color: #a97940 #e9d9bc;
+    color: var(--rarity-legendary);
+    display: flex;
+    background-image: url("/public/assets/itemcard_background.png");
+    background-size: cover;
+    border: 3px solid var(--inventory-border);
+    border-radius: var(--radius-md);
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.header {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: var(--font-size-lg);
+    color: var(--rarity-legendary);
+}
+
+.header::after,
+.header::before {
+    content: " - ";
+}
+
+.rewards {
+    margin-block: 1rem;
+}
+
+.decorative {
+    width: 100%;
+    height: .125rem;
+    background: var(--inventory-panel);
+    margin: .4rem auto;
+}
+
+.rewards h3 {
+    margin: 0;
+    color: var(--rarity-legendary);
+    font-size: var(--font-size-md);
+}
+
+.rewards ul {
+    display: flex;
+    padding: 0;
+    gap: 2rem;
+    list-style-type: none;
+    justify-content: center;
+    margin-block: 0.4rem;
+}
+
+
+.missionStartBtn {
+    background-image: url("/assets/noise_filter.png");
+    border-radius: var(--radius-md);
+    border: 3px solid var(--inventory-border);
+    box-shadow:
+        inset 0 0 4px 1px #f3e7cd,
+        inset 0 0 2px 3px #8b6a3e,
+        inset 0 0 0 1px #d9c08f;
+    color: var(--game-dark-blue);
+    font-weight: var(--weight-bold);
+    outline: 2px solid var(--game-dark-brown);
+    transition: background-color 0.3s ease, color 0.5s ease;
+    padding: 0.4rem .8rem;
+    text-transform: capitalize;
+}
+
+.missionStartBtn:hover,
+.missionStartBtn:focus {
+    background-color: var(--inventory-border);
+    color: white;
+}
