@@ -14,7 +14,7 @@
     font-weight: var(--weight-bold);
     transition: background-color 0.3s ease, color 0.5s ease;
     font-size: var(--font-size-md);
-    padding: .4rem .8rem;
+    padding: .2rem;
 }
 
 .menuSelect>button:focus,
