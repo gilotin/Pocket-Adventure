@@ -1,6 +1,6 @@
 .gamePanelWrapper {
-    overflow-y: auto;
-    scroll-behavior: smooth;
+    /* overflow-y: auto;
+    scroll-behavior: smooth; */
 }
 
 .header {
