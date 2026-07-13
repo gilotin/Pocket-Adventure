@@ -17,7 +17,7 @@ export const projectData: ProjectData = [
         repoUrl:
             "https://github.com/gilotin/Pocket-Adventure/tree/main/src/app/pages/pocketAdventureGame",
         liveUrl: "/game",
-        technologies: ["React", "TypeScript", "CSS", "Firebase"],
+        technologies: ["React", "TypeScript", "CSS"],
         isFeatured: true,
     },
     {

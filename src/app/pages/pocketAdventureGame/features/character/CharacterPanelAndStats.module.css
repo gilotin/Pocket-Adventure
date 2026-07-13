@@ -1,4 +1,9 @@
 .wrapper {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    border: 1px solid red;
 }
+
+.statsCard {}
+
+.equipment {}

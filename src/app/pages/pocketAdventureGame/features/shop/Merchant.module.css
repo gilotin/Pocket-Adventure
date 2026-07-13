@@ -7,6 +7,7 @@
     padding: 1rem 2rem;
     scrollbar-width: thin;
     scrollbar-color: #a97940 #e9d9bc;
+    scrollbar-gutter: stable;
     border: 4px solid var(--inventory-border);
     border-radius: var(--radius-sm);
     display: grid;
@@ -81,7 +82,7 @@
     justify-content: space-between;
     height: 4rem;
     align-items: center;
-    padding-inline: 0.5rem;
+    padding-left: 8px;
     margin-bottom: 1rem;
 }
 

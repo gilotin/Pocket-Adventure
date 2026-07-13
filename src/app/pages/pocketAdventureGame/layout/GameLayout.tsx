@@ -134,7 +134,6 @@ export function GameLayout() {
                                 </div>
                             </div>
                         </button>
-                        <p className={styles.logo}>Pocket Adventure</p>
                         <button
                             className={styles.logout}
                             onClick={() => setConfirmAction(() => () => handleLogout())}
@@ -145,10 +144,10 @@ export function GameLayout() {
                     <main className={styles.mainGame}>
                         <PocketAdventurePage setConfirmAction={setConfirmAction} />
                     </main>
-                    <footer className={styles.footer}>
+                    {/* <footer className={styles.footer}>
                         <p>This project is currently in development.</p>
                         <p> Nikolay Toshev 2026</p>
-                    </footer>
+                    </footer> */}
                 </div>
 
                 <div className={styles.displayMessage}>

@@ -230,7 +230,8 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
             <GameNavigation setGameNavigation={setGameNavigation} gameNavigation={gameNavigation} />
 
             <div className={styles.gamePanelWrapper}>
-                <h1 className={styles.header}>{gameNavigation}</h1>
+                {/* <h1 className={styles.header}>{gameNavigation}</h1> */}
+                {/*NOTE: NOT SURE IF I WANT TO USE THAT HEADER OR NOT!!!  */}
                 {gameNavigation && featureMap[gameNavigation]}
             </div>
             {showDetailsCard && <DetailsCard activeItem={activeItem} />}
