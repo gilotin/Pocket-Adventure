@@ -107,7 +107,7 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     let icon = "";
 
-    if (equipmentType) {
+    if (equipmentType === "armor") {
         icon = equipmentIconMap[equipmentType];
     } else if (itemType === "materials" || itemType === "consumable") {
         icon = itemTypeIconMap[itemType];
