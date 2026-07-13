@@ -46,6 +46,11 @@
     padding: 0;
 }
 
+.itemIcon img {
+    border: var(--border-medium) solid var(--game-light-brown);
+    border-radius: 6px;
+}
+
 .sellBtn {
     width: 2.5rem;
     height: 2.5rem;
