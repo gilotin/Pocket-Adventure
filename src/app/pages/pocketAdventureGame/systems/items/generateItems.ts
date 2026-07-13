@@ -93,10 +93,10 @@ export function generateItem(props: GenerateItemsOptions): Item {
     // ICONS
 
     const equipmentIconMap = {
-        weapon: "weapons",
-        armor: "equipment",
-        boots: "equipment",
-        helm: "equipment",
+        weapon: "weapon_asset",
+        armor: "armor_asset",
+        boots: "boots_asset",
+        helm: "helm_asset",
     };
 
     const itemTypeIconMap = {
@@ -107,7 +107,12 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     let icon = "";
 
-    if (equipmentType === "armor") {
+    if (
+        equipmentType === "armor" ||
+        equipmentType === "weapon" ||
+        equipmentType === "boots" ||
+        equipmentType === "helm"
+    ) {
         icon = equipmentIconMap[equipmentType];
     } else if (itemType === "materials" || itemType === "consumable") {
         icon = itemTypeIconMap[itemType];
