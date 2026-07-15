@@ -15,7 +15,14 @@
  * which act as the single source of truth.
  */
 
-import { useEffect, useState, type Dispatch, type JSX, type SetStateAction } from "react";
+import {
+    useCallback,
+    useEffect,
+    useState,
+    type Dispatch,
+    type JSX,
+    type SetStateAction,
+} from "react";
 import { GameNavigation } from "./navigation/GameNavigation";
 import styles from "./PocketAdventurePage.module.css";
 import { Crafting } from "./features/crafting/Crafting";
@@ -65,25 +72,12 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
         equipItem,
         unequipItem,
     } = useInventory();
-    const {
-        shop,
-        activeShopItem,
-        showShopDetailsCard,
-        selectShopItem,
-        updateShop,
-        removeItem,
-        isLoaded,
-    } = useShop();
+    const { shop, activeShopItem, showShopDetailsCard, selectShopItem, updateShop, removeItem } =
+        useShop();
 
     const calculatedEquipmentStats = calculateCharacterStats({ inventoryItems });
 
     const characterXpProgress = CalculateCharacterXp({ characterData });
-
-    useEffect(() => {
-        if (gameNavigation === "merchant" && isLoaded) {
-            handleRefreshShop();
-        }
-    }, [gameNavigation, isLoaded]);
 
     useEffect(() => {
         if (!gameNotification) return;
@@ -137,7 +131,7 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
                     SHOP
     ======================================*/
 
-    const handleRefreshShop = () => {
+    const handleRefreshShop = useCallback(() => {
         const currentTime = Date.now();
 
         if (!shop.timer || currentTime > shop.timer) {
@@ -166,7 +160,13 @@ export function PocketAdventurePage({ setConfirmAction }: GamePageProps) {
 
             updateShop({ items: newShopList, timer: nextTimer });
         }
-    };
+    }, [shop, characterXpProgress.level, updateShop]);
+
+    useEffect(() => {
+        if (gameNavigation === "merchant") {
+            handleRefreshShop();
+        }
+    }, [handleRefreshShop, gameNavigation]);
 
     const onBuyItem = (itemId: string) => {
         const item = shop.items.find((item) => item.itemId === itemId);
