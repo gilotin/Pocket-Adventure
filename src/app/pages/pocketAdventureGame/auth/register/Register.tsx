@@ -164,4 +164,3 @@ export function Register({ setAuthMode, setAuthError, setAuthUser }: RegisterPro
         </section>
     );
 }
-export { CHARACTER_KEY };
