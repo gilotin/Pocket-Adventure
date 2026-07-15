@@ -14,17 +14,7 @@ export function MissionProgressionModal({
     activeMission,
     collectRewards,
 }: MissionProgressionModalProps) {
-    const [now, setNow] = useState(Date.now());
-
-    if (!activeMission) {
-        return null;
-    }
-
-    const { startedAt, durationMs } = activeMission;
-
-    const finishTime = startedAt + durationMs;
-    const remainingTime = Math.max(finishTime - now, 0);
-    const isCompleted = now >= finishTime;
+    const [now, setNow] = useState(() => Date.now());
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -35,6 +25,16 @@ export function MissionProgressionModal({
             clearInterval(intervalId);
         };
     }, []);
+
+    if (!activeMission) {
+        return null;
+    }
+
+    const { startedAt, durationMs } = activeMission;
+
+    const finishTime = startedAt + durationMs;
+    const remainingTime = Math.max(finishTime - now, 0);
+    const isCompleted = now >= finishTime;
 
     const handleAbandonBtn = () => {
         abandonMission();
