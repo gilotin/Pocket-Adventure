@@ -9,19 +9,16 @@
  * - Does not handle reward application or game-side effects.
  * - Does not manage mission progress timing (UI responsibility).
  */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ActiveMission } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
 import { MISSION_KEY } from "../../../constants/gameConstants";
 import { missionData } from "../data/missionsData";
 
 export function useMission() {
-    const [activeMission, setActiveMission] = useState<ActiveMission>(null);
-
-    useEffect(() => {
-        const storedMission = loadStorageData<ActiveMission | null>(MISSION_KEY, null);
-        setActiveMission(storedMission);
-    }, []);
+    const [activeMission, setActiveMission] = useState<ActiveMission>(() =>
+        loadStorageData<ActiveMission | null>(MISSION_KEY, null),
+    );
 
     const startMission = (missionId: string) => {
         if (activeMission) {
