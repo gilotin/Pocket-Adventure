@@ -48,7 +48,7 @@ export function generateItem(props: GenerateItemsOptions): Item {
 
     // GENERATE ITEM QUANTITY
 
-    let quantity = 1;
+    const quantity = 1;
     // if (props.itemType === "materials" || props.itemType === "consumable") {
     //     quantity = Math.floor(Math.random() * (characterLevel * QUANTITY_MULTIPLIER)) + 1;
     // }
