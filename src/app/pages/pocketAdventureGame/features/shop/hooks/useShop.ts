@@ -1,21 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Merchant } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
 import { SHOP_KEY } from "../../../constants/gameConstants";
 
 export function useShop() {
-    const [shop, setShop] = useState<Merchant>({ items: [], timer: null });
+    const [shop, setShop] = useState<Merchant>(() =>
+        loadStorageData(SHOP_KEY, { items: [], timer: null }),
+    );
     const [activeShopItemId, setActiveShopItemId] = useState<string | null>(null);
     const [showShopDetailsCard, setShowShopDetailsCard] = useState(false);
-
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-    useEffect(() => {
-        const storedShop = loadStorageData(SHOP_KEY, { items: [], timer: null });
-
-        setShop(storedShop);
-        setIsLoaded(true);
-    }, []);
 
     const activeShopItem = shop.items.find((item) => item.itemId === activeShopItemId) ?? null;
 
@@ -53,6 +46,5 @@ export function useShop() {
         selectShopItem,
         updateShop,
         removeItem,
-        isLoaded,
     };
 }
