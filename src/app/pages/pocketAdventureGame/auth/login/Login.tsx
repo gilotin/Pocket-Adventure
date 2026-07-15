@@ -18,13 +18,13 @@ export function Login({ setAuthMode, setAuthError, setAuthUser }: LoginProps) {
         const storageData = localStorage.getItem("accountData");
         if (!storageData) {
             return null;
-        } else {
-            try {
-                const parsedData: AccountData = JSON.parse(storageData);
-                return parsedData;
-            } catch (error) {
-                return null;
-            }
+        }
+        try {
+            const parsedData: AccountData = JSON.parse(storageData);
+            return parsedData;
+        } catch (error) {
+            console.error("Failed to parse account data:", error);
+            return null;
         }
     }
 
