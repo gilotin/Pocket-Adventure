@@ -5,7 +5,7 @@ export function loadStorageData<T>(storageKey: string, fallback: T): T {
     }
 
     try {
-        return JSON.parse(rawData);
+        return JSON.parse(rawData) as T;
     } catch {
         return fallback;
     }

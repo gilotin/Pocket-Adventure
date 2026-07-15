@@ -1,6 +1,6 @@
 import styles from "./GameLayout.module.css";
 import { PocketAdventurePage } from "../PocketAdventurePage";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ConfirmModal } from "../components/game/confirmModal/ConfirmModal";
 import { logout } from "../services/logout";
 import type {
@@ -18,39 +18,19 @@ import { ACCOUNT_KEY, AUTH_KEY } from "../constants/gameConstants";
 import { AuthError } from "../components/layout/authError/AuthError";
 import profilePicture from "../../../../../public/assets/profile_male_profile.png";
 import { ProfilePanel } from "../components/layout/profilePanel/ProfilePanel";
+import { loadStorageData } from "../services/storageOperations";
 
 export function GameLayout() {
-    const [authUser, setAuthUser] = useState<AuthUser | null>(null);
     const [authMode, setAuthMode] = useState<AuthMode>("menu");
     const [authError, setAuthError] = useState<AuthErrorType>(null);
-    const [accountData, setAccountData] = useState<AccountData>(null);
     const [gameMapState, setGameMapState] = useState<"profile" | "game">("game");
     const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
-
-    useEffect(() => {
-        const storedAuth = localStorage.getItem("auth");
-
-        if (!storedAuth) {
-            setAuthUser(null);
-            return;
-        }
-
-        try {
-            const parsedData: AuthUser = JSON.parse(storedAuth);
-            setAuthUser(parsedData);
-        } catch {
-            setAuthUser(null);
-        }
-    }, []);
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem(ACCOUNT_KEY);
-
-        if (!storedUser) return setAccountData(null);
-
-        const user = JSON.parse(storedUser);
-        setAccountData(user);
-    }, []);
+    const [authUser, setAuthUser] = useState<AuthUser | null>(() =>
+        loadStorageData<AuthUser | null>("auth", null),
+    );
+    const [accountData, setAccountData] = useState<AccountData | null>(() =>
+        loadStorageData<AccountData | null>(ACCOUNT_KEY, null),
+    );
 
     const handleLogout = () => {
         logout();

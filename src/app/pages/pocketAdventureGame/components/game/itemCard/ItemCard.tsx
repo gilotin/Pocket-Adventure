@@ -31,7 +31,11 @@ export function ItemCard({
 
             <div className={styles.iconGroup}>
                 {item.type === "equipment" && (
-                    <button className={styles.iconEquip} onClick={onEquipItem}>
+                    <button
+                        data-tooltip="equip item"
+                        className={styles.iconEquip}
+                        onClick={onEquipItem}
+                    >
                         <img src="/icons/plus.png" alt="equip item" />
                     </button>
                 )}
