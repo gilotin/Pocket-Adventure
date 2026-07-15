@@ -43,7 +43,7 @@ export function TestItemGenerator() {
         }
 
         if (itemType === "potion" || itemType === "material") {
-            itemType;
+            return itemType;
         } else {
             equipmentSlot = itemType as EquipmentType;
             itemType = "equipment";
