@@ -20,7 +20,6 @@ export function CharacterPanelAndStats({
     inventoryItems,
     unequipItem,
     selectActiveItem,
-    calculatedEquipmentStats,
     characterProgress,
 }: CharacterPanelAndStatsProps) {
     const handleMouseEnter = (itemId: string) => {
