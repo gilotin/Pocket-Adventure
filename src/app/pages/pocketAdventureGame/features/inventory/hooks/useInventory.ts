@@ -5,20 +5,21 @@
  * This hook is the single entry point for modifying inventory data.
  */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Item, ItemStore } from "../../../types/gameTypes";
 import { loadStorageData, saveToStorage } from "../../../services/storageOperations";
 import { STORAGE_KEY } from "../../../constants/gameConstants";
 
+function initializeInventory(): ItemStore {
+    const inventory = loadStorageData<ItemStore>(STORAGE_KEY, []);
+
+    return Array.isArray(inventory) ? inventory : [];
+}
+
 export function useInventory() {
-    const [inventoryItems, setInventoryItems] = useState<ItemStore>([]);
+    const [inventoryItems, setInventoryItems] = useState<ItemStore>(initializeInventory);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const [showDetailsCard, setShowDetailsCard] = useState(false);
-
-    useEffect(() => {
-        const loadedInventoryData = loadStorageData<ItemStore>(STORAGE_KEY, []);
-        setInventoryItems(Array.isArray(loadedInventoryData) ? loadedInventoryData : []);
-    }, []);
 
     const activeItem = inventoryItems.find((item) => item.itemId === activeItemId) ?? null;
 
