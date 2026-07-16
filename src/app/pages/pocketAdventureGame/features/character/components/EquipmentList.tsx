@@ -36,7 +36,7 @@ export function EquipmentList({ selectActiveItem, equippedItems, unequipItem }: 
         <section className={styles.equipment}>
             <img
                 className={styles.characterImage}
-                src="/public/assets/character.png"
+                src="assets/character.png"
                 alt="character image"
             />
             <ul className={styles.equipmentList}>{equippedItemsBySlot}</ul>

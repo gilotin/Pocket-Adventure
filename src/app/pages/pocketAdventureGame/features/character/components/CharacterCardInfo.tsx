@@ -22,7 +22,7 @@ export function CharacterCardInfo({
         <section className={styles.statsCard}>
             <div className={styles.characterInfoPanel}>
                 <div className={styles.imageBorder}>
-                    <img src="/assets/character_profile.png" alt="character profile" />
+                    <img src="assets/character_profile.png" alt="character profile" />
                 </div>
                 <div className={styles.characterInfoStats}>
                     <div className={styles.characterName}>{characterData.name}</div>
