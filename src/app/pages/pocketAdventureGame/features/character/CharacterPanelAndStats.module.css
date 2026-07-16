@@ -1,9 +1,141 @@
-.wrapper {
+.characterInfoCard {
     display: flex;
     justify-content: space-between;
     border: 1px solid red;
+    border: 3px solid var(--game-card-border);
+    border-radius: var(--radius-md);
 }
 
-.statsCard {}
+/*  ===============
+    CHARACTER STATS 
+    ===============  */
 
-.equipment {}
+.statsCard {
+    width: 50%;
+    padding: 1rem;
+
+}
+
+.characterInfoPanel {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: .8rem;
+    gap: 1rem;
+}
+
+
+.imageBorder img {
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    border: 4px solid var(--game-yellow);
+    background-color: var(--game-card-border);
+}
+
+.characterInfoStats {
+    width: 80%;
+}
+
+.characterName {
+    text-transform: capitalize;
+    font-size: var(--font-size-2xl);
+}
+
+.characterLevel {
+    color: var(--game-dark-brown);
+
+}
+
+.characterLevel span {
+    padding-right: .8rem;
+}
+
+.characterXp {
+    color: var(--color-frozen-water);
+    display: flex;
+    text-align: center;
+    padding: 0;
+    background-color: var(--game-dark-brown);
+    border: 2px solid var(--game-card-border);
+    border-radius: 4px;
+}
+
+.characterXp>div:first-child {
+    background-color: var(--game-card-border)
+}
+
+.bar {
+    position: relative;
+    width: 100%;
+    background: var(--game-dark-brown);
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: var(--game-medium-green);
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.bar span {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1;
+}
+
+
+
+.equipment {
+    width: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.characterImage {
+    align-self: center;
+    height: 80%;
+    width: 80%;
+}
+
+
+/* ================= 
+    CHARACTER STATS 
+====================*/
+
+.statsList {
+    padding: 0;
+}
+
+.stats {
+    display: flex;
+    padding: 0;
+
+}
+
+.statIcon {
+    width: 30px;
+    height: 30px;
+
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0.5rem;
+}
+
+.statValue {
+    margin-left: auto;
+}
